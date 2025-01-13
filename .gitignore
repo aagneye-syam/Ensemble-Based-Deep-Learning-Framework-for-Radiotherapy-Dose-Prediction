@@ -1,4 +1,7 @@
 open-kbp-master
+__pycache__
+
+#models
 u_net_model
 
 
