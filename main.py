@@ -104,6 +104,16 @@ def main():
             raise FileNotFoundError(f"Model file not found at {model_path}")
         if not os.path.exists(data_dir):
             raise FileNotFoundError(f"Data directory not found at {data_dir}")
+        
+        # Check for proper directory structure
+        test_pats_dir = os.path.join(data_dir, 'provided-data', 'test-pats')
+        if os.path.exists(test_pats_dir):
+            data_dir = test_pats_dir
+            print(f"Using test patients directory: {data_dir}")
+        else:
+            print(f"Warning: Could not find test-pats directory at {test_pats_dir}")
+            print(f"Available directories in {data_dir}:")
+            print(os.listdir(data_dir))
             
         # Create output directory if it doesn't exist
         os.makedirs(output_dir, exist_ok=True)

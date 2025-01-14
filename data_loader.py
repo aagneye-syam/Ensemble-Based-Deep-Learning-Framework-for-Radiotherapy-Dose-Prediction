@@ -4,7 +4,6 @@ import numpy as np
 import pandas as pd
 from config import MODEL_CONFIG, ROI_CONFIG
 
-
 def normalize_dicom(img):
     """Normalize DICOM image using Hounsfield units"""
     HOUNSFIELD_MIN = MODEL_CONFIG['HOUNSFIELD_MIN']
@@ -14,7 +13,6 @@ def normalize_dicom(img):
     img = np.clip(img, HOUNSFIELD_MIN, HOUNSFIELD_MAX)
     img = img / HOUNSFIELD_RANGE
     return img
-
 
 def get_paths(directory_path, ext=''):
     """Get paths of files in directory"""
@@ -34,7 +32,6 @@ def get_paths(directory_path, ext=''):
 
     return all_image_paths
 
-
 def load_file(file_name):
     """Load file in OpenKBP dataset format"""
     loaded_file_df = pd.read_csv(file_name, index_col=0)
@@ -51,12 +48,18 @@ def load_file(file_name):
 
     return loaded_file
 
-
 class DataLoader:
     """Data loader for OpenKBP dataset"""
-
     def __init__(self, file_paths_list, batch_size=1, patient_shape=(128, 128, 128),
                  shuffle=True, mode_name='dose_prediction'):
+        # If the path is to the root directory, update it to point to test-pats
+        if any('provided-data' in path for path in file_paths_list):
+            base_dir = os.path.dirname(file_paths_list[0])
+            test_pats_dir = os.path.join(base_dir, 'provided-data', 'test-pats')
+            if os.path.exists(test_pats_dir):
+                print(f"Using test patients directory: {test_pats_dir}")
+                file_paths_list = get_paths(test_pats_dir)
+
         self.rois = ROI_CONFIG
         self.batch_size = batch_size
         self.patient_shape = patient_shape
@@ -70,9 +73,13 @@ class DataLoader:
         self.patient_id_list = []
         for path in self.file_paths_list:
             try:
-                patient_id = f"pt_{path.split('/pt_')[1].split('/')[0].split('.csv')[0]}"
-                self.patient_id_list.append(patient_id)
-            except IndexError:
+                if 'test-pats' in path:
+                    # Extract patient ID from the directory name
+                    patient_id = os.path.basename(path)
+                    self.patient_id_list.append(patient_id)
+                else:
+                    print(f"Skipping non-patient directory: {path}")
+            except Exception as e:
                 print(f"Warning: Could not parse patient ID from path: {path}")
 
         self.mode_name = mode_name
@@ -95,8 +102,7 @@ class DataLoader:
     def get_batch(self, index=None, patient_list=None):
         """Get a batch of data"""
         if patient_list is None:
-            indices = self.indices[index *
-                                   self.batch_size:(index + 1) * self.batch_size]
+            indices = self.indices[index * self.batch_size:(index + 1) * self.batch_size]
         else:
             indices = self.patient_to_index(patient_list)
 
@@ -110,8 +116,7 @@ class DataLoader:
         patient_path_list = []
 
         for key in tf_data:
-            tf_data[key] = np.zeros(
-                (self.batch_size, *self.required_files[key]))
+            tf_data[key] = np.zeros((self.batch_size, *self.required_files[key]))
 
         for i, pat_path in enumerate(file_paths_to_load):
             patient_path_list.append(pat_path)
@@ -131,10 +136,17 @@ class DataLoader:
         loaded_file = {}
         files_to_load = get_paths(path_to_load, ext='')
 
+        # Debug print
+        print(f"Loading files from: {path_to_load}")
+        print(f"Files found: {files_to_load}")
+
         for f in files_to_load:
             f_name = f.split('/')[-1].split('.')[0]
             if f_name in self.required_files or f_name in self.full_roi_list:
-                loaded_file[f_name] = load_file(f)
+                try:
+                    loaded_file[f_name] = load_file(f)
+                except Exception as e:
+                    print(f"Error loading file {f}: {str(e)}")
 
         shaped_data = {}.fromkeys(self.required_files)
         for key in shaped_data:
@@ -144,17 +156,21 @@ class DataLoader:
             if key == 'structure_masks':
                 for roi_idx, roi in enumerate(self.full_roi_list):
                     if roi in loaded_file:
-                        np.put(shaped_data[key], self.num_rois *
-                               loaded_file[roi] + roi_idx, 1)
+                        np.put(shaped_data[key], self.num_rois * loaded_file[roi] + roi_idx, 1)
             elif key == 'possible_dose_mask':
                 if key in loaded_file:
                     np.put(shaped_data[key], loaded_file[key], 1)
             elif key == 'voxel_dimensions':
-                shaped_data[key] = loaded_file[key]
+                if key in loaded_file:
+                    shaped_data[key] = loaded_file[key]
+                else:
+                    print(f"Warning: voxel_dimensions not found. Using default values.")
+                    shaped_data[key] = np.array([2.5, 2.5, 2.5])  # Default voxel size in mm
             else:
                 if key in loaded_file:
-                    np.put(shaped_data[key], loaded_file[key]
-                           ['indices'], loaded_file[key]['data'])
+                    np.put(shaped_data[key], loaded_file[key]['indices'], loaded_file[key]['data'])
+                else:
+                    print(f"Warning: {key} not found in loaded files")
 
         return shaped_data
 
@@ -164,7 +180,6 @@ class DataLoader:
 
     def patient_to_index(self, patient_list):
         """Convert patient IDs to indices"""
-        un_shuffled_indices = [
-            self.patient_id_list.index(k) for k in patient_list]
+        un_shuffled_indices = [self.patient_id_list.index(k) for k in patient_list]
         shuffled_indices = [self.indices[k] for k in un_shuffled_indices]
         return shuffled_indices
