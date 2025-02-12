@@ -35,3 +35,25 @@ class AttentionLayer(tf.keras.layers.Layer):
 
     def compute_output_shape(self, input_shape):
         return input_shape
+    
+class MultiModelDosePredictionPipeline:
+    def __init__(self, models_config, data_dir):
+        self.models = {}
+        self.data_dir = data_dir
+        self.active_models = []
+
+        for model_name, model_path in models_config.items():
+            try:
+                if not os.path.exists(model_path):
+                    logging.error(f"Model file not found: {model_path}")
+                    continue
+
+                self.models[model_name] = self.load_model_with_custom_objects(model_path, model_name)
+                self.active_models.append(model_name)
+                
+                output_dir = os.path.join('results', f'{model_name}_prediction')
+                os.makedirs(output_dir, exist_ok=True)
+                logging.info(f"Successfully loaded {model_name} and created output directory at {output_dir}")
+
+            except Exception as e:
+                logging.error(f"Error loading model {model_name}: {str(e)}")
