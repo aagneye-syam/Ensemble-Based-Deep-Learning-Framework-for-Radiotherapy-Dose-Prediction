@@ -107,3 +107,56 @@ def save_dose_prediction(dose_array, output_path):
 def calculate_pixel_wise_mae(true_value, predicted_value):
     """Calculate mean absolute error for a single pixel."""
     return abs(true_value - predicted_value)
+
+def create_ensemble_prediction(true_dose, predictions, model_names):
+    """
+    Create ensemble prediction by selecting pixels with lowest dose score.
+    Args:
+        true_dose (numpy.ndarray): True dose values
+        predictions (list): List of prediction arrays
+        model_names (list): List of model names
+    Returns:
+        tuple: (ensemble_prediction, best_model_map)
+    """
+    if not predictions:
+        raise ValueError("No predictions provided for ensemble")
+    
+    shape = true_dose.shape
+    ensemble_prediction = np.zeros(shape)
+    best_model_map = np.zeros(shape, dtype='U20')
+    
+    # Get non-zero indices from true dose
+    non_zero_indices = np.nonzero(true_dose)
+    total_pixels = len(non_zero_indices[0])
+    logger.info(f"Processing {total_pixels} non-zero pixels")
+    
+    # Process each non-zero position
+    for idx in range(total_pixels):
+        i, j, k = [coord[idx] for coord in non_zero_indices]
+        true_value = true_dose[i, j, k]
+        
+        # Calculate MAE for each model's prediction
+        pixel_scores = []
+        pixel_predictions = []
+        for pred in predictions:
+            pred_value = pred[i, j, k]
+            score = calculate_pixel_wise_mae(true_value, pred_value)
+            pixel_scores.append(score)
+            pixel_predictions.append(pred_value)
+        
+        # Select best prediction
+        best_model_idx = np.argmin(pixel_scores)
+        ensemble_prediction[i, j, k] = pixel_predictions[best_model_idx]
+        best_model_map[i, j, k] = model_names[best_model_idx]
+        
+        # Log progress every 10%
+        if idx % (total_pixels // 10) == 0:
+            logger.info(f"Processing progress: {(idx/total_pixels)*100:.1f}%")
+            
+    # Verify ensemble prediction has non-zero values
+    non_zero_count = np.count_nonzero(ensemble_prediction)
+    logger.info(f"Ensemble prediction contains {non_zero_count} non-zero values")
+    if non_zero_count == 0:
+        raise ValueError("Ensemble prediction is empty!")
+    
+    return ensemble_prediction, best_model_map
