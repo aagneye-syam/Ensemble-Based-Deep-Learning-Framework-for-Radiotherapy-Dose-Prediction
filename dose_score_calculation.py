@@ -75,3 +75,69 @@ def load_true_dose(patient_dir):
         return load_csv(true_dose_file_path)
     else:
         raise FileNotFoundError(f"True dose file {true_dose_file_path} does not exist.")
+
+# Base directory containing patient data
+provided_data_dir = os.path.join(PATH_CONFIG['DATA_DIR'], 'provided-data')
+# logger.debug(f"Provided data directory: {provided_data_dir}")
+
+# Recursively find patient directories containing dose.csv
+patient_dirs = find_patient_dirs(provided_data_dir)
+# logger.debug(f"Found patient directories: {patient_dirs}")
+
+# Create directory for storing dose scores if it doesn't exist
+output_dir = 'dose_score_results'
+os.makedirs(output_dir, exist_ok=True)
+# logger.info(f"Output directory: {output_dir}")
+
+# Calculate dose scores for each patient
+for patient_dir in patient_dirs:
+    patient_id = os.path.basename(patient_dir)
+    # logger.info(f"Processing patient: {patient_id}")
+
+    try:
+        # Load true dose data for the patient
+        true_dose = load_true_dose(patient_dir)
+        # logger.debug(f"Loaded true dose data for patient {patient_id}")
+
+        # Load predictions for the patient from each directory
+        all_predictions = []
+        for directory in directories:
+            prediction_file = os.path.join(directory, f'{patient_id}.csv')
+            if os.path.exists(prediction_file):
+                prediction = load_csv(prediction_file)
+                all_predictions.append(prediction)
+            else:
+                logger.warning(f"Prediction file {prediction_file} does not exist.")
+
+        if not all_predictions:
+            logger.warning(f"No predictions found for patient {patient_id}")
+            continue
+
+        # Check and pad predictions
+        all_predictions = check_and_pad_predictions(all_predictions)
+        # logger.debug(f"Padded predictions for patient {patient_id}")
+
+        # Ensure true dose matches the shape of predictions
+        true_dose_shape = true_dose.shape
+        all_predictions = [pad_array(pred, true_dose_shape) for pred in all_predictions]
+        # logger.debug(f"Ensured true dose shape matches predictions for patient {patient_id}")
+
+        # Calculate dose scores
+        dose_scores = calculate_dose_scores(true_dose, all_predictions)
+        # logger.debug(f"Calculated dose scores for patient {patient_id}")
+
+        # Save the dose scores and predictions for ensemble building
+        dose_scores_path = f'{output_dir}/{patient_id}_dose_scores.npy'
+        all_predictions_path = f'{output_dir}/{patient_id}_all_predictions.npy'
+        true_dose_path = f'{output_dir}/{patient_id}_true_dose.npy'
+
+        np.save(dose_scores_path, dose_scores)
+        np.save(all_predictions_path, all_predictions)
+        np.save(true_dose_path, true_dose)
+
+        # logger.info(f"Dose scores for patient {patient_id} saved at {dose_scores_path}")
+        # logger.info(f"All predictions for patient {patient_id} saved at {all_predictions_path}")
+        # logger.info(f"True dose for patient {patient_id} saved at {true_dose_path}")
+
+    except Exception as e:
+        logger.error(f"Error processing patient {patient_id}: {e}")
