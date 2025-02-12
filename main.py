@@ -109,3 +109,60 @@ class MultiModelDosePredictionPipeline:
         except Exception as e:
             logging.error(f"Error in prediction with {model_name}: {str(e)}")
             return None
+        
+def save_prediction(self, dose_pred, patient_id, model_name):
+        try:
+            if dose_pred is None:
+                logging.warning(f"Prediction for {model_name} and patient {patient_id} is None, skipping save.")
+                return
+
+            output_dir = os.path.join('results', f'{model_name}_prediction')
+            
+            # Add scaling for very low values
+            max_dose = np.max(dose_pred)
+            if 0 < max_dose <= 0.0001:
+                scale_factor = 0.0001 / max_dose
+                dose_pred = dose_pred * scale_factor
+                logging.info(f"Scaled dose values by factor {scale_factor:.4f}")
+            
+            # Create sparse representation with lower threshold
+            threshold = 0.00001  # Reduced threshold for non-zero values
+            non_zero_mask = dose_pred > threshold
+            if not np.any(non_zero_mask):
+                raise ValueError(f"No dose values above threshold ({threshold})")
+
+            dose_to_save = {
+                'data': dose_pred[non_zero_mask],
+                'indices': np.nonzero(dose_pred.flatten() > threshold)[0]
+            }
+
+            # Create DataFrame
+            dose_df = pd.DataFrame(
+                data=dose_to_save['data'],
+                index=dose_to_save['indices'],
+                columns=['data']
+            )
+
+            if dose_df.empty:
+                raise ValueError("Created DataFrame is empty")
+
+            # Save to CSV
+            output_path = os.path.join(output_dir, f'{patient_id}.csv')
+            dose_df.to_csv(output_path)
+
+            # Verify saved file
+            if os.path.exists(output_path):
+                file_size = os.path.getsize(output_path)
+                if file_size == 0:
+                    raise ValueError(f"Saved file is empty: {output_path}")
+
+                saved_df = pd.read_csv(output_path, index_col=0)
+                logging.info(f"Successfully saved prediction: {len(saved_df)} non-zero values")
+                logging.info(f"Value range in saved file: min={saved_df['data'].min():.4f}, max={saved_df['data'].max():.4f}")
+                return output_path
+            else:
+                raise FileNotFoundError(f"Failed to save prediction file: {output_path}")
+
+        except Exception as e:
+            logging.error(f"Error saving prediction for {model_name} and patient {patient_id}: {str(e)}")
+            raise
