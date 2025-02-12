@@ -160,3 +160,36 @@ def create_ensemble_prediction(true_dose, predictions, model_names):
         raise ValueError("Ensemble prediction is empty!")
     
     return ensemble_prediction, best_model_map
+
+def main():
+    print(f"\nEnsemble Prediction Generation")
+    print(f"============================")
+    print(f"Started at: {CURRENT_TIME}")
+    print(f"User: {CURRENT_USER}")
+    print("============================\n")
+    
+    # Setup directories
+    base_dir = PATH_CONFIG['DATA_DIR']
+    output_dir = 'ensemble_result'
+    
+    # Create directory structure
+    subdirs = ['predictions', 'analysis', 'model_maps']
+    for subdir in subdirs:
+        os.makedirs(os.path.join(output_dir, subdir), exist_ok=True)
+    
+    # Model configurations
+    model_configs = {
+        'dense_u_net': 'results/dense_u_net_prediction',
+        'gan': 'results/gan_prediction',
+        'res_u_net': 'results/res_u_net_prediction',
+        'u_net': 'results/u_net_prediction'
+    }
+    
+    # Find patient directories
+    patient_dirs = []
+    true_dose_dir = os.path.join(base_dir, 'provided-data', 'test-pats')
+    for root, dirs, files in os.walk(true_dose_dir):
+        if 'dose.csv' in files:
+            patient_dirs.append(root)
+    
+    logger.info(f"Found {len(patient_dirs)} patients to process")
