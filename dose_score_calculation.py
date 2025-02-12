@@ -51,3 +51,11 @@ def calculate_dose_scores(true_dose, predictions):
         mae = mean_absolute_error(true_dose.flatten(), prediction.flatten())
         errors.append(mae)
     return errors
+
+def find_patient_dirs(base_dir):
+    """Recursively find all directories containing dose.csv."""
+    patient_dirs = []
+    for root, dirs, files in os.walk(base_dir):
+        if 'dose.csv' in files:
+            patient_dirs.append(root)
+    return patient_dirs
