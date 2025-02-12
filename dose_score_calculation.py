@@ -141,3 +141,5 @@ for patient_dir in patient_dirs:
 
     except Exception as e:
         logger.error(f"Error processing patient {patient_id}: {e}")
+
+logger.info("All dose scores calculated and saved.")
