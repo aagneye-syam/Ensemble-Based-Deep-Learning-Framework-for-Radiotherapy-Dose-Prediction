@@ -59,3 +59,19 @@ def find_patient_dirs(base_dir):
         if 'dose.csv' in files:
             patient_dirs.append(root)
     return patient_dirs
+
+# Paths to the directories containing the predicted dose data
+directories = [
+    'results/dense_u_net_prediction',
+    'results/gan_prediction',
+    'results/res_u_net_prediction',
+    'results/u_net_prediction'
+]
+
+# Function to load the true dose data for a specific patient
+def load_true_dose(patient_dir):
+    true_dose_file_path = os.path.join(patient_dir, 'dose.csv')
+    if os.path.exists(true_dose_file_path):
+        return load_csv(true_dose_file_path)
+    else:
+        raise FileNotFoundError(f"True dose file {true_dose_file_path} does not exist.")
