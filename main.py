@@ -57,3 +57,55 @@ class MultiModelDosePredictionPipeline:
 
             except Exception as e:
                 logging.error(f"Error loading model {model_name}: {str(e)}")
+
+
+        def predict_single_case(self, model, patient_data, model_name):
+        try:
+            logging.info(f"Starting prediction for patient using {model_name}")
+            
+            if 'ct' not in patient_data or patient_data['ct'] is None:
+                raise ValueError("CT data is missing or None")
+
+            voxel_dimensions = patient_data.get('voxel_dimensions')
+            if voxel_dimensions is None:
+                logging.warning("Voxel dimensions not found, using default values")
+                voxel_dimensions = np.array([1.0, 1.0, 1.0])
+            else:
+                logging.info(f"Using voxel dimensions: {voxel_dimensions}")
+
+            ct_normalized = normalize_dicom(patient_data['ct'], voxel_dimensions)
+            logging.info(f"{model_name} CT normalized shape: {ct_normalized.shape}")
+            
+            # Check CT data range after normalization
+            ct_min = np.min(ct_normalized)
+            ct_max = np.max(ct_normalized)
+            logging.info(f"CT value range after normalization: min={ct_min:.4f}, max={ct_max:.4f}")
+
+            input_data = concatenate([
+                ct_normalized,
+                patient_data['structure_masks']
+            ], axis=-1)
+            logging.info(f"{model_name} input data shape: {input_data.shape}")
+
+            if input_data.shape[1:] != model.input_shape[1:]:
+                raise ValueError(f"Input shape mismatch. Expected {model.input_shape}, got {input_data.shape}")
+
+            dose_pred = model.predict(input_data, verbose=0)
+            logging.info(f"{model_name} prediction shape: {dose_pred.shape}")
+            
+            pred_min = np.min(dose_pred)
+            pred_max = np.max(dose_pred)
+            logging.info(f"Raw prediction stats: min={pred_min:.4f}, max={pred_max:.4f}")
+
+            if pred_max <= 0.0001:
+                raise ValueError(f"Prediction values too low: max={pred_max:.4f}")
+
+            if 'possible_dose_mask' in patient_data:
+                dose_pred = dose_pred * patient_data['possible_dose_mask']
+                logging.info(f"Applied dose mask. New range: min={np.min(dose_pred):.4f}, max={np.max(dose_pred):.4f}")
+
+            return dose_pred.squeeze()
+
+        except Exception as e:
+            logging.error(f"Error in prediction with {model_name}: {str(e)}")
+            return None
