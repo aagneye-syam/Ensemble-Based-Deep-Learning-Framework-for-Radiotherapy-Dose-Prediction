@@ -103,3 +103,7 @@ def save_dose_prediction(dose_array, output_path):
     except Exception as e:
         logger.error(f"Error saving prediction to {output_path}: {str(e)}")
         raise
+    
+def calculate_pixel_wise_mae(true_value, predicted_value):
+    """Calculate mean absolute error for a single pixel."""
+    return abs(true_value - predicted_value)
