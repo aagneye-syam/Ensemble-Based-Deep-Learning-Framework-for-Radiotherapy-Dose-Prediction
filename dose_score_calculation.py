@@ -43,3 +43,11 @@ def check_and_pad_predictions(predictions):
     padded_predictions = [pad_array(pred, max_shape) for pred in predictions]
     
     return padded_predictions
+
+def calculate_dose_scores(true_dose, predictions):
+    """Calculate dose scores (mean absolute error) for each prediction."""
+    errors = []
+    for prediction in predictions:
+        mae = mean_absolute_error(true_dose.flatten(), prediction.flatten())
+        errors.append(mae)
+    return errors
