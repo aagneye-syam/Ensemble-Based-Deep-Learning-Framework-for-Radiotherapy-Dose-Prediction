@@ -13,3 +13,33 @@ def load_csv(file_path):
     """Load dose data from a CSV file."""
     logger.debug(f"Loading CSV file from {file_path}")
     return pd.read_csv(file_path).values
+
+def load_predictions_from_directory(directory):
+    """Load all CSV files from a directory."""
+    predictions = []
+    for file_name in os.listdir(directory):
+        if file_name.endswith('.csv'):
+            file_path = os.path.join(directory, file_name)
+            predictions.append(load_csv(file_path))
+    return predictions
+
+def pad_array(array, target_shape):
+    """Pad an array to the target shape with zeros."""
+    result = np.zeros(target_shape)
+    result[:array.shape[0], :array.shape[1]] = array
+    return result
+
+def check_and_pad_predictions(predictions):
+    """Check and pad predictions to ensure consistent shape."""
+    # Find the maximum shape among the predictions
+    if not predictions:
+        logger.warning("No predictions to pad.")
+        return []
+    
+    max_shape = tuple(np.max([pred.shape for pred in predictions], axis=0))
+    logger.debug(f"Max shape for padding: {max_shape}")
+    
+    # Pad all predictions to the maximum shape
+    padded_predictions = [pad_array(pred, max_shape) for pred in predictions]
+    
+    return padded_predictions
