@@ -193,3 +193,69 @@ def main():
             patient_dirs.append(root)
     
     logger.info(f"Found {len(patient_dirs)} patients to process")
+
+                # Load predictions
+            predictions = []
+            model_names = []
+            
+            for model_name, pred_dir in model_configs.items():
+                pred_path = os.path.join(pred_dir, f'{patient_id}.csv')
+                if os.path.exists(pred_path):
+                    pred_dose = load_dose_file(pred_path)
+                    if pred_dose is not None:
+                        predictions.append(pred_dose)
+                        model_names.append(model_name)
+                        logger.info(f"Loaded prediction from {model_name}")
+                    else:
+                        logger.warning(f"Failed to load prediction for {model_name}")
+                else:
+                    logger.warning(f"Missing prediction file for {model_name}")
+            
+            if not predictions:
+                raise ValueError(f"No valid predictions found")
+            
+            # Create ensemble prediction
+            logger.info("Creating ensemble prediction...")
+            ensemble_prediction, best_model_map = create_ensemble_prediction(
+                true_dose, predictions, model_names
+            )
+            
+            # Verify ensemble prediction
+            if np.count_nonzero(ensemble_prediction) == 0:
+                raise ValueError("Generated ensemble prediction is empty!")
+            
+            # Save ensemble prediction
+            pred_output_path = os.path.join(output_dir, 'predictions', f'{patient_id}.csv')
+            save_dose_prediction(ensemble_prediction, pred_output_path)
+            
+            # Save model selection map
+            np.save(
+                os.path.join(output_dir, 'model_maps', f'{patient_id}_model_map.npy'),
+                best_model_map
+            )
+            
+            # Calculate metrics
+            ensemble_mae = mean_absolute_error(true_dose.flatten(), ensemble_prediction.flatten())
+            contributions = analyze_model_contributions(best_model_map)
+            all_patient_scores[patient_id] = ensemble_mae
+            
+            # Save analysis results
+            analysis_path = os.path.join(output_dir, 'analysis', f'{patient_id}_analysis.txt')
+            with open(analysis_path, 'w') as f:
+                f.write(f"Patient: {patient_id}\n")
+                f.write(f"Generated: {CURRENT_TIME}\n")
+                f.write(f"User: {CURRENT_USER}\n")
+                f.write("=" * 50 + "\n\n")
+                f.write(f"Ensemble Mean Absolute Error: {ensemble_mae:.4f}\n\n")
+                f.write("Model Contributions:\n")
+                f.write("-" * 20 + "\n")
+                for model, contribution in contributions.items():
+                    f.write(f"{model}: {contribution:.2f}%\n")
+            
+            processed_patients.append(patient_id)
+            logger.info(f"Successfully processed patient {patient_id}")
+            logger.info(f"MAE: {ensemble_mae:.4f}")
+            
+        except Exception as e:
+            logger.error(f"Failed to process patient {patient_id}: {str(e)}")
+            failed_patients.append((patient_id, str(e)))
