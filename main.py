@@ -166,3 +166,46 @@ def save_prediction(self, dose_pred, patient_id, model_name):
         except Exception as e:
             logging.error(f"Error saving prediction for {model_name} and patient {patient_id}: {str(e)}")
             raise
+
+def run_pipeline(self):
+        if not self.active_models:
+            logging.error("No models were successfully loaded. Pipeline cannot continue.")
+            return
+
+        try:
+            # Validate data directory
+            if not os.path.exists(self.data_dir):
+                raise FileNotFoundError(f"Data directory not found: {self.data_dir}")
+
+            data_loader = DataLoader(
+                get_paths(self.data_dir, ext=''),
+                mode_name='dose_prediction'
+            )
+
+            number_of_batches = data_loader.number_of_batches()
+            if number_of_batches == 0:
+                logging.error(f"No files found in {self.data_dir}")
+                return
+
+            logging.info(f'Processing {number_of_batches} patients with {len(self.active_models)} models')
+
+            for idx in tqdm.tqdm(range(number_of_batches)):
+                try:
+                    patient_batch = data_loader.get_batch(idx)
+                    patient_id = patient_batch['patient_list'][0]
+                    logging.info(f'Processing patient: {patient_id}')
+
+                    for model_name in self.active_models:
+                        try:
+                            dose_pred = self.predict_single_case(self.models[model_name], patient_batch, model_name)
+                            self.save_prediction(dose_pred, patient_id, model_name)
+                        except Exception as e:
+                            logging.error(f"Error processing patient {patient_id} with model {model_name}: {str(e)}")
+                            continue
+
+                except Exception as e:
+                    logging.error(f"Error processing batch {idx}: {str(e)}")
+                    continue
+
+        except Exception as e:
+            logging.error(f"Error in pipeline: {str(e)}")
