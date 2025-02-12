@@ -62,3 +62,44 @@ def load_dose_file(file_path):
     except Exception as e:
         logger.error(f"Error loading file {file_path}: {str(e)}")
         return None
+    
+def save_dose_prediction(dose_array, output_path):
+    """
+    Save dose prediction in sparse format.
+    Args:
+        dose_array (numpy.ndarray): 3D array of dose values
+        output_path (str): Path to save the CSV file
+    """
+    try:
+        # Get non-zero elements
+        flat_dose = dose_array.flatten()
+        non_zero_indices = np.nonzero(flat_dose)[0]
+        non_zero_values = flat_dose[non_zero_indices]
+        
+        # Ensure we have data to save
+        if len(non_zero_values) == 0:
+            logger.error("No non-zero values found in dose array!")
+            return
+        
+        # Create DataFrame with explicit column name
+        df = pd.DataFrame({
+            'data': non_zero_values
+        }, index=non_zero_indices)
+        
+        # Save to CSV with index but without index name
+        df.to_csv(output_path)
+        
+        # Verify the save
+        logger.info(f"Saved prediction to {output_path}")
+        logger.info(f"Number of non-zero values: {len(non_zero_values)}")
+        logger.info(f"Value range: [{np.min(non_zero_values):.6f}, {np.max(non_zero_values):.6f}]")
+        
+        # Read back and verify
+        test_df = pd.read_csv(output_path)
+        if len(test_df) != len(non_zero_values):
+            logger.error(f"Verification failed: Expected {len(non_zero_values)} rows, got {len(test_df)}")
+            raise ValueError("Data verification failed")
+            
+    except Exception as e:
+        logger.error(f"Error saving prediction to {output_path}: {str(e)}")
+        raise
