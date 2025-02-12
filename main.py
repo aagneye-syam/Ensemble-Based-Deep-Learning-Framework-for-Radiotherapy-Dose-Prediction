@@ -35,7 +35,7 @@ class AttentionLayer(tf.keras.layers.Layer):
 
     def compute_output_shape(self, input_shape):
         return input_shape
-    
+
 class MultiModelDosePredictionPipeline:
     def __init__(self, models_config, data_dir):
         self.models = {}
@@ -58,8 +58,30 @@ class MultiModelDosePredictionPipeline:
             except Exception as e:
                 logging.error(f"Error loading model {model_name}: {str(e)}")
 
+    def load_model_with_custom_objects(self, model_path, model_name):
+        try:
+            custom_objects = {
+                'attention_u_net': {
+                    'AttentionLayer': AttentionLayer,
+                },
+                'dense_u_net': {
+                    # Add custom layers for DenseUNet if needed
+                }
+            }
+            
+            if model_name in custom_objects:
+                model = load_model(model_path, custom_objects=custom_objects[model_name], compile=False)
+            else:
+                model = load_model(model_path, compile=False)
+                
+            logging.info(f"Successfully loaded model: {model_name}")
+            return model
+            
+        except Exception as e:
+            logging.error(f"Error loading model {model_name}: {str(e)}")
+            raise
 
-        def predict_single_case(self, model, patient_data, model_name):
+    def predict_single_case(self, model, patient_data, model_name):
         try:
             logging.info(f"Starting prediction for patient using {model_name}")
             
@@ -109,8 +131,8 @@ class MultiModelDosePredictionPipeline:
         except Exception as e:
             logging.error(f"Error in prediction with {model_name}: {str(e)}")
             return None
-        
-def save_prediction(self, dose_pred, patient_id, model_name):
+
+    def save_prediction(self, dose_pred, patient_id, model_name):
         try:
             if dose_pred is None:
                 logging.warning(f"Prediction for {model_name} and patient {patient_id} is None, skipping save.")
@@ -167,7 +189,7 @@ def save_prediction(self, dose_pred, patient_id, model_name):
             logging.error(f"Error saving prediction for {model_name} and patient {patient_id}: {str(e)}")
             raise
 
-def run_pipeline(self):
+    def run_pipeline(self):
         if not self.active_models:
             logging.error("No models were successfully loaded. Pipeline cannot continue.")
             return
@@ -209,3 +231,35 @@ def run_pipeline(self):
 
         except Exception as e:
             logging.error(f"Error in pipeline: {str(e)}")
+
+def main():
+    try:
+        logging.info(f"Starting dose prediction pipeline at {current_time}")
+        
+        models_config = {
+            'u_net': PATH_CONFIG['U_NET_PATH'],
+            'attention_u_net': PATH_CONFIG['ATTENTION_U_NET_PATH'],
+            'dense_u_net': PATH_CONFIG['DENSE_U_NET_PATH'],
+            'gan': PATH_CONFIG['GAN_PATH'],
+            'res_u_net': PATH_CONFIG['RES_U_NET_PATH']
+        }
+
+        data_dir = PATH_CONFIG['DATA_DIR']
+
+        if not os.path.exists(data_dir):
+            raise FileNotFoundError(f"Data directory not found at {data_dir}")
+
+        test_pats_dir = os.path.join(data_dir, 'provided-data', 'test-pats')
+        if os.path.exists(test_pats_dir):
+            data_dir = test_pats_dir
+
+        pipeline = MultiModelDosePredictionPipeline(models_config, data_dir)
+        pipeline.run_pipeline()
+
+        logging.info("Pipeline completed successfully")
+
+    except Exception as e:
+        logging.error(f"Error in main: {str(e)}")
+
+if __name__ == "__main__":
+    main()
