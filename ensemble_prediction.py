@@ -12,3 +12,13 @@ CURRENT_USER = "aagneye-syam"
 
 # Configure logging with timestamp
 log_filename = f'ensemble_log_{CURRENT_TIME.replace(" ", "_").replace(":", "-")}.log'
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler(log_filename)
+    ]
+)
+logger = logging.getLogger(__name__)
