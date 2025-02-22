@@ -1,24 +1,16 @@
 import os
+# Set environment variables before importing tensorflow
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+
 import numpy as np
 import pandas as pd
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 from data_loader import DataLoader, normalize_dicom, get_paths
 from tensorflow.keras.layers import concatenate
-import tqdm
+from tqdm import tqdm
 from config import PATH_CONFIG
-
-# Disable MKL to avoid primitive creation errors
-os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
-
-# Set memory growth for GPU if available
-gpus = tf.config.list_physical_devices('GPU')
-if gpus:
-    try:
-        for gpu in gpus:
-            tf.config.experimental.set_memory_growth(gpu, True)
-    except RuntimeError as e:
-        print(e)
 
 class MultiModelDosePredictionPipeline:
     def __init__(self, models_config, data_dir, batch_size=1):
@@ -42,7 +34,8 @@ class MultiModelDosePredictionPipeline:
                     print(f"Model path not found: {model_path}")
                     continue
 
-                model = self.load_model_with_custom_objects(model_path, model_name)
+                # Load model without custom objects
+                model = load_model(model_path, compile=False)
                 if model is not None:
                     self.models[model_name] = model
                     self.active_models.append(model_name)
@@ -52,19 +45,6 @@ class MultiModelDosePredictionPipeline:
             except Exception as e:
                 print(f"Error loading model {model_name}: {str(e)}")
                 continue
-
-    def load_model_with_custom_objects(self, model_path, model_name):
-        """Load model with custom objects if needed"""
-        try:
-            if model_name == 'attention_u_net':
-                custom_objects = {'AttentionLayer': AttentionLayer}
-            else:
-                custom_objects = None
-            
-            return load_model(model_path, custom_objects=custom_objects, compile=False)
-        except Exception as e:
-            print(f"Error loading model {model_name}: {str(e)}")
-            return None
 
     def predict_single_case(self, model, patient_data):
         """Predict dose for a single case with error handling"""
@@ -92,6 +72,50 @@ class MultiModelDosePredictionPipeline:
             print(f"Error in prediction: {str(e)}")
             return None
 
+    def save_prediction(self, dose_pred, patient_id, model_name):
+        """Save prediction to CSV file"""
+        try:
+            output_dir = os.path.join('results', f'{model_name}_prediction')
+            
+            # Convert dose prediction to sparse format
+            dose_to_save = self.sparse_vector_function(dose_pred)
+            if dose_to_save is None:
+                return None
+            
+            # Create DataFrame
+            dose_df = pd.DataFrame(
+                data=dose_to_save['data'].squeeze(),
+                index=dose_to_save['indices'].squeeze(),
+                columns=['data']
+            )
+            
+            # Save to CSV
+            output_path = os.path.join(output_dir, f'{patient_id}.csv')
+            dose_df.to_csv(output_path)
+            print(f"Saved prediction to {output_path}")
+            
+            return output_path
+        except Exception as e:
+            print(f"Error saving prediction: {str(e)}")
+            return None
+
+    def sparse_vector_function(self, x, indices=None):
+        """Convert tensor to sparse format"""
+        try:
+            if indices is None:
+                return {
+                    'data': x[x > 0],
+                    'indices': np.nonzero(x.flatten())[-1]
+                }
+            else:
+                return {
+                    'data': x[x > 0],
+                    'indices': indices[x > 0]
+                }
+        except Exception as e:
+            print(f"Error in sparse vector conversion: {str(e)}")
+            return None
+
     def run_pipeline(self):
         """Run the prediction pipeline with improved error handling"""
         if not self.active_models:
@@ -104,9 +128,9 @@ class MultiModelDosePredictionPipeline:
                 print("No batches to process")
                 return
 
-            for idx in tqdm.tqdm(range(number_of_batches)):
+            for idx in tqdm(range(number_of_batches), desc="Processing patients"):
                 try:
-                    # Get patient batch
+                    # Get patient batch with memory-efficient loading
                     patient_batch = self.data_loader.get_batch(idx)
                     if patient_batch is None or 'patient_list' not in patient_batch:
                         print(f"Invalid batch data for index {idx}")
@@ -118,12 +142,21 @@ class MultiModelDosePredictionPipeline:
                     # Process with each model
                     for model_name in self.active_models:
                         try:
-                            dose_pred = self.predict_single_case(self.models[model_name], patient_batch)
+                            # Clear any existing tensors to free memory
+                            tf.keras.backend.clear_session()
+                            
+                            model = self.models[model_name]
+                            dose_pred = self.predict_single_case(model, patient_batch)
                             if dose_pred is not None:
                                 self.save_prediction(dose_pred, patient_id, model_name)
+                            
                         except Exception as e:
                             print(f"Error processing model {model_name}: {str(e)}")
                             continue
+
+                    # Force garbage collection after each batch
+                    import gc
+                    gc.collect()
 
                 except Exception as e:
                     print(f"Error processing batch {idx}: {str(e)}")
@@ -133,13 +166,16 @@ class MultiModelDosePredictionPipeline:
             print(f"Pipeline error: {str(e)}")
             raise
 
+        finally:
+            # Cleanup
+            self.data_loader.cleanup()
+
 def main():
     """Main function with improved error handling"""
     try:
         # Configure models
         models_config = {
             'u_net': PATH_CONFIG['U_NET_PATH'],
-            'attention_u_net': PATH_CONFIG['ATTENTION_U_NET_PATH'],
             'dense_u_net': PATH_CONFIG['DENSE_U_NET_PATH'],
             'gan': PATH_CONFIG['GAN_PATH'],
             'res_u_net': PATH_CONFIG['RES_U_NET_PATH']
@@ -161,6 +197,8 @@ def main():
             data_dir,
             batch_size=1  # Use small batch size to avoid memory issues
         )
+        
+        # Run pipeline
         pipeline.run_pipeline()
 
     except Exception as e:
