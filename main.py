@@ -1,4 +1,11 @@
 import os
+import datetime
+
+# Record execution start time
+START_TIME = datetime.datetime.utcnow()
+USER = "aagneye-syam"
+print(f"Execution started at {START_TIME.strftime('%Y-%m-%d %H:%M:%S')} UTC by {USER}")
+
 # Set environment variables before importing tensorflow
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
@@ -11,15 +18,26 @@ from data_loader import DataLoader, normalize_dicom, get_paths
 from tensorflow.keras.layers import concatenate
 from tqdm import tqdm
 from config import PATH_CONFIG
+import gc
 
 class MultiModelDosePredictionPipeline:
     def __init__(self, models_config, data_dir, batch_size=1):
+        """
+        Initialize the pipeline
+        Args:
+            models_config: Dictionary of model names and their paths
+            data_dir: Directory containing the data
+            batch_size: Batch size for processing (default: 1)
+        """
         self.models = {}
         self.data_dir = data_dir
         self.active_models = []
         self.batch_size = batch_size
+        
+        # Create results directory in root
+        os.makedirs('results', exist_ok=True)
 
-        # Initialize data loader with memory-efficient settings
+        # Initialize data loader
         self.data_loader = DataLoader(
             get_paths(self.data_dir, ext=''),
             mode_name='dose_prediction',
@@ -34,20 +52,28 @@ class MultiModelDosePredictionPipeline:
                     print(f"Model path not found: {model_path}")
                     continue
 
-                # Load model without custom objects
+                print(f"Loading model: {model_name}")
                 model = load_model(model_path, compile=False)
                 if model is not None:
                     self.models[model_name] = model
                     self.active_models.append(model_name)
-                    output_dir = os.path.join('results', f'{model_name}_prediction')
-                    os.makedirs(output_dir, exist_ok=True)
+                    # Create model-specific results directory
+                    os.makedirs(f'results/{model_name}', exist_ok=True)
+                    print(f"Successfully loaded model: {model_name}")
 
             except Exception as e:
                 print(f"Error loading model {model_name}: {str(e)}")
                 continue
 
     def predict_single_case(self, model, patient_data):
-        """Predict dose for a single case with error handling"""
+        """
+        Predict dose for a single case
+        Args:
+            model: The model to use for prediction
+            patient_data: Patient data dictionary
+        Returns:
+            Predicted dose or None if error occurs
+        """
         try:
             # Normalize and reshape CT data
             ct_normalized = normalize_dicom(patient_data['ct'])
@@ -73,9 +99,22 @@ class MultiModelDosePredictionPipeline:
             return None
 
     def save_prediction(self, dose_pred, patient_id, model_name):
-        """Save prediction to CSV file"""
+        """
+        Save prediction to CSV file in results directory
+        Args:
+            dose_pred: Predicted dose
+            patient_id: Patient identifier
+            model_name: Name of the model used
+        Returns:
+            Path to saved file or None if error occurs
+        """
         try:
-            output_dir = os.path.join('results', f'{model_name}_prediction')
+            # Extract just the patient ID from the full path
+            patient_id = patient_id.split('\\')[-1]  # Get the last part of the path
+            
+            # Create output path in results directory
+            output_dir = os.path.join('results', model_name)
+            os.makedirs(output_dir, exist_ok=True)
             
             # Convert dose prediction to sparse format
             dose_to_save = self.sparse_vector_function(dose_pred)
@@ -89,7 +128,7 @@ class MultiModelDosePredictionPipeline:
                 columns=['data']
             )
             
-            # Save to CSV
+            # Save to CSV in results directory
             output_path = os.path.join(output_dir, f'{patient_id}.csv')
             dose_df.to_csv(output_path)
             print(f"Saved prediction to {output_path}")
@@ -100,7 +139,14 @@ class MultiModelDosePredictionPipeline:
             return None
 
     def sparse_vector_function(self, x, indices=None):
-        """Convert tensor to sparse format"""
+        """
+        Convert tensor to sparse format
+        Args:
+            x: Input tensor
+            indices: Optional indices
+        Returns:
+            Dictionary with data and indices
+        """
         try:
             if indices is None:
                 return {
@@ -117,7 +163,7 @@ class MultiModelDosePredictionPipeline:
             return None
 
     def run_pipeline(self):
-        """Run the prediction pipeline with improved error handling"""
+        """Run the prediction pipeline"""
         if not self.active_models:
             print("No active models found")
             return
@@ -128,21 +174,24 @@ class MultiModelDosePredictionPipeline:
                 print("No batches to process")
                 return
 
+            print(f"\nStarting pipeline execution at {datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC")
+            
             for idx in tqdm(range(number_of_batches), desc="Processing patients"):
                 try:
-                    # Get patient batch with memory-efficient loading
+                    # Get patient batch
                     patient_batch = self.data_loader.get_batch(idx)
                     if patient_batch is None or 'patient_list' not in patient_batch:
                         print(f"Invalid batch data for index {idx}")
                         continue
 
                     patient_id = patient_batch['patient_list'][0]
-                    print(f"Processing patient: {patient_id}")
+                    print(f"\nProcessing patient: {patient_id}")
 
                     # Process with each model
                     for model_name in self.active_models:
                         try:
-                            # Clear any existing tensors to free memory
+                            print(f"Processing with model: {model_name}")
+                            # Clear any existing tensors
                             tf.keras.backend.clear_session()
                             
                             model = self.models[model_name]
@@ -154,8 +203,7 @@ class MultiModelDosePredictionPipeline:
                             print(f"Error processing model {model_name}: {str(e)}")
                             continue
 
-                    # Force garbage collection after each batch
-                    import gc
+                    # Force garbage collection
                     gc.collect()
 
                 except Exception as e:
@@ -169,10 +217,16 @@ class MultiModelDosePredictionPipeline:
         finally:
             # Cleanup
             self.data_loader.cleanup()
+            end_time = datetime.datetime.utcnow()
+            duration = end_time - START_TIME
+            print(f"\nPipeline completed at {end_time.strftime('%Y-%m-%d %H:%M:%S')} UTC")
+            print(f"Total execution time: {duration}")
 
 def main():
-    """Main function with improved error handling"""
+    """Main function"""
     try:
+        print("\nInitializing dose prediction pipeline...")
+        
         # Configure models
         models_config = {
             'u_net': PATH_CONFIG['U_NET_PATH'],
@@ -190,15 +244,21 @@ def main():
         test_pats_dir = os.path.join(data_dir, 'provided-data', 'test-pats')
         if os.path.exists(test_pats_dir):
             data_dir = test_pats_dir
+            print(f"Using test patients directory: {test_pats_dir}")
+
+        # Create results directory
+        os.makedirs('results', exist_ok=True)
+        print("Created results directory")
 
         # Initialize and run pipeline
+        print("Initializing pipeline...")
         pipeline = MultiModelDosePredictionPipeline(
             models_config, 
             data_dir,
-            batch_size=1  # Use small batch size to avoid memory issues
+            batch_size=1
         )
         
-        # Run pipeline
+        print("Starting pipeline execution...")
         pipeline.run_pipeline()
 
     except Exception as e:
