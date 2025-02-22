@@ -100,9 +100,9 @@ class MultiModelDosePredictionPipeline:
 
     def save_prediction(self, dose_pred, patient_id, model_name):
         """
-        Save prediction to CSV file in results directory
+        Save prediction to CSV file in results directory with proper formatting
         Args:
-            dose_pred: Predicted dose
+            dose_pred: Predicted dose array
             patient_id: Patient identifier
             model_name: Name of the model used
         Returns:
@@ -116,22 +116,23 @@ class MultiModelDosePredictionPipeline:
             output_dir = os.path.join('results', model_name)
             os.makedirs(output_dir, exist_ok=True)
             
-            # Convert dose prediction to sparse format
-            dose_to_save = self.sparse_vector_function(dose_pred)
-            if dose_to_save is None:
-                return None
+            # Get non-zero elements and their indices
+            non_zero_mask = dose_pred > 0
+            indices = np.where(non_zero_mask.flatten())[0]
+            data = dose_pred.flatten()[indices]
             
-            # Create DataFrame
-            dose_df = pd.DataFrame(
-                data=dose_to_save['data'].squeeze(),
-                index=dose_to_save['indices'].squeeze(),
-                columns=['data']
-            )
+            # Create DataFrame with proper columns
+            dose_df = pd.DataFrame({
+                'index': indices,
+                'data': data
+            })
             
             # Save to CSV in results directory
             output_path = os.path.join(output_dir, f'{patient_id}.csv')
-            dose_df.to_csv(output_path)
+            dose_df.to_csv(output_path, index=False)  # Don't save DataFrame index
             print(f"Saved prediction to {output_path}")
+            print(f"Number of non-zero dose points: {len(indices)}")
+            print(f"Dose range: [{data.min():.4f}, {data.max():.4f}] Gy")
             
             return output_path
         except Exception as e:
