@@ -19,7 +19,6 @@ PATH_CONFIG = {
     'DATA_DIR': os.environ.get('DATA_DIR', 'open-kbp-master'),
     'OUTPUT_DIR': os.environ.get('OUTPUT_DIR', 'results'),
     'TRUE_DOSE_DIR': os.environ.get('TRUE_DOSE_DIR', 'open-kbp-master/provided-data/true-doses'),
-    'DOSE_SCORES_DIR': os.environ.get('DOSE_SCORES_DIR', 'dose_score_results')
 }
 
 # ROI configuration
