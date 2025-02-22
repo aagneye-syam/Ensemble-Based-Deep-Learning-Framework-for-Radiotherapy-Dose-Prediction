@@ -1,99 +1,58 @@
+"""
+OpenKBP Data Loader
+Created: 2025-02-22 15:40:24 UTC
+Author: aagneye-syam
+"""
+
 import os
 import pathlib
 import numpy as np
 import pandas as pd
-import tempfile
-from config import MODEL_CONFIG, ROI_CONFIG
+from config import MODEL_CONFIG, ROI_CONFIG, MEMORY_CONFIG
 
 def normalize_dicom(img):
-    """Normalize DICOM image using Hounsfield units"""
-    try:
-        HOUNSFIELD_MIN = MODEL_CONFIG['HOUNSFIELD_MIN']
-        HOUNSFIELD_MAX = MODEL_CONFIG['HOUNSFIELD_MAX']
-        HOUNSFIELD_RANGE = MODEL_CONFIG['HOUNSFIELD_RANGE']
-
-        img = np.clip(img, HOUNSFIELD_MIN, HOUNSFIELD_MAX)
-        img = img.astype(np.float32) / HOUNSFIELD_RANGE
-        return img
-    except Exception as e:
-        print(f"Error in normalize_dicom: {str(e)}")
-        return None
+    """
+    Normalize DICOM image using 12-bit format (0-4095) as specified in dataset.
+    Clips CT values between 0 and 4095 to convert mixed 12/16-bit to standard 12-bit.
+    """
+    img = img.copy()
+    img = np.clip(img, MODEL_CONFIG['HOUNSFIELD_MIN'], MODEL_CONFIG['HOUNSFIELD_MAX'])
+    img = img / MODEL_CONFIG['HOUNSFIELD_RANGE']
+    return img.astype(np.float32)
 
 def get_paths(directory_path, ext=''):
-    """Get paths of files in directory"""
-    try:
-        if not os.path.isdir(directory_path):
-            print(f"Directory not found: {directory_path}")
-            return []
-
-        all_image_paths = []
-        if ext == '':
-            dir_list = os.listdir(directory_path)
-            for iPath in dir_list:
-                if '.' != iPath[0]:  # Ignore hidden files
-                    all_image_paths.append(os.path.join(directory_path, str(iPath)))
-        else:
-            data_root = pathlib.Path(directory_path)
-            for iPath in data_root.glob(f'*.{ext}'):
-                all_image_paths.append(str(iPath))
-
-        return all_image_paths
-    except Exception as e:
-        print(f"Error in get_paths: {str(e)}")
+    """Get file paths from directory"""
+    if not os.path.isdir(directory_path):
+        print(f"Directory not found: {directory_path}")
         return []
 
-def load_file(file_name):
-    """Load file in OpenKBP dataset format"""
-    try:
-        loaded_file_df = pd.read_csv(file_name, index_col=0)
+    all_paths = []
+    if ext == '':
+        dir_list = os.listdir(directory_path)
+        for path in dir_list:
+            if '.' != path[0]:  # Ignore hidden files
+                all_paths.append(os.path.join(directory_path, str(path)))
+    else:
+        data_root = pathlib.Path(directory_path)
+        for path in data_root.glob(f'*.{ext}'):
+            all_paths.append(str(path))
 
-        if 'voxel_dimensions.csv' in file_name:
-            loaded_file = np.loadtxt(file_name, dtype=np.float32)
-        elif loaded_file_df.isnull().values.any():
-            loaded_file = np.array(loaded_file_df.index, dtype=np.int32).squeeze()
-        else:
-            loaded_file = {
-                'indices': np.array(loaded_file_df.index, dtype=np.int32).squeeze(),
-                'data': np.array(loaded_file_df['data'], dtype=np.float32).squeeze()
-            }
-
-        return loaded_file
-    except Exception as e:
-        print(f"Error loading file {file_name}: {str(e)}")
-        return None
+    return sorted(all_paths)
 
 class DataLoader:
-    """Memory-efficient data loader for OpenKBP dataset"""
+    """Data loader for OpenKBP dataset - handles sparse matrix format"""
     
     def __init__(self, file_paths_list, batch_size=1, patient_shape=(128, 128, 128),
-                 shuffle=True, mode_name='dose_prediction', use_memmap=True,
-                 chunk_size=1000000):
+                 shuffle=True, mode_name='dose_prediction'):
         """
-        Initialize the DataLoader
-        
+        Initialize DataLoader
         Args:
-            file_paths_list: List of file paths to load
-            batch_size: Number of patients per batch
-            patient_shape: Shape of patient data (default: (128,128,128))
-            shuffle: Whether to shuffle data
-            mode_name: Mode for data loading
-            use_memmap: Whether to use memory mapping
-            chunk_size: Size of chunks for large file loading
+            file_paths_list: List of paths to patient directories
+            batch_size: Number of patients to load at once
+            patient_shape: Shape of patient tensor (128x128x128)
+            shuffle: Whether to shuffle data between epochs
+            mode_name: Type of data loading (dose_prediction, training_model, evaluation)
         """
-        # Memory management settings
-        self.use_memmap = use_memmap
-        self.temp_dir = tempfile.mkdtemp() if use_memmap else None
-        self.chunk_size = chunk_size
-
-        # Update paths if needed
-        if any('provided-data' in path for path in file_paths_list):
-            base_dir = os.path.dirname(file_paths_list[0])
-            test_pats_dir = os.path.join(base_dir, 'provided-data', 'test-pats')
-            if os.path.exists(test_pats_dir):
-                print(f"Using test patients directory: {test_pats_dir}")
-                file_paths_list = get_paths(test_pats_dir)
-
-        # Basic configuration
         self.rois = ROI_CONFIG
         self.batch_size = batch_size
         self.patient_shape = patient_shape
@@ -102,7 +61,7 @@ class DataLoader:
         self.shuffle = shuffle
         self.full_roi_list = sum(map(list, self.rois.values()), [])
         self.num_rois = len(self.full_roi_list)
-
+        
         # Create patient ID list
         self.patient_id_list = []
         for path in self.file_paths_list:
@@ -110,28 +69,15 @@ class DataLoader:
                 if 'test-pats' in path:
                     patient_id = os.path.basename(path)
                     self.patient_id_list.append(patient_id)
-                else:
-                    print(f"Skipping non-patient directory: {path}")
             except Exception as e:
                 print(f"Warning: Could not parse patient ID from path: {path}")
 
-        # Set mode
+        # Set data loading mode
         self.mode_name = mode_name
         self.set_mode(self.mode_name)
 
-    def create_memmap_array(self, shape, dtype=np.float32):
-        """Create a memory-mapped array"""
-        try:
-            if self.use_memmap:
-                filename = os.path.join(self.temp_dir, f'temp_{np.random.randint(0, 1000000)}.npy')
-                return np.memmap(filename, dtype=dtype, mode='w+', shape=shape)
-            return np.zeros(shape, dtype=dtype)
-        except Exception as e:
-            print(f"Error creating memmap array: {str(e)}")
-            return np.zeros(shape, dtype=dtype)
-
     def set_mode(self, mode_name):
-        """Set the mode for data loading"""
+        """Set data loading mode and required file shapes"""
         self.mode_name = mode_name
 
         if mode_name == 'dose_prediction':
@@ -159,8 +105,121 @@ class DataLoader:
         else:
             raise ValueError(f"Unsupported mode: {mode_name}")
 
+    def load_file(self, file_name):
+        """Load sparse matrix format CSV file"""
+        try:
+            if not os.path.exists(file_name):
+                print(f"File not found: {file_name}")
+                return None
+                
+            # Load CSV file
+            loaded_file_df = pd.read_csv(file_name, index_col=0)
+            if loaded_file_df.empty:
+                print(f"Empty file: {file_name}")
+                return None
+                
+            # Handle different file types
+            if 'voxel_dimensions.csv' in file_name:
+                return np.array(loaded_file_df.index, dtype=np.float32)
+            elif loaded_file_df.isnull().values.any():
+                return np.array(loaded_file_df.index, dtype=np.int32).squeeze()
+            else:
+                return {
+                    'indices': np.array(loaded_file_df.index, dtype=np.int32).squeeze(),
+                    'data': np.array(loaded_file_df['data'], dtype=np.float32).squeeze()
+                }
+                
+        except Exception as e:
+            print(f"Error loading file {file_name}: {str(e)}")
+            return None
+
+    def load_and_shape_data(self, path_to_load):
+        """Load sparse data and reshape to dense 128x128x128 tensors"""
+        try:
+            loaded_file = {}
+            files_to_load = get_paths(path_to_load, ext='csv')
+            
+            if not files_to_load:
+                print(f"No CSV files found in: {path_to_load}")
+                return None
+
+            # Initialize tensors with float32
+            total_voxels = np.prod(self.patient_shape)
+            shaped_data = {}.fromkeys(self.required_files)
+            for key in shaped_data:
+                shaped_data[key] = np.zeros(self.required_files[key], dtype=np.float32)
+
+            # Load all files
+            for f in files_to_load:
+                f_name = os.path.basename(f).split('.')[0]
+                if f_name in self.required_files or f_name in self.full_roi_list:
+                    loaded_file[f_name] = self.load_file(f)
+
+            # Process each type of data
+            for key in shaped_data:
+                try:
+                    if key == 'structure_masks':
+                        # Process in chunks to save memory
+                        chunk_size = MEMORY_CONFIG['CHUNK_SIZE']
+                        for roi_idx, roi in enumerate(self.full_roi_list):
+                            if roi in loaded_file:
+                                indices = loaded_file[roi]
+                                if isinstance(indices, np.ndarray):
+                                    for i in range(0, len(indices), chunk_size):
+                                        chunk_indices = indices[i:i+chunk_size]
+                                        valid_indices = chunk_indices[chunk_indices < total_voxels]
+                                        if len(valid_indices) > 0:
+                                            shaped_data[key].reshape(-1, self.num_rois)[valid_indices, roi_idx] = 1
+                        shaped_data[key] = shaped_data[key].reshape(*self.patient_shape, self.num_rois)
+
+                    elif key == 'possible_dose_mask':
+                        if key in loaded_file:
+                            indices = loaded_file[key]
+                            if isinstance(indices, np.ndarray):
+                                for i in range(0, len(indices), MEMORY_CONFIG['CHUNK_SIZE']):
+                                    chunk_indices = indices[i:i+MEMORY_CONFIG['CHUNK_SIZE']]
+                                    valid_indices = chunk_indices[chunk_indices < total_voxels]
+                                    if len(valid_indices) > 0:
+                                        shaped_data[key].ravel()[valid_indices] = 1
+                        shaped_data[key] = shaped_data[key].reshape(*self.patient_shape, 1)
+
+                    elif key == 'voxel_dimensions':
+                        if key in loaded_file:
+                            shaped_data[key][:] = loaded_file[key].astype(np.float32)
+                        else:
+                            shaped_data[key][:] = np.array([3.5, 3.5, 2.0], dtype=np.float32)
+
+                    elif key == 'ct':
+                        if key in loaded_file and isinstance(loaded_file[key], dict):
+                            indices = loaded_file[key]['indices']
+                            data = loaded_file[key]['data']
+                            for i in range(0, len(indices), MEMORY_CONFIG['CHUNK_SIZE']):
+                                chunk_indices = indices[i:i+MEMORY_CONFIG['CHUNK_SIZE']]
+                                chunk_data = data[i:i+MEMORY_CONFIG['CHUNK_SIZE']]
+                                valid_mask = chunk_indices < total_voxels
+                                if np.any(valid_mask):
+                                    shaped_data[key].ravel()[chunk_indices[valid_mask]] = chunk_data[valid_mask]
+                        shaped_data[key] = shaped_data[key].reshape(*self.patient_shape, 1)
+                        shaped_data[key] = np.clip(shaped_data[key], 
+                                                 MODEL_CONFIG['HOUNSFIELD_MIN'],
+                                                 MODEL_CONFIG['HOUNSFIELD_MAX'])
+
+                    print(f"Processed {key} - Shape: {shaped_data[key].shape}, "
+                          f"Range: [{shaped_data[key].min():.2f}, {shaped_data[key].max():.2f}], "
+                          f"Memory: {shaped_data[key].nbytes / (1024**2):.1f} MB")
+                
+                except Exception as e:
+                    print(f"Error processing key {key}: {str(e)}")
+                    continue
+
+            return shaped_data
+
+        except Exception as e:
+            print(f"Error in load_and_shape_data: {str(e)}")
+            return None
+
     def get_batch(self, index=None, patient_list=None):
-        """Get a batch of data"""
+        """Get a batch of patient data"""
         try:
             if patient_list is None:
                 indices = self.indices[index * self.batch_size:(index + 1) * self.batch_size]
@@ -174,22 +233,21 @@ class DataLoader:
             return None
 
     def load_data(self, file_paths_to_load):
-        """Load data for given file paths"""
+        """Load data for multiple patients"""
         try:
             tf_data = {}.fromkeys(self.required_files)
             patient_list = []
             patient_path_list = []
 
-            # Initialize arrays
+            # Initialize arrays with float32
             for key in tf_data:
-                shape = (self.batch_size, *self.required_files[key])
-                tf_data[key] = self.create_memmap_array(shape)
+                shape = (self.batch_size,) + self.required_files[key]
+                tf_data[key] = np.zeros(shape, dtype=np.float32)
 
-            # Load data for each patient
             for i, pat_path in enumerate(file_paths_to_load):
                 try:
                     patient_path_list.append(pat_path)
-                    pat_id = pat_path.split('/')[-1].split('.')[0]
+                    pat_id = os.path.basename(pat_path)
                     patient_list.append(pat_id)
 
                     loaded_data = self.load_and_shape_data(pat_path)
@@ -209,64 +267,8 @@ class DataLoader:
             print(f"Error in load_data: {str(e)}")
             return None
 
-    def load_and_shape_data(self, path_to_load):
-        """Load and shape data from files"""
-        try:
-            loaded_file = {}
-            files_to_load = get_paths(path_to_load, ext='')
-
-            print(f"Loading files from: {path_to_load}")
-            print(f"Files found: {files_to_load}")
-
-            for f in files_to_load:
-                f_name = f.split('/')[-1].split('.')[0]
-                if f_name in self.required_files or f_name in self.full_roi_list:
-                    loaded_data = self.load_file_in_chunks(f) if os.path.getsize(f) > self.chunk_size else load_file(f)
-                    if loaded_data is not None:
-                        loaded_file[f_name] = loaded_data
-
-            shaped_data = {}.fromkeys(self.required_files)
-            for key in shaped_data:
-                shaped_data[key] = self.create_memmap_array(self.required_files[key])
-
-            for key in shaped_data:
-                try:
-                    if key == 'structure_masks':
-                        for roi_idx, roi in enumerate(self.full_roi_list):
-                            if roi in loaded_file:
-                                np.put(shaped_data[key], self.num_rois * loaded_file[roi] + roi_idx, 1)
-                    elif key == 'possible_dose_mask':
-                        if key in loaded_file:
-                            np.put(shaped_data[key], loaded_file[key], 1)
-                    elif key == 'voxel_dimensions':
-                        if key in loaded_file:
-                            shaped_data[key][:] = loaded_file[key]
-                        else:
-                            shaped_data[key][:] = np.array([3.906, 3.906, 2.5], dtype=np.float32)
-                    else:
-                        if key in loaded_file:
-                            np.put(shaped_data[key], loaded_file[key]['indices'], loaded_file[key]['data'])
-                except Exception as e:
-                    print(f"Error processing key {key}: {str(e)}")
-                    continue
-
-            return shaped_data
-
-        except Exception as e:
-            print(f"Error in load_and_shape_data: {str(e)}")
-            return None
-
-    def load_file_in_chunks(self, filename):
-        """Load large files in chunks"""
-        try:
-            chunks = pd.read_csv(filename, index_col=0, chunksize=self.chunk_size)
-            return pd.concat(chunks)
-        except Exception as e:
-            print(f"Error loading file in chunks {filename}: {str(e)}")
-            return None
-
     def number_of_batches(self):
-        """Get number of batches in epoch"""
+        """Get number of batches in dataset"""
         return int(np.floor(len(self.file_paths_list) / self.batch_size))
 
     def patient_to_index(self, patient_list):
@@ -279,15 +281,7 @@ class DataLoader:
             print(f"Error in patient_to_index: {str(e)}")
             return []
 
-    def cleanup(self):
-        """Clean up temporary memory-mapped files"""
-        if self.use_memmap and self.temp_dir:
-            try:
-                import shutil
-                shutil.rmtree(self.temp_dir)
-            except Exception as e:
-                print(f"Error cleaning up temporary files: {str(e)}")
-
-    def __del__(self):
-        """Destructor to ensure cleanup"""
-        self.cleanup()
+    def on_epoch_end(self):
+        """Shuffle indices at the end of epoch if enabled"""
+        if self.shuffle:
+            np.random.shuffle(self.indices)

@@ -1,40 +1,76 @@
+"""
+OpenKBP Dose Prediction Pipeline
+Created: 2025-02-22 15:42:53 UTC
+Author: aagneye-syam
+"""
+
 import os
 import datetime
-
-# Record execution start time
-START_TIME = datetime.datetime.utcnow()
-USER = "aagneye-syam"
-print(f"Execution started at {START_TIME.strftime('%Y-%m-%d %H:%M:%S')} UTC by {USER}")
-
-# Set environment variables before importing tensorflow
-os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-
 import numpy as np
 import pandas as pd
 import tensorflow as tf
 from tensorflow.keras.models import load_model
-from data_loader import DataLoader, normalize_dicom, get_paths
 from tensorflow.keras.layers import concatenate
 from tqdm import tqdm
-from config import PATH_CONFIG
 import gc
+from config import PATH_CONFIG, MODEL_CONFIG, TREATMENT_CONFIG, ROI_CONFIG, MEMORY_CONFIG
+from data_loader import DataLoader, normalize_dicom, get_paths
+
+# Record execution start time
+START_TIME = datetime.datetime.strptime("2025-02-22 15:42:53", "%Y-%m-%d %H:%M:%S")
+USER = "aagneye-syam"
+print(f"Execution started at {START_TIME.strftime('%Y-%m-%d %H:%M:%S')} UTC by {USER}")
+
+# Set environment variables for TensorFlow
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Reduce TF logging
+
+def sparse_vector_function(x):
+    """
+    Convert dense tensor to sparse format as specified in OpenKBP dataset.
+    Returns indices and data for non-zero elements in C-order (row-major).
+    Format: CSV with index column and 'data' column.
+    """
+    try:
+        # Process in chunks to save memory
+        chunk_size = MEMORY_CONFIG['CHUNK_SIZE']
+        x_flat = x.flatten(order='C')
+        non_zero_indices = []
+        non_zero_data = []
+        
+        for i in range(0, len(x_flat), chunk_size):
+            chunk = x_flat[i:i + chunk_size]
+            mask = chunk > 0
+            if np.any(mask):
+                non_zero_indices.extend(i + np.nonzero(mask)[0])
+                non_zero_data.extend(chunk[mask])
+        
+        return {
+            'data': np.array(non_zero_data, dtype=np.float32),
+            'indices': np.array(non_zero_indices, dtype=np.int32)
+        }
+    except Exception as e:
+        print(f"Error in sparse vector conversion: {str(e)}")
+        return None
 
 class MultiModelDosePredictionPipeline:
     def __init__(self, models_config, data_dir, batch_size=1):
         """
-        Initialize the pipeline
-        Args:
-            models_config: Dictionary of model names and their paths
-            data_dir: Directory containing the data
-            batch_size: Batch size for processing (default: 1)
+        Initialize pipeline for OpenKBP dataset processing
+        Dataset: 128x128x128 voxel tensors with:
+        - CT images (12-bit format)
+        - Structure masks for OARs and PTVs
+        - Possible dose mask
+        - Voxel dimensions (~3.5mm x 3.5mm x 2mm)
         """
         self.models = {}
         self.data_dir = data_dir
         self.active_models = []
         self.batch_size = batch_size
+        self.patient_shape = (128, 128, 128)
         
-        # Create results directory in root
+        # Create results directory
         os.makedirs('results', exist_ok=True)
 
         # Initialize data loader
@@ -42,7 +78,7 @@ class MultiModelDosePredictionPipeline:
             get_paths(self.data_dir, ext=''),
             mode_name='dose_prediction',
             batch_size=self.batch_size,
-            use_memmap=True
+            patient_shape=self.patient_shape
         )
 
         # Load models
@@ -57,7 +93,6 @@ class MultiModelDosePredictionPipeline:
                 if model is not None:
                     self.models[model_name] = model
                     self.active_models.append(model_name)
-                    # Create model-specific results directory
                     os.makedirs(f'results/{model_name}', exist_ok=True)
                     print(f"Successfully loaded model: {model_name}")
 
@@ -65,106 +100,151 @@ class MultiModelDosePredictionPipeline:
                 print(f"Error loading model {model_name}: {str(e)}")
                 continue
 
-    def predict_single_case(self, model, patient_data):
-        """
-        Predict dose for a single case
-        Args:
-            model: The model to use for prediction
-            patient_data: Patient data dictionary
-        Returns:
-            Predicted dose or None if error occurs
-        """
+    def validate_data(self, patient_data):
+        """Validate data according to OpenKBP specifications"""
         try:
-            # Normalize and reshape CT data
+            # Check if data exists
+            if not patient_data or not isinstance(patient_data, dict):
+                print("Invalid patient data format")
+                return False
+                
+            required_keys = ['ct', 'structure_masks', 'possible_dose_mask']
+            for key in required_keys:
+                if key not in patient_data:
+                    print(f"Missing required key: {key}")
+                    return False
+                if patient_data[key] is None:
+                    print(f"Data is None for key: {key}")
+                    return False
+                
+            # Check CT data
+            ct_data = patient_data['ct']
+            if not isinstance(ct_data, np.ndarray):
+                print("CT data is not a numpy array")
+                return False
+            
+            # Check shapes
+            expected_shape = (1,) + self.patient_shape
+            if ct_data.shape[:-1] != expected_shape:
+                print(f"CT data shape mismatch: {ct_data.shape}, expected: {expected_shape + (1,)}")
+                return False
+                
+            return True
+            
+        except Exception as e:
+            print(f"Error in data validation: {str(e)}")
+            return False
+
+    def predict_single_case(self, model, patient_data):
+        """Memory-efficient prediction"""
+        try:
+            if not self.validate_data(patient_data):
+                print("Data validation failed")
+                return None
+
+            # Process in smaller chunks
+            chunk_size = MEMORY_CONFIG['CHUNK_SIZE']
             ct_normalized = normalize_dicom(patient_data['ct'])
-            ct_reshaped = ct_normalized.reshape(1, 128, 128, 128, 1)
+            masks = patient_data['structure_masks']
             
-            # Reshape structure masks
-            masks_reshaped = patient_data['structure_masks'].reshape(1, 128, 128, 128, 10)
+            # Initialize output array
+            output_shape = self.patient_shape + (1,)
+            dose_pred = np.zeros(output_shape, dtype=np.float32)
             
-            # Concatenate inputs
-            input_data = concatenate([ct_reshaped, masks_reshaped], axis=-1)
+            # Process in chunks
+            for z in range(0, self.patient_shape[0], chunk_size):
+                z_end = min(z + chunk_size, self.patient_shape[0])
+                
+                # Prepare chunk data
+                ct_chunk = ct_normalized[0, z:z_end, :, :, :]
+                masks_chunk = masks[0, z:z_end, :, :, :]
+                
+                # Create input tensor
+                input_chunk = np.concatenate([ct_chunk, masks_chunk], axis=-1)
+                input_chunk = np.expand_dims(input_chunk, axis=0)
+                
+                # Predict chunk
+                with tf.device('/CPU:0'):
+                    pred_chunk = model.predict(input_chunk, verbose=0)
+                
+                # Store prediction
+                dose_pred[z:z_end, :, :, 0] = pred_chunk[0, :, :, :, 0]
             
-            # Make prediction
-            with tf.device('/CPU:0'):  # Force CPU to avoid GPU memory issues
-                dose_pred = model.predict(input_data, verbose=0)
+            # Apply possible dose mask
+            if patient_data['possible_dose_mask'] is not None:
+                dose_pred = dose_pred * patient_data['possible_dose_mask'][0]
             
-            # Apply dose mask
-            dose_pred = dose_pred * patient_data['possible_dose_mask']
+            # Scale predictions to prescribed doses
+            dose_pred = self.scale_to_prescribed_doses(dose_pred, patient_data['structure_masks'][0])
             
-            return dose_pred.squeeze()
+            return dose_pred
 
         except Exception as e:
             print(f"Error in prediction: {str(e)}")
             return None
 
-    def save_prediction(self, dose_pred, patient_id, model_name):
-        """
-        Save prediction to CSV file in results directory with proper formatting
-        Args:
-            dose_pred: Predicted dose array
-            patient_id: Patient identifier
-            model_name: Name of the model used
-        Returns:
-            Path to saved file or None if error occurs
-        """
+    def scale_to_prescribed_doses(self, dose_pred, structure_masks):
+        """Scale dose predictions to match prescribed doses for PTVs"""
         try:
-            # Extract just the patient ID from the full path
-            patient_id = patient_id.split('\\')[-1]  # Get the last part of the path
+            prescribed_doses = TREATMENT_CONFIG['PRESCRIBED_DOSES']
             
-            # Create output path in results directory
+            # Get PTV indices from ROI_CONFIG
+            ptv_indices = {ptv: idx for idx, ptv in enumerate(ROI_CONFIG['targets'])}
+            
+            # Scale each PTV region to its prescribed dose
+            for ptv, prescribed_dose in prescribed_doses.items():
+                if ptv in ptv_indices:
+                    ptv_mask = structure_masks[..., ptv_indices[ptv]]
+                    ptv_dose = dose_pred * ptv_mask
+                    if np.sum(ptv_mask) > 0:
+                        current_mean = np.mean(ptv_dose[ptv_mask > 0])
+                        if current_mean > 0:
+                            scale_factor = prescribed_dose / current_mean
+                            dose_pred = np.where(ptv_mask > 0, dose_pred * scale_factor, dose_pred)
+            
+            return dose_pred
+            
+        except Exception as e:
+            print(f"Error in dose scaling: {str(e)}")
+            return dose_pred
+
+    def save_prediction(self, dose_pred, patient_id, model_name):
+        """Save prediction in OpenKBP sparse matrix format"""
+        try:
+            # Extract patient ID
+            patient_id = os.path.basename(patient_id)
+            
+            # Create output directory
             output_dir = os.path.join('results', model_name)
             os.makedirs(output_dir, exist_ok=True)
             
-            # Get non-zero elements and their indices
-            non_zero_mask = dose_pred > 0
-            indices = np.where(non_zero_mask.flatten())[0]
-            data = dose_pred.flatten()[indices]
-            
-            # Create DataFrame with proper columns
+            # Convert to sparse format (C-order as required)
+            dose_sparse = sparse_vector_function(dose_pred)
+            if dose_sparse is None or len(dose_sparse['data']) == 0:
+                print(f"Warning: No non-zero dose points found for {patient_id}")
+                return None
+
+            # Create DataFrame in required format (index, data)
             dose_df = pd.DataFrame({
-                'index': indices,
-                'data': data
-            })
+                'data': dose_sparse['data']
+            }, index=dose_sparse['indices'])
             
-            # Save to CSV in results directory
-            output_path = os.path.join(output_dir, f'{patient_id}.csv')
-            dose_df.to_csv(output_path, index=False)  # Don't save DataFrame index
+            # Save to CSV
+            output_path = os.path.join(output_dir, f'{patient_id}_dose.csv')
+            dose_df.to_csv(output_path)
+            
             print(f"Saved prediction to {output_path}")
-            print(f"Number of non-zero dose points: {len(indices)}")
-            print(f"Dose range: [{data.min():.4f}, {data.max():.4f}] Gy")
+            print(f"Number of non-zero dose points: {len(dose_sparse['data'])}")
+            print(f"Dose range: [{dose_sparse['data'].min():.4f}, {dose_sparse['data'].max():.4f}] Gy")
             
             return output_path
+            
         except Exception as e:
             print(f"Error saving prediction: {str(e)}")
             return None
 
-    def sparse_vector_function(self, x, indices=None):
-        """
-        Convert tensor to sparse format
-        Args:
-            x: Input tensor
-            indices: Optional indices
-        Returns:
-            Dictionary with data and indices
-        """
-        try:
-            if indices is None:
-                return {
-                    'data': x[x > 0],
-                    'indices': np.nonzero(x.flatten())[-1]
-                }
-            else:
-                return {
-                    'data': x[x > 0],
-                    'indices': indices[x > 0]
-                }
-        except Exception as e:
-            print(f"Error in sparse vector conversion: {str(e)}")
-            return None
-
     def run_pipeline(self):
-        """Run the prediction pipeline"""
+        """Run the complete prediction pipeline"""
         if not self.active_models:
             print("No active models found")
             return
@@ -187,13 +267,15 @@ class MultiModelDosePredictionPipeline:
 
                     patient_id = patient_batch['patient_list'][0]
                     print(f"\nProcessing patient: {patient_id}")
-
+                    
                     # Process with each model
                     for model_name in self.active_models:
                         try:
                             print(f"Processing with model: {model_name}")
-                            # Clear any existing tensors
-                            tf.keras.backend.clear_session()
+                            
+                            # Clear session to free memory
+                            if MEMORY_CONFIG['CLEAR_SESSION']:
+                                tf.keras.backend.clear_session()
                             
                             model = self.models[model_name]
                             dose_pred = self.predict_single_case(model, patient_batch)
@@ -204,7 +286,7 @@ class MultiModelDosePredictionPipeline:
                             print(f"Error processing model {model_name}: {str(e)}")
                             continue
 
-                    # Force garbage collection
+                    # Clear memory
                     gc.collect()
 
                 except Exception as e:
@@ -216,15 +298,13 @@ class MultiModelDosePredictionPipeline:
             raise
 
         finally:
-            # Cleanup
-            self.data_loader.cleanup()
             end_time = datetime.datetime.utcnow()
             duration = end_time - START_TIME
             print(f"\nPipeline completed at {end_time.strftime('%Y-%m-%d %H:%M:%S')} UTC")
             print(f"Total execution time: {duration}")
 
 def main():
-    """Main function"""
+    """Main execution function"""
     try:
         print("\nInitializing dose prediction pipeline...")
         
@@ -247,16 +327,11 @@ def main():
             data_dir = test_pats_dir
             print(f"Using test patients directory: {test_pats_dir}")
 
-        # Create results directory
-        os.makedirs('results', exist_ok=True)
-        print("Created results directory")
-
         # Initialize and run pipeline
-        print("Initializing pipeline...")
         pipeline = MultiModelDosePredictionPipeline(
             models_config, 
             data_dir,
-            batch_size=1
+            batch_size=MODEL_CONFIG['BATCH_SIZE']
         )
         
         print("Starting pipeline execution...")
