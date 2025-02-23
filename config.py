@@ -4,10 +4,10 @@ import os
 MODEL_CONFIG = {
     'INPUT_SHAPE': (128, 128, 128, 11),  # CT + 10 structure masks (7 OARs + 3 PTVs)
     'BATCH_SIZE': 1,
-    'HOUNSFIELD_MIN': 0,     # 12-bit format clip values
-    'HOUNSFIELD_MAX': 4095,  # 12-bit format as recommended
-    'HOUNSFIELD_RANGE': 4095,
-    'NUM_FRACTIONS': 35      # 35 fractions for dose delivery
+    'HOUNSFIELD_MIN': -1024,   # As per original code
+    'HOUNSFIELD_MAX': 1500,    # As per original code
+    'HOUNSFIELD_RANGE': 1000,  # As per original code
+    'NUM_FRACTIONS': 35        # 35 fractions for dose delivery
 }
 
 # Path configuration
@@ -20,7 +20,7 @@ PATH_CONFIG = {
     'OUTPUT_DIR': 'results',
 }
 
-# ROI configuration with all possible structures
+# ROI configuration
 ROI_CONFIG = {
     'oars': [
         'Brainstem',    # Critical OAR

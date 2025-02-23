@@ -1,6 +1,6 @@
 """
 OpenKBP Data Loader
-Created: 2025-02-22 15:40:24 UTC
+Created: 2025-02-23 06:02:12 UTC
 Author: aagneye-syam
 """
 
@@ -12,11 +12,11 @@ from config import MODEL_CONFIG, ROI_CONFIG, MEMORY_CONFIG
 
 def normalize_dicom(img):
     """
-    Normalize DICOM image using 12-bit format (0-4095) as specified in dataset.
-    Clips CT values between 0 and 4095 to convert mixed 12/16-bit to standard 12-bit.
+    Normalize DICOM image as per original training code
     """
     img = img.copy()
-    img = np.clip(img, MODEL_CONFIG['HOUNSFIELD_MIN'], MODEL_CONFIG['HOUNSFIELD_MAX'])
+    img[img < MODEL_CONFIG['HOUNSFIELD_MIN']] = MODEL_CONFIG['HOUNSFIELD_MIN']
+    img[img > MODEL_CONFIG['HOUNSFIELD_MAX']] = MODEL_CONFIG['HOUNSFIELD_MAX']
     img = img / MODEL_CONFIG['HOUNSFIELD_RANGE']
     return img.astype(np.float32)
 
@@ -39,20 +39,25 @@ def get_paths(directory_path, ext=''):
 
     return sorted(all_paths)
 
+def sparse_vector_function(x):
+    """Convert dense tensor to sparse format"""
+    try:
+        x_flat = x.flatten(order='C')
+        non_zero_mask = x_flat > 0
+        return {
+            'data': x_flat[non_zero_mask],
+            'indices': np.nonzero(x_flat)[0]
+        }
+    except Exception as e:
+        print(f"Error in sparse vector conversion: {str(e)}")
+        return None
+
 class DataLoader:
-    """Data loader for OpenKBP dataset - handles sparse matrix format"""
+    """Data loader for OpenKBP dataset"""
     
     def __init__(self, file_paths_list, batch_size=1, patient_shape=(128, 128, 128),
                  shuffle=True, mode_name='dose_prediction'):
-        """
-        Initialize DataLoader
-        Args:
-            file_paths_list: List of paths to patient directories
-            batch_size: Number of patients to load at once
-            patient_shape: Shape of patient tensor (128x128x128)
-            shuffle: Whether to shuffle data between epochs
-            mode_name: Type of data loading (dose_prediction, training_model, evaluation)
-        """
+        """Initialize DataLoader"""
         self.rois = ROI_CONFIG
         self.batch_size = batch_size
         self.patient_shape = patient_shape
@@ -77,51 +82,46 @@ class DataLoader:
         self.set_mode(self.mode_name)
 
     def set_mode(self, mode_name):
-        """Set data loading mode and required file shapes"""
+        """Set data loading mode"""
         self.mode_name = mode_name
 
         if mode_name == 'dose_prediction':
             self.required_files = {
                 'ct': (self.patient_shape + (1,)),
                 'structure_masks': (self.patient_shape + (self.num_rois,)),
-                'possible_dose_mask': (self.patient_shape + (1,)),
-                'voxel_dimensions': (3,)
+                'possible_dose_mask': (self.patient_shape + (1,))
             }
         elif mode_name == 'training_model':
             self.required_files = {
                 'dose': (self.patient_shape + (1,)),
                 'ct': (self.patient_shape + (1,)),
                 'structure_masks': (self.patient_shape + (self.num_rois,)),
-                'possible_dose_mask': (self.patient_shape + (1,)),
-                'voxel_dimensions': (3,)
+                'possible_dose_mask': (self.patient_shape + (1,))
             }
         elif mode_name == 'evaluation':
             self.required_files = {
                 'dose': (self.patient_shape + (1,)),
                 'structure_masks': (self.patient_shape + (self.num_rois,)),
-                'possible_dose_mask': (self.patient_shape + (1,)),
-                'voxel_dimensions': (3,)
+                'possible_dose_mask': (self.patient_shape + (1,))
             }
+        elif mode_name == 'predicted_dose':
+            self.required_files = {mode_name: (self.patient_shape + (1,))}
         else:
             raise ValueError(f"Unsupported mode: {mode_name}")
 
     def load_file(self, file_name):
-        """Load sparse matrix format CSV file"""
+        """Load CSV file"""
         try:
             if not os.path.exists(file_name):
                 print(f"File not found: {file_name}")
                 return None
                 
-            # Load CSV file
             loaded_file_df = pd.read_csv(file_name, index_col=0)
             if loaded_file_df.empty:
                 print(f"Empty file: {file_name}")
                 return None
                 
-            # Handle different file types
-            if 'voxel_dimensions.csv' in file_name:
-                return np.array(loaded_file_df.index, dtype=np.float32)
-            elif loaded_file_df.isnull().values.any():
+            if loaded_file_df.isnull().values.any():
                 return np.array(loaded_file_df.index, dtype=np.int32).squeeze()
             else:
                 return {
@@ -134,7 +134,7 @@ class DataLoader:
             return None
 
     def load_and_shape_data(self, path_to_load):
-        """Load sparse data and reshape to dense 128x128x128 tensors"""
+        """Load sparse data and reshape to dense tensors"""
         try:
             loaded_file = {}
             files_to_load = get_paths(path_to_load, ext='csv')
@@ -159,54 +159,39 @@ class DataLoader:
             for key in shaped_data:
                 try:
                     if key == 'structure_masks':
-                        # Process in chunks to save memory
-                        chunk_size = MEMORY_CONFIG['CHUNK_SIZE']
                         for roi_idx, roi in enumerate(self.full_roi_list):
                             if roi in loaded_file:
                                 indices = loaded_file[roi]
                                 if isinstance(indices, np.ndarray):
-                                    for i in range(0, len(indices), chunk_size):
-                                        chunk_indices = indices[i:i+chunk_size]
-                                        valid_indices = chunk_indices[chunk_indices < total_voxels]
-                                        if len(valid_indices) > 0:
-                                            shaped_data[key].reshape(-1, self.num_rois)[valid_indices, roi_idx] = 1
-                        shaped_data[key] = shaped_data[key].reshape(*self.patient_shape, self.num_rois)
-
-                    elif key == 'possible_dose_mask':
-                        if key in loaded_file:
-                            indices = loaded_file[key]
-                            if isinstance(indices, np.ndarray):
-                                for i in range(0, len(indices), MEMORY_CONFIG['CHUNK_SIZE']):
-                                    chunk_indices = indices[i:i+MEMORY_CONFIG['CHUNK_SIZE']]
-                                    valid_indices = chunk_indices[chunk_indices < total_voxels]
+                                    valid_indices = indices[indices < total_voxels]
                                     if len(valid_indices) > 0:
-                                        shaped_data[key].ravel()[valid_indices] = 1
-                        shaped_data[key] = shaped_data[key].reshape(*self.patient_shape, 1)
-
-                    elif key == 'voxel_dimensions':
-                        if key in loaded_file:
-                            shaped_data[key][:] = loaded_file[key].astype(np.float32)
-                        else:
-                            shaped_data[key][:] = np.array([3.5, 3.5, 2.0], dtype=np.float32)
+                                        shaped_data[key].reshape(-1, self.num_rois)[valid_indices, roi_idx] = 1
+                        shaped_data[key] = shaped_data[key].reshape(*self.patient_shape, self.num_rois)
 
                     elif key == 'ct':
                         if key in loaded_file and isinstance(loaded_file[key], dict):
                             indices = loaded_file[key]['indices']
                             data = loaded_file[key]['data']
-                            for i in range(0, len(indices), MEMORY_CONFIG['CHUNK_SIZE']):
-                                chunk_indices = indices[i:i+MEMORY_CONFIG['CHUNK_SIZE']]
-                                chunk_data = data[i:i+MEMORY_CONFIG['CHUNK_SIZE']]
-                                valid_mask = chunk_indices < total_voxels
-                                if np.any(valid_mask):
-                                    shaped_data[key].ravel()[chunk_indices[valid_mask]] = chunk_data[valid_mask]
+                            valid_indices = indices[indices < total_voxels]
+                            shaped_data[key].ravel()[valid_indices] = data[:len(valid_indices)]
                         shaped_data[key] = shaped_data[key].reshape(*self.patient_shape, 1)
-                        shaped_data[key] = np.clip(shaped_data[key], 
-                                                 MODEL_CONFIG['HOUNSFIELD_MIN'],
-                                                 MODEL_CONFIG['HOUNSFIELD_MAX'])
+                        shaped_data[key] = normalize_dicom(shaped_data[key])
+
+                    else:  # dose or possible_dose_mask
+                        if key in loaded_file:
+                            if isinstance(loaded_file[key], dict):
+                                indices = loaded_file[key]['indices']
+                                data = loaded_file[key]['data']
+                                valid_indices = indices[indices < total_voxels]
+                                shaped_data[key].ravel()[valid_indices] = data[:len(valid_indices)]
+                            else:
+                                indices = loaded_file[key]
+                                valid_indices = indices[indices < total_voxels]
+                                shaped_data[key].ravel()[valid_indices] = 1
+                        shaped_data[key] = shaped_data[key].reshape(*self.patient_shape, 1)
 
                     print(f"Processed {key} - Shape: {shaped_data[key].shape}, "
-                          f"Range: [{shaped_data[key].min():.2f}, {shaped_data[key].max():.2f}], "
-                          f"Memory: {shaped_data[key].nbytes / (1024**2):.1f} MB")
+                          f"Range: [{shaped_data[key].min():.2f}, {shaped_data[key].max():.2f}]")
                 
                 except Exception as e:
                     print(f"Error processing key {key}: {str(e)}")
@@ -239,7 +224,6 @@ class DataLoader:
             patient_list = []
             patient_path_list = []
 
-            # Initialize arrays with float32
             for key in tf_data:
                 shape = (self.batch_size,) + self.required_files[key]
                 tf_data[key] = np.zeros(shape, dtype=np.float32)
