@@ -1,6 +1,6 @@
 """
 OpenKBP Dose Prediction Pipeline
-Created: 2025-02-23 06:04:23 UTC
+Created: 2025-02-23 06:09:12 UTC
 Author: aagneye-syam
 """
 
@@ -17,14 +17,14 @@ from config import PATH_CONFIG, MODEL_CONFIG, TREATMENT_CONFIG, ROI_CONFIG, MEMO
 from data_loader import DataLoader, normalize_dicom, get_paths
 
 # Record execution start time
-START_TIME = datetime.datetime.strptime("2025-02-23 06:04:23", "%Y-%m-%d %H:%M:%S")
+START_TIME = datetime.datetime.strptime("2025-02-23 06:09:12", "%Y-%m-%d %H:%M:%S")
 USER = "aagneye-syam"
 print(f"Execution started at {START_TIME.strftime('%Y-%m-%d %H:%M:%S')} UTC by {USER}")
 
 # Set environment variables for TensorFlow
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Reduce TF logging
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 def sparse_vector_function(x):
     """Convert dense tensor to sparse format"""
@@ -40,16 +40,14 @@ def sparse_vector_function(x):
         return None
 
 class MultiModelDosePredictionPipeline:
-    def __init__(self, models_config, data_dir, batch_size=1):
+    def __init__(self, model_path, data_dir, batch_size=1):
         """Initialize pipeline for OpenKBP dataset"""
-        self.models = {}
         self.data_dir = data_dir
-        self.active_models = []
         self.batch_size = batch_size
         self.patient_shape = (128, 128, 128)
         
         # Create results directory
-        os.makedirs('results', exist_ok=True)
+        os.makedirs('results/u_net', exist_ok=True)
 
         # Initialize data loader
         self.data_loader = DataLoader(
@@ -59,82 +57,35 @@ class MultiModelDosePredictionPipeline:
             patient_shape=self.patient_shape
         )
 
-        # Load models
-        for model_name, model_path in models_config.items():
-            try:
-                if not os.path.exists(model_path):
-                    print(f"Model path not found: {model_path}")
-                    continue
-
-                print(f"Loading model: {model_name}")
-                model = load_model(model_path, compile=False)
-                if model is not None:
-                    self.models[model_name] = model
-                    self.active_models.append(model_name)
-                    os.makedirs(f'results/{model_name}', exist_ok=True)
-                    print(f"Successfully loaded model: {model_name}")
-
-            except Exception as e:
-                print(f"Error loading model {model_name}: {str(e)}")
-                continue
-
-    def validate_data(self, patient_data):
-        """Validate data"""
+        # Load U-Net model
         try:
-            if not patient_data or not isinstance(patient_data, dict):
-                print("Invalid patient data format")
-                return False
-                
-            required_keys = ['ct', 'structure_masks', 'possible_dose_mask']
-            for key in required_keys:
-                if key not in patient_data:
-                    print(f"Missing required key: {key}")
-                    return False
-                if patient_data[key] is None:
-                    print(f"Data is None for key: {key}")
-                    return False
-                
-            # Check CT data
-            ct_data = patient_data['ct']
-            if not isinstance(ct_data, np.ndarray):
-                print("CT data is not a numpy array")
-                return False
-            
-            # Check shapes
-            expected_shape = (1,) + self.patient_shape
-            if ct_data.shape[:-1] != expected_shape:
-                print(f"CT data shape mismatch: {ct_data.shape}, expected: {expected_shape + (1,)}")
-                return False
-                
-            return True
-            
+            print("Loading U-Net model...")
+            self.model = load_model(model_path, compile=False)
+            print("Successfully loaded U-Net model")
         except Exception as e:
-            print(f"Error in data validation: {str(e)}")
-            return False
+            print(f"Error loading model: {str(e)}")
+            self.model = None
 
-    def predict_single_case(self, model, patient_data):
+    def predict_single_case(self, patient_data):
         """Predict dose for single case"""
         try:
-            if not self.validate_data(patient_data):
-                print("Data validation failed")
-                return None
-
-            # Prepare input data
-            ct_normalized = normalize_dicom(patient_data['ct'])
-            masks = patient_data['structure_masks']
+            # Prepare input data exactly as in training
+            ct = normalize_dicom(patient_data['ct'])
+            mask = patient_data['structure_masks']
             
-            # Create input tensor
-            input_data = np.concatenate([ct_normalized, masks], axis=-1)
+            # Create input tensor (same as training)
+            ct = ct.reshape(128, 128, 128, 1)
+            mask = mask.reshape(128, 128, 128, 10)
+            input_data = np.concatenate([ct, mask], axis=-1)
+            input_data = np.expand_dims(input_data, axis=0)  # Add batch dimension
             
             # Make prediction
-            with tf.device('/CPU:0'):
-                dose_pred = model.predict(input_data, verbose=0)
+            dose_pred = self.model.predict(input_data, verbose=0)
             
             # Apply possible dose mask
-            if patient_data['possible_dose_mask'] is not None:
-                dose_pred = dose_pred * patient_data['possible_dose_mask']
+            dose_pred = dose_pred * patient_data['possible_dose_mask']
             
-            # Scale predictions
+            # Scale to prescribed doses
             dose_pred = self.scale_to_prescribed_doses(dose_pred[0], patient_data['structure_masks'][0])
             
             return dose_pred
@@ -147,11 +98,8 @@ class MultiModelDosePredictionPipeline:
         """Scale dose predictions to match prescribed doses"""
         try:
             prescribed_doses = TREATMENT_CONFIG['PRESCRIBED_DOSES']
-            
-            # Get PTV indices
             ptv_indices = {ptv: idx for idx, ptv in enumerate(ROI_CONFIG['targets'])}
             
-            # Scale each PTV region
             for ptv, prescribed_dose in prescribed_doses.items():
                 if ptv in ptv_indices:
                     ptv_mask = structure_masks[..., ptv_indices[ptv]]
@@ -162,18 +110,18 @@ class MultiModelDosePredictionPipeline:
                             scale_factor = prescribed_dose / current_mean
                             dose_pred = np.where(ptv_mask > 0, dose_pred * scale_factor, dose_pred)
             
+            # Clip unrealistic values
+            dose_pred = np.clip(dose_pred, 0, 80)  # Max realistic dose is 80 Gy
             return dose_pred
             
         except Exception as e:
             print(f"Error in dose scaling: {str(e)}")
             return dose_pred
 
-    def save_prediction(self, dose_pred, patient_id, model_name):
+    def save_prediction(self, dose_pred, patient_id):
         """Save prediction in sparse matrix format"""
         try:
             patient_id = os.path.basename(patient_id)
-            output_dir = os.path.join('results', model_name)
-            os.makedirs(output_dir, exist_ok=True)
             
             dose_sparse = sparse_vector_function(dose_pred)
             if dose_sparse is None or len(dose_sparse['data']) == 0:
@@ -184,7 +132,7 @@ class MultiModelDosePredictionPipeline:
                 'data': dose_sparse['data']
             }, index=dose_sparse['indices'])
             
-            output_path = os.path.join(output_dir, f'{patient_id}_dose.csv')
+            output_path = os.path.join('results', 'u_net', f'{patient_id}_dose.csv')
             dose_df.to_csv(output_path)
             
             print(f"Saved prediction to {output_path}")
@@ -199,8 +147,8 @@ class MultiModelDosePredictionPipeline:
 
     def run_pipeline(self):
         """Run prediction pipeline"""
-        if not self.active_models:
-            print("No active models found")
+        if self.model is None:
+            print("No model loaded")
             return
 
         try:
@@ -222,23 +170,14 @@ class MultiModelDosePredictionPipeline:
                     patient_id = patient_batch['patient_list'][0]
                     print(f"\nProcessing patient: {patient_id}")
                     
-                    # Process with each model
-                    for model_name in self.active_models:
-                        try:
-                            print(f"Processing with model: {model_name}")
-                            
-                            if MEMORY_CONFIG['CLEAR_SESSION']:
-                                tf.keras.backend.clear_session()
-                            
-                            model = self.models[model_name]
-                            dose_pred = self.predict_single_case(model, patient_batch)
-                            if dose_pred is not None:
-                                self.save_prediction(dose_pred, patient_id, model_name)
-                            
-                        except Exception as e:
-                            print(f"Error processing model {model_name}: {str(e)}")
-                            continue
-
+                    # Make prediction
+                    dose_pred = self.predict_single_case(patient_batch)
+                    if dose_pred is not None:
+                        self.save_prediction(dose_pred, patient_id)
+                    
+                    # Clear memory
+                    if MEMORY_CONFIG['CLEAR_SESSION']:
+                        tf.keras.backend.clear_session()
                     gc.collect()
 
                 except Exception as e:
@@ -260,10 +199,10 @@ def main():
     try:
         print("\nInitializing dose prediction pipeline...")
         
-        # Configure models
-        models_config = {
-            'u_net': PATH_CONFIG['U_NET_PATH']
-        }
+        # Get U-Net model path
+        model_path = PATH_CONFIG['U_NET_PATH']
+        if not os.path.exists(model_path):
+            raise FileNotFoundError(f"Model not found at {model_path}")
 
         # Configure data directory
         data_dir = PATH_CONFIG['DATA_DIR']
@@ -278,7 +217,7 @@ def main():
 
         # Initialize and run pipeline
         pipeline = MultiModelDosePredictionPipeline(
-            models_config, 
+            model_path, 
             data_dir,
             batch_size=MODEL_CONFIG['BATCH_SIZE']
         )
