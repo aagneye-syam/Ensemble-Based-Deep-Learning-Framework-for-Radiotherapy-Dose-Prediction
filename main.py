@@ -1,6 +1,6 @@
 """
 OpenKBP Dose Prediction Pipeline
-Created: 2025-02-23 11:51:29 UTC
+Created: 2025-02-23 12:04:34 UTC
 Author: aagneye-syam
 """
 
@@ -17,7 +17,7 @@ from config import PATH_CONFIG, MODEL_CONFIG, TREATMENT_CONFIG, ROI_CONFIG, MEMO
 from data_loader import DataLoader, normalize_dicom, get_paths, sparse_vector_function
 
 # Record execution start time
-START_TIME = datetime.datetime.strptime("2025-02-23 11:51:29", "%Y-%m-%d %H:%M:%S")
+START_TIME = datetime.datetime.strptime("2025-02-23 12:04:34", "%Y-%m-%d %H:%M:%S")
 USER = "aagneye-syam"
 print(f"Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): {START_TIME.strftime('%Y-%m-%d %H:%M:%S')}")
 print(f"Current User's Login: {USER}")
@@ -27,6 +27,9 @@ os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
+# Define available models
+AVAILABLE_MODELS = ['u_net', 'gan', 'dense_u_net', 'res_u_net']
+
 class MultiModelDosePredictionPipeline:
     def __init__(self, data_dir, batch_size=1):
         """Initialize pipeline for OpenKBP dataset"""
@@ -34,14 +37,10 @@ class MultiModelDosePredictionPipeline:
         self.batch_size = batch_size
         self.patient_shape = MODEL_CONFIG['INPUT_SHAPE'][:3]  # Get (128, 128, 128)
         self.models = {}
-        self.stats = {
-            'u_net': {'processed': 0, 'failed': 0},
-            'gan': {'processed': 0, 'failed': 0},
-            'dense_u_net': {'processed': 0, 'failed': 0}
-        }
+        self.stats = {model: {'processed': 0, 'failed': 0} for model in AVAILABLE_MODELS}
         
         # Create results directories
-        for model_name in ['u_net', 'gan', 'dense_u_net']:
+        for model_name in AVAILABLE_MODELS:
             model_dir = os.path.join(PATH_CONFIG['OUTPUT_DIR'], model_name)
             os.makedirs(model_dir, exist_ok=True)
             print(f"Created/verified directory: {model_dir}")
@@ -59,34 +58,27 @@ class MultiModelDosePredictionPipeline:
         self.load_models()
 
     def load_models(self):
-        """Load U-Net, GAN, and Dense U-Net models"""
-        try:
-            # Load U-Net
-            print("Loading U-Net model...")
-            if os.path.exists(PATH_CONFIG['U_NET_PATH']):
-                self.models['u_net'] = load_model(PATH_CONFIG['U_NET_PATH'], compile=False)
-                print("Successfully loaded U-Net model")
-            else:
-                print(f"U-Net model not found at {PATH_CONFIG['U_NET_PATH']}")
+        """Load all available models"""
+        model_paths = {
+            'u_net': PATH_CONFIG['U_NET_PATH'],
+            'gan': PATH_CONFIG['GAN_PATH'],
+            'dense_u_net': PATH_CONFIG['DENSE_U_NET_PATH'],
+            'res_u_net': PATH_CONFIG['RES_U_NET_PATH']
+        }
 
-            # Load GAN
-            print("Loading GAN model...")
-            if os.path.exists(PATH_CONFIG['GAN_PATH']):
-                self.models['gan'] = load_model(PATH_CONFIG['GAN_PATH'], compile=False)
-                print("Successfully loaded GAN model")
-            else:
-                print(f"GAN model not found at {PATH_CONFIG['GAN_PATH']}")
+        for model_name, model_path in model_paths.items():
+            try:
+                print(f"Loading {model_name} model...")
+                if os.path.exists(model_path):
+                    self.models[model_name] = load_model(model_path, compile=False)
+                    print(f"Successfully loaded {model_name} model")
+                else:
+                    print(f"{model_name} model not found at {model_path}")
+            except Exception as e:
+                print(f"Error loading {model_name} model: {str(e)}")
 
-            # Load Dense U-Net
-            print("Loading Dense U-Net model...")
-            if os.path.exists(PATH_CONFIG['DENSE_U_NET_PATH']):
-                self.models['dense_u_net'] = load_model(PATH_CONFIG['DENSE_U_NET_PATH'], compile=False)
-                print("Successfully loaded Dense U-Net model")
-            else:
-                print(f"Dense U-Net model not found at {PATH_CONFIG['DENSE_U_NET_PATH']}")
-
-        except Exception as e:
-            print(f"Error loading models: {str(e)}")
+        if not self.models:
+            print("Warning: No models were successfully loaded")
 
     def predict_single_case(self, model_name, patient_data):
         """Predict dose for single case"""
@@ -168,7 +160,9 @@ class MultiModelDosePredictionPipeline:
                             scale_factor = prescribed_dose / current_mean
                             dose_pred = np.where(ptv_mask > 0, dose_pred * scale_factor, dose_pred)
             
-            return np.clip(dose_pred, 0, MODEL_CONFIG['MAX_DOSE'])
+            # Use a default maximum dose of 80 Gy if MAX_DOSE is not in MODEL_CONFIG
+            max_dose = MODEL_CONFIG.get('MAX_DOSE', 80)
+            return np.clip(dose_pred, 0, max_dose)
             
         except Exception as e:
             print(f"Error in dose scaling: {str(e)}")
@@ -222,8 +216,8 @@ class MultiModelDosePredictionPipeline:
 
             print(f"\nStarting pipeline at {datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC")
             
-            # Update model order to include dense_u_net
-            model_order = ['u_net', 'gan', 'dense_u_net']
+            # Process with all available models in order
+            model_order = AVAILABLE_MODELS
             
             for idx in tqdm(range(number_of_batches), desc="Processing patients"):
                 try:
