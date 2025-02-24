@@ -1,0 +1,20 @@
+2025-02-24 20:40:45,229 - INFO - Starting dose visualization pipeline
+2025-02-24 20:40:45,230 - INFO - 
+Processing patient: pt_241
+2025-02-24 20:40:46,328 - INFO - Saved visualization to: ensemble_result/visualizations\pt_241_slice_64_64_64.png
+2025-02-24 20:40:47,225 - INFO - Saved visualization to: ensemble_result/visualizations\pt_241_slice_32_32_32.png
+2025-02-24 20:40:48,122 - INFO - Saved visualization to: ensemble_result/visualizations\pt_241_slice_96_96_96.png
+2025-02-24 20:40:48,131 - INFO - Successfully processed patient pt_241
+2025-02-24 20:40:48,131 - INFO - 
+Processing patient: pt_242
+2025-02-24 20:40:49,056 - INFO - Saved visualization to: ensemble_result/visualizations\pt_242_slice_64_64_64.png
+2025-02-24 20:40:50,086 - INFO - Saved visualization to: ensemble_result/visualizations\pt_242_slice_32_32_32.png
+2025-02-24 20:40:51,041 - INFO - Saved visualization to: ensemble_result/visualizations\pt_242_slice_96_96_96.png
+2025-02-24 20:40:51,051 - INFO - Successfully processed patient pt_242
+2025-02-24 20:40:51,051 - INFO - 
+Visualization Pipeline Summary
+2025-02-24 20:40:51,051 - INFO - ============================
+2025-02-24 20:40:51,053 - INFO - Total patients: 2
+2025-02-24 20:40:51,053 - INFO - Successfully processed: 2
+2025-02-24 20:40:51,053 - INFO - Failed: 0
+2025-02-24 20:40:51,053 - INFO - ============================
