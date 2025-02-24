@@ -61,12 +61,12 @@ def find_patient_dirs(base_dir):
     return patient_dirs
 
 # Paths to the directories containing the predicted dose data
-directories = [
-    'results/dense_u_net_prediction',
-    'results/gan_prediction',
-    'results/res_u_net_prediction',
-    'results/u_net_prediction'
-]
+directories = {
+    'dense_u_net': os.path.join(PATH_CONFIG['OUTPUT_DIR'], 'dense_u_net'),
+    'gan': os.path.join(PATH_CONFIG['OUTPUT_DIR'], 'gan'),
+    'res_u_net': os.path.join(PATH_CONFIG['OUTPUT_DIR'], 'res_u_net'),
+    'u_net': os.path.join(PATH_CONFIG['OUTPUT_DIR'], 'u_net')
+}
 
 # Function to load the true dose data for a specific patient
 def load_true_dose(patient_dir):
@@ -78,31 +78,31 @@ def load_true_dose(patient_dir):
 
 # Base directory containing patient data
 provided_data_dir = os.path.join(PATH_CONFIG['DATA_DIR'], 'provided-data')
-# logger.debug(f"Provided data directory: {provided_data_dir}")
+logger.debug(f"Provided data directory: {provided_data_dir}")
 
 # Recursively find patient directories containing dose.csv
 patient_dirs = find_patient_dirs(provided_data_dir)
-# logger.debug(f"Found patient directories: {patient_dirs}")
+logger.debug(f"Found patient directories: {patient_dirs}")
 
 # Create directory for storing dose scores if it doesn't exist
 output_dir = 'dose_score_results'
 os.makedirs(output_dir, exist_ok=True)
-# logger.info(f"Output directory: {output_dir}")
+logger.info(f"Output directory: {output_dir}")
 
 # Calculate dose scores for each patient
 for patient_dir in patient_dirs:
     patient_id = os.path.basename(patient_dir)
-    # logger.info(f"Processing patient: {patient_id}")
+    logger.info(f"Processing patient: {patient_id}")
 
     try:
         # Load true dose data for the patient
         true_dose = load_true_dose(patient_dir)
-        # logger.debug(f"Loaded true dose data for patient {patient_id}")
+        logger.debug(f"Loaded true dose data for patient {patient_id}")
 
         # Load predictions for the patient from each directory
         all_predictions = []
-        for directory in directories:
-            prediction_file = os.path.join(directory, f'{patient_id}.csv')
+        for model_name, directory in directories.items():
+            prediction_file = os.path.join(directory, f'{patient_id}_dose.csv')
             if os.path.exists(prediction_file):
                 prediction = load_csv(prediction_file)
                 all_predictions.append(prediction)
@@ -115,16 +115,16 @@ for patient_dir in patient_dirs:
 
         # Check and pad predictions
         all_predictions = check_and_pad_predictions(all_predictions)
-        # logger.debug(f"Padded predictions for patient {patient_id}")
+        logger.debug(f"Padded predictions for patient {patient_id}")
 
         # Ensure true dose matches the shape of predictions
         true_dose_shape = true_dose.shape
         all_predictions = [pad_array(pred, true_dose_shape) for pred in all_predictions]
-        # logger.debug(f"Ensured true dose shape matches predictions for patient {patient_id}")
+        logger.debug(f"Ensured true dose shape matches predictions for patient {patient_id}")
 
         # Calculate dose scores
         dose_scores = calculate_dose_scores(true_dose, all_predictions)
-        # logger.debug(f"Calculated dose scores for patient {patient_id}")
+        logger.debug(f"Calculated dose scores for patient {patient_id}")
 
         # Save the dose scores and predictions for ensemble building
         dose_scores_path = f'{output_dir}/{patient_id}_dose_scores.npy'
@@ -135,9 +135,9 @@ for patient_dir in patient_dirs:
         np.save(all_predictions_path, all_predictions)
         np.save(true_dose_path, true_dose)
 
-        # logger.info(f"Dose scores for patient {patient_id} saved at {dose_scores_path}")
-        # logger.info(f"All predictions for patient {patient_id} saved at {all_predictions_path}")
-        # logger.info(f"True dose for patient {patient_id} saved at {true_dose_path}")
+        logger.info(f"Dose scores for patient {patient_id} saved at {dose_scores_path}")
+        logger.info(f"All predictions for patient {patient_id} saved at {all_predictions_path}")
+        logger.info(f"True dose for patient {patient_id} saved at {true_dose_path}")
 
     except Exception as e:
         logger.error(f"Error processing patient {patient_id}: {e}")

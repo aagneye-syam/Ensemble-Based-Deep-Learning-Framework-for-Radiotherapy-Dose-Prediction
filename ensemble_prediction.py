@@ -7,7 +7,7 @@ from sklearn.metrics import mean_absolute_error
 from config import PATH_CONFIG
 
 # Configure metadata
-CURRENT_TIME = "2025-02-02 10:16:41"
+CURRENT_TIME = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 CURRENT_USER = "aagneye-syam"
 
 # Configure logging with timestamp
@@ -191,10 +191,10 @@ def main():
     
     # Model configurations
     model_configs = {
-        'dense_u_net': 'results/dense_u_net_prediction',
-        'gan': 'results/gan_prediction',
-        'res_u_net': 'results/res_u_net_prediction',
-        'u_net': 'results/u_net_prediction'
+        'dense_u_net': os.path.join(PATH_CONFIG['OUTPUT_DIR'], 'dense_u_net'),
+        'gan': os.path.join(PATH_CONFIG['OUTPUT_DIR'], 'gan'),
+        'res_u_net': os.path.join(PATH_CONFIG['OUTPUT_DIR'], 'res_u_net'),
+        'u_net': os.path.join(PATH_CONFIG['OUTPUT_DIR'], 'u_net')
     }
     
     # Find patient directories
@@ -227,7 +227,7 @@ def main():
             model_names = []
             
             for model_name, pred_dir in model_configs.items():
-                pred_path = os.path.join(pred_dir, f'{patient_id}.csv')
+                pred_path = os.path.join(pred_dir, f'{patient_id}_dose.csv')
                 if os.path.exists(pred_path):
                     pred_dose = load_dose_file(pred_path)
                     if pred_dose is not None:

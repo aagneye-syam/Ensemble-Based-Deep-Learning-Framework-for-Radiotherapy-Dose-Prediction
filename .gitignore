@@ -10,3 +10,4 @@ dense_u_net_prediction/
 gan_prediction/
 u_net_prediction/
 dose_score_results/
+ensemble_result/
