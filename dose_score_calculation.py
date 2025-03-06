@@ -1,145 +1,210 @@
+"""
+Dose Score Calculation Script
+Created: 2025-03-06 17:02:10 UTC
+Author: aagneye-syam
+"""
+
 import os
 import pandas as pd
 import numpy as np
 import logging
+import sys
 from sklearn.metrics import mean_absolute_error
-from config import PATH_CONFIG
+from config import PATH_CONFIG, ROI_CONFIG
+from datetime import datetime
 
 # Configure logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(sys.stdout),
+        logging.FileHandler('dose_calculation.log')
+    ]
+)
 logger = logging.getLogger(__name__)
 
-def load_csv(file_path):
-    """Load dose data from a CSV file."""
-    logger.debug(f"Loading CSV file from {file_path}")
-    return pd.read_csv(file_path).values
+# Current execution information
+CURRENT_TIME = datetime.strptime("2025-03-06 17:02:10", "%Y-%m-%d %H:%M:%S")
+CURRENT_USER = "aagneye-syam"
 
-def load_predictions_from_directory(directory):
-    """Load all CSV files from a directory."""
-    predictions = []
-    for file_name in os.listdir(directory):
-        if file_name.endswith('.csv'):
-            file_path = os.path.join(directory, file_name)
-            predictions.append(load_csv(file_path))
-    return predictions
-
-def pad_array(array, target_shape):
-    """Pad an array to the target shape with zeros."""
-    result = np.zeros(target_shape)
-    result[:array.shape[0], :array.shape[1]] = array
-    return result
-
-def check_and_pad_predictions(predictions):
-    """Check and pad predictions to ensure consistent shape."""
-    # Find the maximum shape among the predictions
-    if not predictions:
-        logger.warning("No predictions to pad.")
-        return []
-    
-    max_shape = tuple(np.max([pred.shape for pred in predictions], axis=0))
-    logger.debug(f"Max shape for padding: {max_shape}")
-    
-    # Pad all predictions to the maximum shape
-    padded_predictions = [pad_array(pred, max_shape) for pred in predictions]
-    
-    return padded_predictions
-
-def calculate_dose_scores(true_dose, predictions):
-    """Calculate dose scores (mean absolute error) for each prediction."""
-    errors = []
-    for prediction in predictions:
-        mae = mean_absolute_error(true_dose.flatten(), prediction.flatten())
-        errors.append(mae)
-    return errors
-
-def find_patient_dirs(base_dir):
-    """Recursively find all directories containing dose.csv."""
-    patient_dirs = []
-    for root, dirs, files in os.walk(base_dir):
-        if 'dose.csv' in files:
-            patient_dirs.append(root)
-    return patient_dirs
-
-# Paths to the directories containing the predicted dose data
-directories = {
-    'dense_u_net': os.path.join(PATH_CONFIG['OUTPUT_DIR'], 'dense_u_net'),
-    'gan': os.path.join(PATH_CONFIG['OUTPUT_DIR'], 'gan'),
-    'res_u_net': os.path.join(PATH_CONFIG['OUTPUT_DIR'], 'res_u_net'),
-    'u_net': os.path.join(PATH_CONFIG['OUTPUT_DIR'], 'u_net')
-}
-
-# Function to load the true dose data for a specific patient
-def load_true_dose(patient_dir):
-    true_dose_file_path = os.path.join(patient_dir, 'dose.csv')
-    if os.path.exists(true_dose_file_path):
-        return load_csv(true_dose_file_path)
-    else:
-        raise FileNotFoundError(f"True dose file {true_dose_file_path} does not exist.")
-
-# Base directory containing patient data
-provided_data_dir = os.path.join(PATH_CONFIG['DATA_DIR'], 'provided-data')
-logger.debug(f"Provided data directory: {provided_data_dir}")
-
-# Recursively find patient directories containing dose.csv
-patient_dirs = find_patient_dirs(provided_data_dir)
-logger.debug(f"Found patient directories: {patient_dirs}")
-
-# Create directory for storing dose scores if it doesn't exist
-output_dir = 'dose_score_results'
-os.makedirs(output_dir, exist_ok=True)
-logger.info(f"Output directory: {output_dir}")
-
-# Calculate dose scores for each patient
-for patient_dir in patient_dirs:
-    patient_id = os.path.basename(patient_dir)
-    logger.info(f"Processing patient: {patient_id}")
-
+def load_dose_file(file_path):
+    """Load dose data from CSV file."""
     try:
-        # Load true dose data for the patient
-        true_dose = load_true_dose(patient_dir)
-        logger.debug(f"Loaded true dose data for patient {patient_id}")
+        logger.info(f"Loading file: {file_path}")
+        df = pd.read_csv(file_path)
+        dose_array = np.zeros((128 * 128 * 128,))
+        
+        if 'Unnamed: 0' in df.columns:
+            indices = df['Unnamed: 0'].values
+            data = df['data'].values if 'data' in df.columns else df.iloc[:, 1].values
+        else:
+            indices = df.index.values
+            data = df.iloc[:, 0].values if 'data' not in df.columns else df['data'].values
+            
+        dose_array[indices] = data
+        logger.info(f"Successfully loaded {len(indices)} non-zero values from {file_path}")
+        return dose_array.reshape((128, 128, 128))
+    except Exception as e:
+        logger.error(f"Error loading {file_path}: {str(e)}")
+        raise
 
-        # Load predictions for the patient from each directory
-        all_predictions = []
-        for model_name, directory in directories.items():
-            prediction_file = os.path.join(directory, f'{patient_id}_dose.csv')
-            if os.path.exists(prediction_file):
-                prediction = load_csv(prediction_file)
-                all_predictions.append(prediction)
-            else:
-                logger.warning(f"Prediction file {prediction_file} does not exist.")
+def calculate_dvh_score(true_dose, prediction):
+    """Calculate DVH score."""
+    def calculate_dvh(dose):
+        hist, bin_edges = np.histogram(dose.flatten(), bins=100, range=(0, dose.max()))
+        dvh = np.cumsum(hist[::-1])[::-1] / hist.sum()
+        return bin_edges[1:], dvh
 
-        if not all_predictions:
-            logger.warning(f"No predictions found for patient {patient_id}")
+    true_dose_bins, true_dvh = calculate_dvh(true_dose)
+    pred_dose_bins, pred_dvh = calculate_dvh(prediction)
+    return np.trapz(np.abs(true_dvh - pred_dvh), true_dose_bins)
+
+def main():
+    """Main execution function"""
+    print(f"\nDose Score Calculation")
+    print(f"====================")
+    print(f"Started at: {CURRENT_TIME}")
+    print(f"User: {CURRENT_USER}")
+    print("====================\n")
+
+    # Directories setup
+    test_pats_dir = os.path.join(PATH_CONFIG['DATA_DIR'], 'provided-data', 'test-pats')
+    model_dirs = {
+        'dense_u_net': os.path.join('results', 'dense_u_net'),
+        'gan': os.path.join('results', 'gan'),
+        'res_u_net': os.path.join('results', 'res_u_net'),
+        'u_net': os.path.join('results', 'u_net')
+    }
+    
+    # Create dose_score_results directory in root
+    output_dir = 'dose_score_results'
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Score tracking
+    scores = {model: {'dose': [], 'dvh': []} for model in model_dirs}
+    all_scores = {'dose': [], 'dvh': []}
+    stats = {
+        'total_patients': 0,
+        'processed': 0,
+        'errors': []
+    }
+
+    # Process each patient
+    patient_dirs = [d for d in os.listdir(test_pats_dir) if d.startswith('pt_')]
+    stats['total_patients'] = len(patient_dirs)
+    logger.info(f"Found {len(patient_dirs)} patients to process")
+
+    for patient_id in sorted(patient_dirs):
+        logger.info(f"\nProcessing patient: {patient_id}")
+        try:
+            # Load true dose
+            true_dose_path = os.path.join(test_pats_dir, patient_id, 'dose.csv')
+            true_dose = load_dose_file(true_dose_path)
+
+            # Process each model's prediction
+            patient_predictions = {}
+            for model_name, model_dir in model_dirs.items():
+                pred_path = os.path.join(model_dir, f'{patient_id}.csv')
+                if os.path.exists(pred_path):
+                    try:
+                        prediction = load_dose_file(pred_path)
+                        
+                        # Calculate scores
+                        mae = mean_absolute_error(true_dose.flatten(), prediction.flatten())
+                        dvh = calculate_dvh_score(true_dose, prediction)
+                        
+                        # Store scores
+                        scores[model_name]['dose'].append(mae)
+                        scores[model_name]['dvh'].append(dvh)
+                        all_scores['dose'].append(mae)
+                        all_scores['dvh'].append(dvh)
+                        
+                        patient_predictions[model_name] = {
+                            'mae': mae,
+                            'dvh': dvh
+                        }
+                        
+                        logger.info(f"{model_name} scores - MAE: {mae:.6f}, DVH: {dvh:.6f}")
+                    except Exception as e:
+                        logger.error(f"Error processing {model_name} prediction: {str(e)}")
+                else:
+                    logger.warning(f"No prediction found for {model_name}")
+
+            if patient_predictions:
+                stats['processed'] += 1
+                
+                # Save patient scores
+                patient_results_path = os.path.join(output_dir, f'{patient_id}_scores.txt')
+                with open(patient_results_path, 'w') as f:
+                    f.write(f"Patient: {patient_id}\n")
+                    f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                    f.write("=" * 50 + "\n\n")
+                    for model_name, scores_dict in patient_predictions.items():
+                        f.write(f"{model_name}:\n")
+                        f.write(f"  MAE Score: {scores_dict['mae']:.6f}\n")
+                        f.write(f"  DVH Score: {scores_dict['dvh']:.6f}\n\n")
+
+        except Exception as e:
+            logger.error(f"Error processing patient {patient_id}: {str(e)}")
+            stats['errors'].append(f"{patient_id}: {str(e)}")
             continue
 
-        # Check and pad predictions
-        all_predictions = check_and_pad_predictions(all_predictions)
-        logger.debug(f"Padded predictions for patient {patient_id}")
+    # Calculate and save final results
+    summary_path = os.path.join(output_dir, 'final_results.txt')
+    with open(summary_path, 'w') as f:
+        f.write("Dose Score Calculation Results\n")
+        f.write("=============================\n\n")
+        f.write(f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+        f.write(f"Generated by: {CURRENT_USER}\n\n")
+        
+        f.write("Overall Statistics:\n")
+        f.write("-----------------\n")
+        f.write(f"Total patients: {stats['total_patients']}\n")
+        f.write(f"Successfully processed: {stats['processed']}\n")
+        f.write(f"Success rate: {(stats['processed']/stats['total_patients'])*100:.2f}%\n\n")
+        
+        if all_scores['dose']:
+            f.write("Combined Results (All Models):\n")
+            f.write("--------------------------\n")
+            mean_dose = np.mean(all_scores['dose'])
+            std_dose = np.std(all_scores['dose'])
+            mean_dvh = np.mean(all_scores['dvh'])
+            std_dvh = np.std(all_scores['dvh'])
+            f.write(f"Average Dose Score (MAE): {mean_dose:.6f} ± {std_dose:.6f}\n")
+            f.write(f"Average DVH Score: {mean_dvh:.6f} ± {std_dvh:.6f}\n\n")
+            
+            # Print to console as well
+            print(f"\nOverall Results:")
+            print(f"Average Dose Score (MAE): {mean_dose:.6f} ± {std_dose:.6f}")
+            print(f"Average DVH Score: {mean_dvh:.6f} ± {std_dvh:.6f}")
+        
+        f.write("Individual Model Results:\n")
+        f.write("----------------------\n")
+        for model_name, model_scores in scores.items():
+            if model_scores['dose']:
+                mean_dose = np.mean(model_scores['dose'])
+                std_dose = np.std(model_scores['dose'])
+                mean_dvh = np.mean(model_scores['dvh'])
+                std_dvh = np.std(model_scores['dvh'])
+                
+                f.write(f"\n{model_name}:\n")
+                f.write(f"  Dose Score (MAE): {mean_dose:.6f} ± {std_dose:.6f}\n")
+                f.write(f"  DVH Score: {mean_dvh:.6f} ± {std_dvh:.6f}\n")
+                
+                # Print to console as well
+                print(f"\n{model_name}:")
+                print(f"  Average Dose Score (MAE): {mean_dose:.6f} ± {std_dose:.6f}")
+                print(f"  Average DVH Score: {mean_dvh:.6f} ± {std_dvh:.6f}")
+        
+        if stats['errors']:
+            f.write("\nErrors Encountered:\n")
+            f.write("----------------\n")
+            for error in stats['errors']:
+                f.write(f"- {error}\n")
 
-        # Ensure true dose matches the shape of predictions
-        true_dose_shape = true_dose.shape
-        all_predictions = [pad_array(pred, true_dose_shape) for pred in all_predictions]
-        logger.debug(f"Ensured true dose shape matches predictions for patient {patient_id}")
+    logger.info(f"\nResults saved to {summary_path}")
+    print(f"\nDetailed results saved to {summary_path}")
 
-        # Calculate dose scores
-        dose_scores = calculate_dose_scores(true_dose, all_predictions)
-        logger.debug(f"Calculated dose scores for patient {patient_id}")
-
-        # Save the dose scores and predictions for ensemble building
-        dose_scores_path = f'{output_dir}/{patient_id}_dose_scores.npy'
-        all_predictions_path = f'{output_dir}/{patient_id}_all_predictions.npy'
-        true_dose_path = f'{output_dir}/{patient_id}_true_dose.npy'
-
-        np.save(dose_scores_path, dose_scores)
-        np.save(all_predictions_path, all_predictions)
-        np.save(true_dose_path, true_dose)
-
-        logger.info(f"Dose scores for patient {patient_id} saved at {dose_scores_path}")
-        logger.info(f"All predictions for patient {patient_id} saved at {all_predictions_path}")
-        logger.info(f"True dose for patient {patient_id} saved at {true_dose_path}")
-
-    except Exception as e:
-        logger.error(f"Error processing patient {patient_id}: {e}")
-
-logger.info("All dose scores calculated and saved.")
+if __name__ == "__main__":
+    main()

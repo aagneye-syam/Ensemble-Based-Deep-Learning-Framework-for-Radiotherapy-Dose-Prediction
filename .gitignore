@@ -11,3 +11,6 @@ gan_prediction/
 u_net_prediction/
 dose_score_results/
 ensemble_result/
+
+debug_paths.py
+calculate.py

@@ -1,0 +1,1603 @@
+2025-03-06 22:34:12,197 - INFO - Found 100 patients to process
+2025-03-06 22:34:12,198 - INFO - 
+Processing patient: pt_241
+2025-03-06 22:34:12,198 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_241\dose.csv
+2025-03-06 22:34:12,238 - INFO - Successfully loaded 232686 non-zero values from open-kbp-master\provided-data\test-pats\pt_241\dose.csv
+2025-03-06 22:34:12,239 - INFO - Loading file: results\dense_u_net\pt_241.csv
+2025-03-06 22:34:12,291 - INFO - Successfully loaded 223439 non-zero values from results\dense_u_net\pt_241.csv
+2025-03-06 22:34:12,356 - INFO - dense_u_net scores - MAE: 0.308073, DVH: 0.068146
+2025-03-06 22:34:12,358 - INFO - Loading file: results\gan\pt_241.csv
+2025-03-06 22:34:12,410 - INFO - Successfully loaded 219627 non-zero values from results\gan\pt_241.csv
+2025-03-06 22:34:12,468 - INFO - gan scores - MAE: 0.316842, DVH: 0.348000
+2025-03-06 22:34:12,469 - INFO - Loading file: results\res_u_net\pt_241.csv
+2025-03-06 22:34:12,517 - INFO - Successfully loaded 220142 non-zero values from results\res_u_net\pt_241.csv
+2025-03-06 22:34:12,574 - INFO - res_u_net scores - MAE: 0.342710, DVH: 0.085470
+2025-03-06 22:34:12,575 - INFO - Loading file: results\u_net\pt_241.csv
+2025-03-06 22:34:12,624 - INFO - Successfully loaded 223341 non-zero values from results\u_net\pt_241.csv
+2025-03-06 22:34:12,684 - INFO - u_net scores - MAE: 0.319420, DVH: 0.063391
+2025-03-06 22:34:12,687 - INFO - 
+Processing patient: pt_242
+2025-03-06 22:34:12,687 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_242\dose.csv
+2025-03-06 22:34:12,714 - INFO - Successfully loaded 186083 non-zero values from open-kbp-master\provided-data\test-pats\pt_242\dose.csv
+2025-03-06 22:34:12,716 - INFO - Loading file: results\dense_u_net\pt_242.csv
+2025-03-06 22:34:12,746 - INFO - Successfully loaded 128930 non-zero values from results\dense_u_net\pt_242.csv
+2025-03-06 22:34:12,809 - INFO - dense_u_net scores - MAE: 0.175378, DVH: 0.051963
+2025-03-06 22:34:12,809 - INFO - Loading file: results\gan\pt_242.csv
+2025-03-06 22:34:12,835 - INFO - Successfully loaded 116565 non-zero values from results\gan\pt_242.csv
+2025-03-06 22:34:12,894 - INFO - gan scores - MAE: 0.199781, DVH: 0.168704
+2025-03-06 22:34:12,895 - INFO - Loading file: results\res_u_net\pt_242.csv
+2025-03-06 22:34:12,921 - INFO - Successfully loaded 113388 non-zero values from results\res_u_net\pt_242.csv
+2025-03-06 22:34:12,980 - INFO - res_u_net scores - MAE: 0.194811, DVH: 0.094387
+2025-03-06 22:34:12,981 - INFO - Loading file: results\u_net\pt_242.csv
+2025-03-06 22:34:13,009 - INFO - Successfully loaded 120931 non-zero values from results\u_net\pt_242.csv
+2025-03-06 22:34:13,068 - INFO - u_net scores - MAE: 0.203054, DVH: 0.084816
+2025-03-06 22:34:13,070 - INFO - 
+Processing patient: pt_243
+2025-03-06 22:34:13,070 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_243\dose.csv
+2025-03-06 22:34:13,082 - INFO - Successfully loaded 80148 non-zero values from open-kbp-master\provided-data\test-pats\pt_243\dose.csv
+2025-03-06 22:34:13,084 - INFO - Loading file: results\dense_u_net\pt_243.csv
+2025-03-06 22:34:13,102 - INFO - Successfully loaded 80075 non-zero values from results\dense_u_net\pt_243.csv
+2025-03-06 22:34:13,167 - INFO - dense_u_net scores - MAE: 0.169368, DVH: 0.039821
+2025-03-06 22:34:13,167 - INFO - Loading file: results\gan\pt_243.csv
+2025-03-06 22:34:13,187 - INFO - Successfully loaded 79976 non-zero values from results\gan\pt_243.csv
+2025-03-06 22:34:13,253 - INFO - gan scores - MAE: 0.166550, DVH: 0.198684
+2025-03-06 22:34:13,254 - INFO - Loading file: results\res_u_net\pt_243.csv
+2025-03-06 22:34:13,273 - INFO - Successfully loaded 79867 non-zero values from results\res_u_net\pt_243.csv
+2025-03-06 22:34:13,332 - INFO - res_u_net scores - MAE: 0.201673, DVH: 0.052336
+2025-03-06 22:34:13,333 - INFO - Loading file: results\u_net\pt_243.csv
+2025-03-06 22:34:13,351 - INFO - Successfully loaded 80014 non-zero values from results\u_net\pt_243.csv
+2025-03-06 22:34:13,407 - INFO - u_net scores - MAE: 0.170626, DVH: 0.033816
+2025-03-06 22:34:13,408 - INFO - 
+Processing patient: pt_244
+2025-03-06 22:34:13,408 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_244\dose.csv
+2025-03-06 22:34:13,442 - INFO - Successfully loaded 234486 non-zero values from open-kbp-master\provided-data\test-pats\pt_244\dose.csv
+2025-03-06 22:34:13,443 - INFO - Loading file: results\dense_u_net\pt_244.csv
+2025-03-06 22:34:13,484 - INFO - Successfully loaded 173801 non-zero values from results\dense_u_net\pt_244.csv
+2025-03-06 22:34:13,538 - INFO - dense_u_net scores - MAE: 0.335168, DVH: 0.164577
+2025-03-06 22:34:13,539 - INFO - Loading file: results\gan\pt_244.csv
+2025-03-06 22:34:13,578 - INFO - Successfully loaded 165950 non-zero values from results\gan\pt_244.csv
+2025-03-06 22:34:13,633 - INFO - gan scores - MAE: 0.296690, DVH: 0.452913
+2025-03-06 22:34:13,633 - INFO - Loading file: results\res_u_net\pt_244.csv
+2025-03-06 22:34:13,672 - INFO - Successfully loaded 171661 non-zero values from results\res_u_net\pt_244.csv
+2025-03-06 22:34:13,727 - INFO - res_u_net scores - MAE: 0.338914, DVH: 0.235578
+2025-03-06 22:34:13,728 - INFO - Loading file: results\u_net\pt_244.csv
+2025-03-06 22:34:13,769 - INFO - Successfully loaded 180284 non-zero values from results\u_net\pt_244.csv
+2025-03-06 22:34:13,823 - INFO - u_net scores - MAE: 0.322811, DVH: 0.168863
+2025-03-06 22:34:13,827 - INFO - 
+Processing patient: pt_245
+2025-03-06 22:34:13,828 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_245\dose.csv
+2025-03-06 22:34:13,856 - INFO - Successfully loaded 204584 non-zero values from open-kbp-master\provided-data\test-pats\pt_245\dose.csv
+2025-03-06 22:34:13,859 - INFO - Loading file: results\dense_u_net\pt_245.csv
+2025-03-06 22:34:13,901 - INFO - Successfully loaded 185303 non-zero values from results\dense_u_net\pt_245.csv
+2025-03-06 22:34:13,956 - INFO - dense_u_net scores - MAE: 0.349474, DVH: 0.152205
+2025-03-06 22:34:13,957 - INFO - Loading file: results\gan\pt_245.csv
+2025-03-06 22:34:13,997 - INFO - Successfully loaded 182219 non-zero values from results\gan\pt_245.csv
+2025-03-06 22:34:14,050 - INFO - gan scores - MAE: 0.341960, DVH: 0.747902
+2025-03-06 22:34:14,051 - INFO - Loading file: results\res_u_net\pt_245.csv
+2025-03-06 22:34:14,090 - INFO - Successfully loaded 180624 non-zero values from results\res_u_net\pt_245.csv
+2025-03-06 22:34:14,144 - INFO - res_u_net scores - MAE: 0.417383, DVH: 0.285305
+2025-03-06 22:34:14,145 - INFO - Loading file: results\u_net\pt_245.csv
+2025-03-06 22:34:14,185 - INFO - Successfully loaded 185971 non-zero values from results\u_net\pt_245.csv
+2025-03-06 22:34:14,240 - INFO - u_net scores - MAE: 0.373476, DVH: 0.221764
+2025-03-06 22:34:14,241 - INFO - 
+Processing patient: pt_246
+2025-03-06 22:34:14,241 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_246\dose.csv
+2025-03-06 22:34:14,255 - INFO - Successfully loaded 87889 non-zero values from open-kbp-master\provided-data\test-pats\pt_246\dose.csv
+2025-03-06 22:34:14,256 - INFO - Loading file: results\dense_u_net\pt_246.csv
+2025-03-06 22:34:14,274 - INFO - Successfully loaded 79479 non-zero values from results\dense_u_net\pt_246.csv
+2025-03-06 22:34:14,331 - INFO - dense_u_net scores - MAE: 0.155839, DVH: 0.062275
+2025-03-06 22:34:14,332 - INFO - Loading file: results\gan\pt_246.csv
+2025-03-06 22:34:14,348 - INFO - Successfully loaded 76173 non-zero values from results\gan\pt_246.csv
+2025-03-06 22:34:14,402 - INFO - gan scores - MAE: 0.145074, DVH: 0.220522
+2025-03-06 22:34:14,403 - INFO - Loading file: results\res_u_net\pt_246.csv
+2025-03-06 22:34:14,420 - INFO - Successfully loaded 75406 non-zero values from results\res_u_net\pt_246.csv
+2025-03-06 22:34:14,474 - INFO - res_u_net scores - MAE: 0.160873, DVH: 0.041053
+2025-03-06 22:34:14,474 - INFO - Loading file: results\u_net\pt_246.csv
+2025-03-06 22:34:14,490 - INFO - Successfully loaded 77111 non-zero values from results\u_net\pt_246.csv
+2025-03-06 22:34:14,544 - INFO - u_net scores - MAE: 0.162497, DVH: 0.056151
+2025-03-06 22:34:14,547 - INFO - 
+Processing patient: pt_247
+2025-03-06 22:34:14,548 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_247\dose.csv
+2025-03-06 22:34:14,576 - INFO - Successfully loaded 189172 non-zero values from open-kbp-master\provided-data\test-pats\pt_247\dose.csv
+2025-03-06 22:34:14,577 - INFO - Loading file: results\dense_u_net\pt_247.csv
+2025-03-06 22:34:14,608 - INFO - Successfully loaded 135919 non-zero values from results\dense_u_net\pt_247.csv
+2025-03-06 22:34:14,663 - INFO - dense_u_net scores - MAE: 0.233637, DVH: 0.048964
+2025-03-06 22:34:14,663 - INFO - Loading file: results\gan\pt_247.csv
+2025-03-06 22:34:14,691 - INFO - Successfully loaded 127702 non-zero values from results\gan\pt_247.csv
+2025-03-06 22:34:14,746 - INFO - gan scores - MAE: 0.237550, DVH: 0.513764
+2025-03-06 22:34:14,747 - INFO - Loading file: results\res_u_net\pt_247.csv
+2025-03-06 22:34:14,775 - INFO - Successfully loaded 129662 non-zero values from results\res_u_net\pt_247.csv
+2025-03-06 22:34:14,840 - INFO - res_u_net scores - MAE: 0.267024, DVH: 0.094633
+2025-03-06 22:34:14,841 - INFO - Loading file: results\u_net\pt_247.csv
+2025-03-06 22:34:14,873 - INFO - Successfully loaded 135122 non-zero values from results\u_net\pt_247.csv
+2025-03-06 22:34:14,926 - INFO - u_net scores - MAE: 0.262851, DVH: 0.073950
+2025-03-06 22:34:14,929 - INFO - 
+Processing patient: pt_248
+2025-03-06 22:34:14,929 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_248\dose.csv
+2025-03-06 22:34:14,957 - INFO - Successfully loaded 180867 non-zero values from open-kbp-master\provided-data\test-pats\pt_248\dose.csv
+2025-03-06 22:34:14,959 - INFO - Loading file: results\dense_u_net\pt_248.csv
+2025-03-06 22:34:14,993 - INFO - Successfully loaded 149144 non-zero values from results\dense_u_net\pt_248.csv
+2025-03-06 22:34:15,052 - INFO - dense_u_net scores - MAE: 0.197211, DVH: 0.095732
+2025-03-06 22:34:15,052 - INFO - Loading file: results\gan\pt_248.csv
+2025-03-06 22:34:15,083 - INFO - Successfully loaded 139158 non-zero values from results\gan\pt_248.csv
+2025-03-06 22:34:15,138 - INFO - gan scores - MAE: 0.224077, DVH: 0.208240
+2025-03-06 22:34:15,139 - INFO - Loading file: results\res_u_net\pt_248.csv
+2025-03-06 22:34:15,171 - INFO - Successfully loaded 139910 non-zero values from results\res_u_net\pt_248.csv
+2025-03-06 22:34:15,226 - INFO - res_u_net scores - MAE: 0.223466, DVH: 0.129306
+2025-03-06 22:34:15,227 - INFO - Loading file: results\u_net\pt_248.csv
+2025-03-06 22:34:15,259 - INFO - Successfully loaded 149926 non-zero values from results\u_net\pt_248.csv
+2025-03-06 22:34:15,315 - INFO - u_net scores - MAE: 0.213074, DVH: 0.064218
+2025-03-06 22:34:15,317 - INFO - 
+Processing patient: pt_249
+2025-03-06 22:34:15,317 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_249\dose.csv
+2025-03-06 22:34:15,328 - INFO - Successfully loaded 72108 non-zero values from open-kbp-master\provided-data\test-pats\pt_249\dose.csv
+2025-03-06 22:34:15,330 - INFO - Loading file: results\dense_u_net\pt_249.csv
+2025-03-06 22:34:15,347 - INFO - Successfully loaded 72003 non-zero values from results\dense_u_net\pt_249.csv
+2025-03-06 22:34:15,403 - INFO - dense_u_net scores - MAE: 0.139476, DVH: 0.042744
+2025-03-06 22:34:15,404 - INFO - Loading file: results\gan\pt_249.csv
+2025-03-06 22:34:15,420 - INFO - Successfully loaded 71978 non-zero values from results\gan\pt_249.csv
+2025-03-06 22:34:15,476 - INFO - gan scores - MAE: 0.151537, DVH: 0.058837
+2025-03-06 22:34:15,476 - INFO - Loading file: results\res_u_net\pt_249.csv
+2025-03-06 22:34:15,492 - INFO - Successfully loaded 71989 non-zero values from results\res_u_net\pt_249.csv
+2025-03-06 22:34:15,547 - INFO - res_u_net scores - MAE: 0.148682, DVH: 0.044187
+2025-03-06 22:34:15,548 - INFO - Loading file: results\u_net\pt_249.csv
+2025-03-06 22:34:15,564 - INFO - Successfully loaded 71949 non-zero values from results\u_net\pt_249.csv
+2025-03-06 22:34:15,622 - INFO - u_net scores - MAE: 0.142953, DVH: 0.051333
+2025-03-06 22:34:15,623 - INFO - 
+Processing patient: pt_250
+2025-03-06 22:34:15,624 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_250\dose.csv
+2025-03-06 22:34:15,646 - INFO - Successfully loaded 115324 non-zero values from open-kbp-master\provided-data\test-pats\pt_250\dose.csv
+2025-03-06 22:34:15,647 - INFO - Loading file: results\dense_u_net\pt_250.csv
+2025-03-06 22:34:15,668 - INFO - Successfully loaded 82387 non-zero values from results\dense_u_net\pt_250.csv
+2025-03-06 22:34:15,729 - INFO - dense_u_net scores - MAE: 0.128167, DVH: 0.059082
+2025-03-06 22:34:15,729 - INFO - Loading file: results\gan\pt_250.csv
+2025-03-06 22:34:15,748 - INFO - Successfully loaded 78611 non-zero values from results\gan\pt_250.csv
+2025-03-06 22:34:15,803 - INFO - gan scores - MAE: 0.126221, DVH: 0.219037
+2025-03-06 22:34:15,804 - INFO - Loading file: results\res_u_net\pt_250.csv
+2025-03-06 22:34:15,821 - INFO - Successfully loaded 78312 non-zero values from results\res_u_net\pt_250.csv
+2025-03-06 22:34:15,878 - INFO - res_u_net scores - MAE: 0.133124, DVH: 0.057258
+2025-03-06 22:34:15,878 - INFO - Loading file: results\u_net\pt_250.csv
+2025-03-06 22:34:15,899 - INFO - Successfully loaded 82387 non-zero values from results\u_net\pt_250.csv
+2025-03-06 22:34:15,955 - INFO - u_net scores - MAE: 0.118605, DVH: 0.052536
+2025-03-06 22:34:15,956 - INFO - 
+Processing patient: pt_251
+2025-03-06 22:34:15,957 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_251\dose.csv
+2025-03-06 22:34:15,985 - INFO - Successfully loaded 193597 non-zero values from open-kbp-master\provided-data\test-pats\pt_251\dose.csv
+2025-03-06 22:34:15,986 - INFO - Loading file: results\dense_u_net\pt_251.csv
+2025-03-06 22:34:16,029 - INFO - Successfully loaded 189525 non-zero values from results\dense_u_net\pt_251.csv
+2025-03-06 22:34:16,089 - INFO - dense_u_net scores - MAE: 0.357348, DVH: 0.227670
+2025-03-06 22:34:16,089 - INFO - Loading file: results\gan\pt_251.csv
+2025-03-06 22:34:16,130 - INFO - Successfully loaded 184467 non-zero values from results\gan\pt_251.csv
+2025-03-06 22:34:16,185 - INFO - gan scores - MAE: 0.312477, DVH: 0.665710
+2025-03-06 22:34:16,185 - INFO - Loading file: results\res_u_net\pt_251.csv
+2025-03-06 22:34:16,226 - INFO - Successfully loaded 186342 non-zero values from results\res_u_net\pt_251.csv
+2025-03-06 22:34:16,284 - INFO - res_u_net scores - MAE: 0.362371, DVH: 0.242951
+2025-03-06 22:34:16,285 - INFO - Loading file: results\u_net\pt_251.csv
+2025-03-06 22:34:16,328 - INFO - Successfully loaded 190327 non-zero values from results\u_net\pt_251.csv
+2025-03-06 22:34:16,385 - INFO - u_net scores - MAE: 0.321727, DVH: 0.198684
+2025-03-06 22:34:16,387 - INFO - 
+Processing patient: pt_252
+2025-03-06 22:34:16,387 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_252\dose.csv
+2025-03-06 22:34:16,416 - INFO - Successfully loaded 190399 non-zero values from open-kbp-master\provided-data\test-pats\pt_252\dose.csv
+2025-03-06 22:34:16,417 - INFO - Loading file: results\dense_u_net\pt_252.csv
+2025-03-06 22:34:16,458 - INFO - Successfully loaded 188005 non-zero values from results\dense_u_net\pt_252.csv
+2025-03-06 22:34:16,516 - INFO - dense_u_net scores - MAE: 0.323717, DVH: 0.141221
+2025-03-06 22:34:16,517 - INFO - Loading file: results\gan\pt_252.csv
+2025-03-06 22:34:16,559 - INFO - Successfully loaded 185298 non-zero values from results\gan\pt_252.csv
+2025-03-06 22:34:16,617 - INFO - gan scores - MAE: 0.360307, DVH: 0.323520
+2025-03-06 22:34:16,617 - INFO - Loading file: results\res_u_net\pt_252.csv
+2025-03-06 22:34:16,660 - INFO - Successfully loaded 187108 non-zero values from results\res_u_net\pt_252.csv
+2025-03-06 22:34:16,716 - INFO - res_u_net scores - MAE: 0.330742, DVH: 0.180348
+2025-03-06 22:34:16,717 - INFO - Loading file: results\u_net\pt_252.csv
+2025-03-06 22:34:16,759 - INFO - Successfully loaded 188110 non-zero values from results\u_net\pt_252.csv
+2025-03-06 22:34:16,826 - INFO - u_net scores - MAE: 0.306765, DVH: 0.130190
+2025-03-06 22:34:16,829 - INFO - 
+Processing patient: pt_253
+2025-03-06 22:34:16,830 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_253\dose.csv
+2025-03-06 22:34:16,838 - INFO - Successfully loaded 49442 non-zero values from open-kbp-master\provided-data\test-pats\pt_253\dose.csv
+2025-03-06 22:34:16,840 - INFO - Loading file: results\dense_u_net\pt_253.csv
+2025-03-06 22:34:16,851 - INFO - Successfully loaded 48782 non-zero values from results\dense_u_net\pt_253.csv
+2025-03-06 22:34:16,908 - INFO - dense_u_net scores - MAE: 0.092645, DVH: 0.027075
+2025-03-06 22:34:16,909 - INFO - Loading file: results\gan\pt_253.csv
+2025-03-06 22:34:16,920 - INFO - Successfully loaded 48167 non-zero values from results\gan\pt_253.csv
+2025-03-06 22:34:16,973 - INFO - gan scores - MAE: 0.092771, DVH: 0.014884
+2025-03-06 22:34:16,975 - INFO - Loading file: results\res_u_net\pt_253.csv
+2025-03-06 22:34:16,985 - INFO - Successfully loaded 47029 non-zero values from results\res_u_net\pt_253.csv
+2025-03-06 22:34:17,041 - INFO - res_u_net scores - MAE: 0.097661, DVH: 0.037118
+2025-03-06 22:34:17,042 - INFO - Loading file: results\u_net\pt_253.csv
+2025-03-06 22:34:17,053 - INFO - Successfully loaded 48353 non-zero values from results\u_net\pt_253.csv
+2025-03-06 22:34:17,108 - INFO - u_net scores - MAE: 0.097143, DVH: 0.023045
+2025-03-06 22:34:17,111 - INFO - 
+Processing patient: pt_254
+2025-03-06 22:34:17,111 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_254\dose.csv
+2025-03-06 22:34:17,119 - INFO - Successfully loaded 41988 non-zero values from open-kbp-master\provided-data\test-pats\pt_254\dose.csv
+2025-03-06 22:34:17,121 - INFO - Loading file: results\dense_u_net\pt_254.csv
+2025-03-06 22:34:17,131 - INFO - Successfully loaded 41974 non-zero values from results\dense_u_net\pt_254.csv
+2025-03-06 22:34:17,193 - INFO - dense_u_net scores - MAE: 0.074676, DVH: 0.020071
+2025-03-06 22:34:17,194 - INFO - Loading file: results\gan\pt_254.csv
+2025-03-06 22:34:17,203 - INFO - Successfully loaded 41908 non-zero values from results\gan\pt_254.csv
+2025-03-06 22:34:17,260 - INFO - gan scores - MAE: 0.082201, DVH: 0.033319
+2025-03-06 22:34:17,260 - INFO - Loading file: results\res_u_net\pt_254.csv
+2025-03-06 22:34:17,270 - INFO - Successfully loaded 41856 non-zero values from results\res_u_net\pt_254.csv
+2025-03-06 22:34:17,325 - INFO - res_u_net scores - MAE: 0.092376, DVH: 0.059676
+2025-03-06 22:34:17,326 - INFO - Loading file: results\u_net\pt_254.csv
+2025-03-06 22:34:17,337 - INFO - Successfully loaded 41905 non-zero values from results\u_net\pt_254.csv
+2025-03-06 22:34:17,391 - INFO - u_net scores - MAE: 0.075081, DVH: 0.018001
+2025-03-06 22:34:17,393 - INFO - 
+Processing patient: pt_255
+2025-03-06 22:34:17,393 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_255\dose.csv
+2025-03-06 22:34:17,423 - INFO - Successfully loaded 210987 non-zero values from open-kbp-master\provided-data\test-pats\pt_255\dose.csv
+2025-03-06 22:34:17,425 - INFO - Loading file: results\dense_u_net\pt_255.csv
+2025-03-06 22:34:17,470 - INFO - Successfully loaded 205760 non-zero values from results\dense_u_net\pt_255.csv
+2025-03-06 22:34:17,526 - INFO - dense_u_net scores - MAE: 0.359396, DVH: 0.070546
+2025-03-06 22:34:17,526 - INFO - Loading file: results\gan\pt_255.csv
+2025-03-06 22:34:17,570 - INFO - Successfully loaded 201796 non-zero values from results\gan\pt_255.csv
+2025-03-06 22:34:17,625 - INFO - gan scores - MAE: 0.321703, DVH: 0.110715
+2025-03-06 22:34:17,625 - INFO - Loading file: results\res_u_net\pt_255.csv
+2025-03-06 22:34:17,670 - INFO - Successfully loaded 203993 non-zero values from results\res_u_net\pt_255.csv
+2025-03-06 22:34:17,728 - INFO - res_u_net scores - MAE: 0.374676, DVH: 0.074832
+2025-03-06 22:34:17,729 - INFO - Loading file: results\u_net\pt_255.csv
+2025-03-06 22:34:17,773 - INFO - Successfully loaded 206425 non-zero values from results\u_net\pt_255.csv
+2025-03-06 22:34:17,831 - INFO - u_net scores - MAE: 0.351891, DVH: 0.074534
+2025-03-06 22:34:17,832 - INFO - 
+Processing patient: pt_256
+2025-03-06 22:34:17,832 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_256\dose.csv
+2025-03-06 22:34:17,856 - INFO - Successfully loaded 152551 non-zero values from open-kbp-master\provided-data\test-pats\pt_256\dose.csv
+2025-03-06 22:34:17,857 - INFO - Loading file: results\dense_u_net\pt_256.csv
+2025-03-06 22:34:17,882 - INFO - Successfully loaded 101554 non-zero values from results\dense_u_net\pt_256.csv
+2025-03-06 22:34:17,938 - INFO - dense_u_net scores - MAE: 0.156646, DVH: 0.057738
+2025-03-06 22:34:17,939 - INFO - Loading file: results\gan\pt_256.csv
+2025-03-06 22:34:17,961 - INFO - Successfully loaded 96957 non-zero values from results\gan\pt_256.csv
+2025-03-06 22:34:18,018 - INFO - gan scores - MAE: 0.158180, DVH: 0.056720
+2025-03-06 22:34:18,018 - INFO - Loading file: results\res_u_net\pt_256.csv
+2025-03-06 22:34:18,041 - INFO - Successfully loaded 97927 non-zero values from results\res_u_net\pt_256.csv
+2025-03-06 22:34:18,099 - INFO - res_u_net scores - MAE: 0.174916, DVH: 0.066517
+2025-03-06 22:34:18,100 - INFO - Loading file: results\u_net\pt_256.csv
+2025-03-06 22:34:18,124 - INFO - Successfully loaded 102387 non-zero values from results\u_net\pt_256.csv
+2025-03-06 22:34:18,182 - INFO - u_net scores - MAE: 0.163130, DVH: 0.037816
+2025-03-06 22:34:18,183 - INFO - 
+Processing patient: pt_257
+2025-03-06 22:34:18,183 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_257\dose.csv
+2025-03-06 22:34:18,212 - INFO - Successfully loaded 182822 non-zero values from open-kbp-master\provided-data\test-pats\pt_257\dose.csv
+2025-03-06 22:34:18,213 - INFO - Loading file: results\dense_u_net\pt_257.csv
+2025-03-06 22:34:18,254 - INFO - Successfully loaded 180391 non-zero values from results\dense_u_net\pt_257.csv
+2025-03-06 22:34:18,311 - INFO - dense_u_net scores - MAE: 0.274469, DVH: 0.120597
+2025-03-06 22:34:18,312 - INFO - Loading file: results\gan\pt_257.csv
+2025-03-06 22:34:18,351 - INFO - Successfully loaded 173907 non-zero values from results\gan\pt_257.csv
+2025-03-06 22:34:18,406 - INFO - gan scores - MAE: 0.273175, DVH: 0.352214
+2025-03-06 22:34:18,406 - INFO - Loading file: results\res_u_net\pt_257.csv
+2025-03-06 22:34:18,450 - INFO - Successfully loaded 177295 non-zero values from results\res_u_net\pt_257.csv
+2025-03-06 22:34:18,510 - INFO - res_u_net scores - MAE: 0.302304, DVH: 0.186852
+2025-03-06 22:34:18,511 - INFO - Loading file: results\u_net\pt_257.csv
+2025-03-06 22:34:18,549 - INFO - Successfully loaded 180786 non-zero values from results\u_net\pt_257.csv
+2025-03-06 22:34:18,606 - INFO - u_net scores - MAE: 0.269477, DVH: 0.186409
+2025-03-06 22:34:18,608 - INFO - 
+Processing patient: pt_258
+2025-03-06 22:34:18,608 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_258\dose.csv
+2025-03-06 22:34:18,619 - INFO - Successfully loaded 61395 non-zero values from open-kbp-master\provided-data\test-pats\pt_258\dose.csv
+2025-03-06 22:34:18,620 - INFO - Loading file: results\dense_u_net\pt_258.csv
+2025-03-06 22:34:18,632 - INFO - Successfully loaded 47362 non-zero values from results\dense_u_net\pt_258.csv
+2025-03-06 22:34:18,689 - INFO - dense_u_net scores - MAE: 0.067647, DVH: 0.030193
+2025-03-06 22:34:18,690 - INFO - Loading file: results\gan\pt_258.csv
+2025-03-06 22:34:18,701 - INFO - Successfully loaded 46321 non-zero values from results\gan\pt_258.csv
+2025-03-06 22:34:18,757 - INFO - gan scores - MAE: 0.075356, DVH: 0.149644
+2025-03-06 22:34:18,757 - INFO - Loading file: results\res_u_net\pt_258.csv
+2025-03-06 22:34:18,768 - INFO - Successfully loaded 45682 non-zero values from results\res_u_net\pt_258.csv
+2025-03-06 22:34:18,827 - INFO - res_u_net scores - MAE: 0.077667, DVH: 0.062010
+2025-03-06 22:34:18,827 - INFO - Loading file: results\u_net\pt_258.csv
+2025-03-06 22:34:18,839 - INFO - Successfully loaded 46640 non-zero values from results\u_net\pt_258.csv
+2025-03-06 22:34:18,894 - INFO - u_net scores - MAE: 0.071970, DVH: 0.036453
+2025-03-06 22:34:18,897 - INFO - 
+Processing patient: pt_259
+2025-03-06 22:34:18,898 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_259\dose.csv
+2025-03-06 22:34:18,931 - INFO - Successfully loaded 235448 non-zero values from open-kbp-master\provided-data\test-pats\pt_259\dose.csv
+2025-03-06 22:34:18,933 - INFO - Loading file: results\dense_u_net\pt_259.csv
+2025-03-06 22:34:18,979 - INFO - Successfully loaded 215308 non-zero values from results\dense_u_net\pt_259.csv
+2025-03-06 22:34:19,036 - INFO - dense_u_net scores - MAE: 0.251496, DVH: 0.057499
+2025-03-06 22:34:19,036 - INFO - Loading file: results\gan\pt_259.csv
+2025-03-06 22:34:19,080 - INFO - Successfully loaded 208683 non-zero values from results\gan\pt_259.csv
+2025-03-06 22:34:19,136 - INFO - gan scores - MAE: 0.268808, DVH: 0.132934
+2025-03-06 22:34:19,137 - INFO - Loading file: results\res_u_net\pt_259.csv
+2025-03-06 22:34:19,182 - INFO - Successfully loaded 211949 non-zero values from results\res_u_net\pt_259.csv
+2025-03-06 22:34:19,237 - INFO - res_u_net scores - MAE: 0.305849, DVH: 0.070283
+2025-03-06 22:34:19,238 - INFO - Loading file: results\u_net\pt_259.csv
+2025-03-06 22:34:19,285 - INFO - Successfully loaded 220493 non-zero values from results\u_net\pt_259.csv
+2025-03-06 22:34:19,342 - INFO - u_net scores - MAE: 0.290996, DVH: 0.085572
+2025-03-06 22:34:19,343 - INFO - 
+Processing patient: pt_260
+2025-03-06 22:34:19,343 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_260\dose.csv
+2025-03-06 22:34:19,367 - INFO - Successfully loaded 143378 non-zero values from open-kbp-master\provided-data\test-pats\pt_260\dose.csv
+2025-03-06 22:34:19,368 - INFO - Loading file: results\dense_u_net\pt_260.csv
+2025-03-06 22:34:19,393 - INFO - Successfully loaded 100835 non-zero values from results\dense_u_net\pt_260.csv
+2025-03-06 22:34:19,452 - INFO - dense_u_net scores - MAE: 0.217712, DVH: 0.058021
+2025-03-06 22:34:19,453 - INFO - Loading file: results\gan\pt_260.csv
+2025-03-06 22:34:19,476 - INFO - Successfully loaded 97029 non-zero values from results\gan\pt_260.csv
+2025-03-06 22:34:19,533 - INFO - gan scores - MAE: 0.228564, DVH: 0.276758
+2025-03-06 22:34:19,533 - INFO - Loading file: results\res_u_net\pt_260.csv
+2025-03-06 22:34:19,556 - INFO - Successfully loaded 98116 non-zero values from results\res_u_net\pt_260.csv
+2025-03-06 22:34:19,615 - INFO - res_u_net scores - MAE: 0.239169, DVH: 0.059787
+2025-03-06 22:34:19,615 - INFO - Loading file: results\u_net\pt_260.csv
+2025-03-06 22:34:19,639 - INFO - Successfully loaded 102513 non-zero values from results\u_net\pt_260.csv
+2025-03-06 22:34:19,698 - INFO - u_net scores - MAE: 0.229283, DVH: 0.065321
+2025-03-06 22:34:19,699 - INFO - 
+Processing patient: pt_261
+2025-03-06 22:34:19,700 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_261\dose.csv
+2025-03-06 22:34:19,713 - INFO - Successfully loaded 87374 non-zero values from open-kbp-master\provided-data\test-pats\pt_261\dose.csv
+2025-03-06 22:34:19,714 - INFO - Loading file: results\dense_u_net\pt_261.csv
+2025-03-06 22:34:19,734 - INFO - Successfully loaded 87341 non-zero values from results\dense_u_net\pt_261.csv
+2025-03-06 22:34:19,795 - INFO - dense_u_net scores - MAE: 0.168419, DVH: 0.035244
+2025-03-06 22:34:19,795 - INFO - Loading file: results\gan\pt_261.csv
+2025-03-06 22:34:19,815 - INFO - Successfully loaded 86866 non-zero values from results\gan\pt_261.csv
+2025-03-06 22:34:19,871 - INFO - gan scores - MAE: 0.176363, DVH: 0.085361
+2025-03-06 22:34:19,872 - INFO - Loading file: results\res_u_net\pt_261.csv
+2025-03-06 22:34:19,892 - INFO - Successfully loaded 86590 non-zero values from results\res_u_net\pt_261.csv
+2025-03-06 22:34:19,949 - INFO - res_u_net scores - MAE: 0.212946, DVH: 0.102002
+2025-03-06 22:34:19,950 - INFO - Loading file: results\u_net\pt_261.csv
+2025-03-06 22:34:19,970 - INFO - Successfully loaded 86814 non-zero values from results\u_net\pt_261.csv
+2025-03-06 22:34:20,026 - INFO - u_net scores - MAE: 0.170126, DVH: 0.069281
+2025-03-06 22:34:20,027 - INFO - 
+Processing patient: pt_262
+2025-03-06 22:34:20,028 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_262\dose.csv
+2025-03-06 22:34:20,060 - INFO - Successfully loaded 227533 non-zero values from open-kbp-master\provided-data\test-pats\pt_262\dose.csv
+2025-03-06 22:34:20,062 - INFO - Loading file: results\dense_u_net\pt_262.csv
+2025-03-06 22:34:20,108 - INFO - Successfully loaded 202976 non-zero values from results\dense_u_net\pt_262.csv
+2025-03-06 22:34:20,167 - INFO - dense_u_net scores - MAE: 0.354146, DVH: 0.115978
+2025-03-06 22:34:20,168 - INFO - Loading file: results\gan\pt_262.csv
+2025-03-06 22:34:20,209 - INFO - Successfully loaded 189697 non-zero values from results\gan\pt_262.csv
+2025-03-06 22:34:20,265 - INFO - gan scores - MAE: 0.387543, DVH: 0.374649
+2025-03-06 22:34:20,265 - INFO - Loading file: results\res_u_net\pt_262.csv
+2025-03-06 22:34:20,309 - INFO - Successfully loaded 194403 non-zero values from results\res_u_net\pt_262.csv
+2025-03-06 22:34:20,367 - INFO - res_u_net scores - MAE: 0.393606, DVH: 0.203479
+2025-03-06 22:34:20,368 - INFO - Loading file: results\u_net\pt_262.csv
+2025-03-06 22:34:20,412 - INFO - Successfully loaded 203479 non-zero values from results\u_net\pt_262.csv
+2025-03-06 22:34:20,469 - INFO - u_net scores - MAE: 0.366668, DVH: 0.161515
+2025-03-06 22:34:20,470 - INFO - 
+Processing patient: pt_263
+2025-03-06 22:34:20,471 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_263\dose.csv
+2025-03-06 22:34:20,493 - INFO - Successfully loaded 143252 non-zero values from open-kbp-master\provided-data\test-pats\pt_263\dose.csv
+2025-03-06 22:34:20,495 - INFO - Loading file: results\dense_u_net\pt_263.csv
+2025-03-06 22:34:20,519 - INFO - Successfully loaded 104441 non-zero values from results\dense_u_net\pt_263.csv
+2025-03-06 22:34:20,578 - INFO - dense_u_net scores - MAE: 0.180947, DVH: 0.056730
+2025-03-06 22:34:20,579 - INFO - Loading file: results\gan\pt_263.csv
+2025-03-06 22:34:20,601 - INFO - Successfully loaded 100538 non-zero values from results\gan\pt_263.csv
+2025-03-06 22:34:20,657 - INFO - gan scores - MAE: 0.177766, DVH: 0.119633
+2025-03-06 22:34:20,657 - INFO - Loading file: results\res_u_net\pt_263.csv
+2025-03-06 22:34:20,680 - INFO - Successfully loaded 101515 non-zero values from results\res_u_net\pt_263.csv
+2025-03-06 22:34:20,739 - INFO - res_u_net scores - MAE: 0.200633, DVH: 0.073992
+2025-03-06 22:34:20,739 - INFO - Loading file: results\u_net\pt_263.csv
+2025-03-06 22:34:20,765 - INFO - Successfully loaded 109025 non-zero values from results\u_net\pt_263.csv
+2025-03-06 22:34:20,823 - INFO - u_net scores - MAE: 0.182191, DVH: 0.038834
+2025-03-06 22:34:20,824 - INFO - 
+Processing patient: pt_264
+2025-03-06 22:34:20,824 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_264\dose.csv
+2025-03-06 22:34:20,837 - INFO - Successfully loaded 82714 non-zero values from open-kbp-master\provided-data\test-pats\pt_264\dose.csv
+2025-03-06 22:34:20,839 - INFO - Loading file: results\dense_u_net\pt_264.csv
+2025-03-06 22:34:20,853 - INFO - Successfully loaded 61329 non-zero values from results\dense_u_net\pt_264.csv
+2025-03-06 22:34:20,909 - INFO - dense_u_net scores - MAE: 0.108535, DVH: 0.060910
+2025-03-06 22:34:20,910 - INFO - Loading file: results\gan\pt_264.csv
+2025-03-06 22:34:20,924 - INFO - Successfully loaded 60807 non-zero values from results\gan\pt_264.csv
+2025-03-06 22:34:20,990 - INFO - gan scores - MAE: 0.108273, DVH: 0.321957
+2025-03-06 22:34:20,991 - INFO - Loading file: results\res_u_net\pt_264.csv
+2025-03-06 22:34:21,004 - INFO - Successfully loaded 59802 non-zero values from results\res_u_net\pt_264.csv
+2025-03-06 22:34:21,062 - INFO - res_u_net scores - MAE: 0.128261, DVH: 0.097052
+2025-03-06 22:34:21,062 - INFO - Loading file: results\u_net\pt_264.csv
+2025-03-06 22:34:21,075 - INFO - Successfully loaded 61272 non-zero values from results\u_net\pt_264.csv
+2025-03-06 22:34:21,134 - INFO - u_net scores - MAE: 0.104693, DVH: 0.061247
+2025-03-06 22:34:21,135 - INFO - 
+Processing patient: pt_265
+2025-03-06 22:34:21,135 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_265\dose.csv
+2025-03-06 22:34:21,161 - INFO - Successfully loaded 160349 non-zero values from open-kbp-master\provided-data\test-pats\pt_265\dose.csv
+2025-03-06 22:34:21,162 - INFO - Loading file: results\dense_u_net\pt_265.csv
+2025-03-06 22:34:21,188 - INFO - Successfully loaded 101882 non-zero values from results\dense_u_net\pt_265.csv
+2025-03-06 22:34:21,250 - INFO - dense_u_net scores - MAE: 0.164156, DVH: 0.021786
+2025-03-06 22:34:21,250 - INFO - Loading file: results\gan\pt_265.csv
+2025-03-06 22:34:21,274 - INFO - Successfully loaded 96923 non-zero values from results\gan\pt_265.csv
+2025-03-06 22:34:21,335 - INFO - gan scores - MAE: 0.167275, DVH: 0.295794
+2025-03-06 22:34:21,336 - INFO - Loading file: results\res_u_net\pt_265.csv
+2025-03-06 22:34:21,360 - INFO - Successfully loaded 97335 non-zero values from results\res_u_net\pt_265.csv
+2025-03-06 22:34:21,420 - INFO - res_u_net scores - MAE: 0.183489, DVH: 0.090341
+2025-03-06 22:34:21,421 - INFO - Loading file: results\u_net\pt_265.csv
+2025-03-06 22:34:21,445 - INFO - Successfully loaded 99276 non-zero values from results\u_net\pt_265.csv
+2025-03-06 22:34:21,503 - INFO - u_net scores - MAE: 0.182436, DVH: 0.070691
+2025-03-06 22:34:21,506 - INFO - 
+Processing patient: pt_266
+2025-03-06 22:34:21,507 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_266\dose.csv
+2025-03-06 22:34:21,534 - INFO - Successfully loaded 200913 non-zero values from open-kbp-master\provided-data\test-pats\pt_266\dose.csv
+2025-03-06 22:34:21,537 - INFO - Loading file: results\dense_u_net\pt_266.csv
+2025-03-06 22:34:21,576 - INFO - Successfully loaded 173175 non-zero values from results\dense_u_net\pt_266.csv
+2025-03-06 22:34:21,649 - INFO - dense_u_net scores - MAE: 0.321779, DVH: 0.118118
+2025-03-06 22:34:21,649 - INFO - Loading file: results\gan\pt_266.csv
+2025-03-06 22:34:21,690 - INFO - Successfully loaded 157599 non-zero values from results\gan\pt_266.csv
+2025-03-06 22:34:21,751 - INFO - gan scores - MAE: 0.361877, DVH: 0.249430
+2025-03-06 22:34:21,751 - INFO - Loading file: results\res_u_net\pt_266.csv
+2025-03-06 22:34:21,790 - INFO - Successfully loaded 160126 non-zero values from results\res_u_net\pt_266.csv
+2025-03-06 22:34:21,852 - INFO - res_u_net scores - MAE: 0.358646, DVH: 0.212786
+2025-03-06 22:34:21,852 - INFO - Loading file: results\u_net\pt_266.csv
+2025-03-06 22:34:21,893 - INFO - Successfully loaded 171758 non-zero values from results\u_net\pt_266.csv
+2025-03-06 22:34:21,954 - INFO - u_net scores - MAE: 0.309280, DVH: 0.130690
+2025-03-06 22:34:21,956 - INFO - 
+Processing patient: pt_267
+2025-03-06 22:34:21,956 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_267\dose.csv
+2025-03-06 22:34:21,970 - INFO - Successfully loaded 92089 non-zero values from open-kbp-master\provided-data\test-pats\pt_267\dose.csv
+2025-03-06 22:34:21,971 - INFO - Loading file: results\dense_u_net\pt_267.csv
+2025-03-06 22:34:21,986 - INFO - Successfully loaded 61228 non-zero values from results\dense_u_net\pt_267.csv
+2025-03-06 22:34:22,051 - INFO - dense_u_net scores - MAE: 0.120976, DVH: 0.055004
+2025-03-06 22:34:22,051 - INFO - Loading file: results\gan\pt_267.csv
+2025-03-06 22:34:22,065 - INFO - Successfully loaded 59346 non-zero values from results\gan\pt_267.csv
+2025-03-06 22:34:22,126 - INFO - gan scores - MAE: 0.124494, DVH: 0.116390
+2025-03-06 22:34:22,126 - INFO - Loading file: results\res_u_net\pt_267.csv
+2025-03-06 22:34:22,139 - INFO - Successfully loaded 57032 non-zero values from results\res_u_net\pt_267.csv
+2025-03-06 22:34:22,198 - INFO - res_u_net scores - MAE: 0.146660, DVH: 0.095655
+2025-03-06 22:34:22,198 - INFO - Loading file: results\u_net\pt_267.csv
+2025-03-06 22:34:22,212 - INFO - Successfully loaded 59853 non-zero values from results\u_net\pt_267.csv
+2025-03-06 22:34:22,269 - INFO - u_net scores - MAE: 0.141030, DVH: 0.076104
+2025-03-06 22:34:22,271 - INFO - 
+Processing patient: pt_268
+2025-03-06 22:34:22,271 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_268\dose.csv
+2025-03-06 22:34:22,281 - INFO - Successfully loaded 65102 non-zero values from open-kbp-master\provided-data\test-pats\pt_268\dose.csv
+2025-03-06 22:34:22,283 - INFO - Loading file: results\dense_u_net\pt_268.csv
+2025-03-06 22:34:22,297 - INFO - Successfully loaded 63688 non-zero values from results\dense_u_net\pt_268.csv
+2025-03-06 22:34:22,365 - INFO - dense_u_net scores - MAE: 0.125248, DVH: 0.019335
+2025-03-06 22:34:22,366 - INFO - Loading file: results\gan\pt_268.csv
+2025-03-06 22:34:22,383 - INFO - Successfully loaded 63128 non-zero values from results\gan\pt_268.csv
+2025-03-06 22:34:22,446 - INFO - gan scores - MAE: 0.121012, DVH: 0.196867
+2025-03-06 22:34:22,446 - INFO - Loading file: results\res_u_net\pt_268.csv
+2025-03-06 22:34:22,461 - INFO - Successfully loaded 62726 non-zero values from results\res_u_net\pt_268.csv
+2025-03-06 22:34:22,518 - INFO - res_u_net scores - MAE: 0.146043, DVH: 0.039394
+2025-03-06 22:34:22,519 - INFO - Loading file: results\u_net\pt_268.csv
+2025-03-06 22:34:22,533 - INFO - Successfully loaded 62815 non-zero values from results\u_net\pt_268.csv
+2025-03-06 22:34:22,586 - INFO - u_net scores - MAE: 0.134578, DVH: 0.033845
+2025-03-06 22:34:22,587 - INFO - 
+Processing patient: pt_269
+2025-03-06 22:34:22,587 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_269\dose.csv
+2025-03-06 22:34:22,612 - INFO - Successfully loaded 154336 non-zero values from open-kbp-master\provided-data\test-pats\pt_269\dose.csv
+2025-03-06 22:34:22,613 - INFO - Loading file: results\dense_u_net\pt_269.csv
+2025-03-06 22:34:22,637 - INFO - Successfully loaded 99661 non-zero values from results\dense_u_net\pt_269.csv
+2025-03-06 22:34:22,693 - INFO - dense_u_net scores - MAE: 0.165859, DVH: 0.054538
+2025-03-06 22:34:22,694 - INFO - Loading file: results\gan\pt_269.csv
+2025-03-06 22:34:22,718 - INFO - Successfully loaded 97453 non-zero values from results\gan\pt_269.csv
+2025-03-06 22:34:22,771 - INFO - gan scores - MAE: 0.182853, DVH: 0.344608
+2025-03-06 22:34:22,772 - INFO - Loading file: results\res_u_net\pt_269.csv
+2025-03-06 22:34:22,795 - INFO - Successfully loaded 94909 non-zero values from results\res_u_net\pt_269.csv
+2025-03-06 22:34:22,849 - INFO - res_u_net scores - MAE: 0.180246, DVH: 0.133596
+2025-03-06 22:34:22,849 - INFO - Loading file: results\u_net\pt_269.csv
+2025-03-06 22:34:22,873 - INFO - Successfully loaded 100147 non-zero values from results\u_net\pt_269.csv
+2025-03-06 22:34:22,926 - INFO - u_net scores - MAE: 0.187383, DVH: 0.102628
+2025-03-06 22:34:22,928 - INFO - 
+Processing patient: pt_270
+2025-03-06 22:34:22,929 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_270\dose.csv
+2025-03-06 22:34:22,946 - INFO - Successfully loaded 109077 non-zero values from open-kbp-master\provided-data\test-pats\pt_270\dose.csv
+2025-03-06 22:34:22,948 - INFO - Loading file: results\dense_u_net\pt_270.csv
+2025-03-06 22:34:22,973 - INFO - Successfully loaded 108917 non-zero values from results\dense_u_net\pt_270.csv
+2025-03-06 22:34:23,028 - INFO - dense_u_net scores - MAE: 0.291617, DVH: 0.127686
+2025-03-06 22:34:23,029 - INFO - Loading file: results\gan\pt_270.csv
+2025-03-06 22:34:23,053 - INFO - Successfully loaded 107423 non-zero values from results\gan\pt_270.csv
+2025-03-06 22:34:23,106 - INFO - gan scores - MAE: 0.263925, DVH: 0.406620
+2025-03-06 22:34:23,107 - INFO - Loading file: results\res_u_net\pt_270.csv
+2025-03-06 22:34:23,131 - INFO - Successfully loaded 107767 non-zero values from results\res_u_net\pt_270.csv
+2025-03-06 22:34:23,189 - INFO - res_u_net scores - MAE: 0.328537, DVH: 0.215845
+2025-03-06 22:34:23,190 - INFO - Loading file: results\u_net\pt_270.csv
+2025-03-06 22:34:23,213 - INFO - Successfully loaded 108286 non-zero values from results\u_net\pt_270.csv
+2025-03-06 22:34:23,267 - INFO - u_net scores - MAE: 0.269431, DVH: 0.197199
+2025-03-06 22:34:23,270 - INFO - 
+Processing patient: pt_271
+2025-03-06 22:34:23,271 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_271\dose.csv
+2025-03-06 22:34:23,295 - INFO - Successfully loaded 148889 non-zero values from open-kbp-master\provided-data\test-pats\pt_271\dose.csv
+2025-03-06 22:34:23,296 - INFO - Loading file: results\dense_u_net\pt_271.csv
+2025-03-06 22:34:23,329 - INFO - Successfully loaded 147506 non-zero values from results\dense_u_net\pt_271.csv
+2025-03-06 22:34:23,385 - INFO - dense_u_net scores - MAE: 0.265814, DVH: 0.078904
+2025-03-06 22:34:23,386 - INFO - Loading file: results\gan\pt_271.csv
+2025-03-06 22:34:23,418 - INFO - Successfully loaded 144626 non-zero values from results\gan\pt_271.csv
+2025-03-06 22:34:23,474 - INFO - gan scores - MAE: 0.257819, DVH: 0.053917
+2025-03-06 22:34:23,474 - INFO - Loading file: results\res_u_net\pt_271.csv
+2025-03-06 22:34:23,508 - INFO - Successfully loaded 145430 non-zero values from results\res_u_net\pt_271.csv
+2025-03-06 22:34:23,560 - INFO - res_u_net scores - MAE: 0.330351, DVH: 0.092352
+2025-03-06 22:34:23,561 - INFO - Loading file: results\u_net\pt_271.csv
+2025-03-06 22:34:23,592 - INFO - Successfully loaded 146710 non-zero values from results\u_net\pt_271.csv
+2025-03-06 22:34:23,647 - INFO - u_net scores - MAE: 0.271792, DVH: 0.062046
+2025-03-06 22:34:23,650 - INFO - 
+Processing patient: pt_272
+2025-03-06 22:34:23,651 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_272\dose.csv
+2025-03-06 22:34:23,680 - INFO - Successfully loaded 198792 non-zero values from open-kbp-master\provided-data\test-pats\pt_272\dose.csv
+2025-03-06 22:34:23,682 - INFO - Loading file: results\dense_u_net\pt_272.csv
+2025-03-06 22:34:23,727 - INFO - Successfully loaded 194448 non-zero values from results\dense_u_net\pt_272.csv
+2025-03-06 22:34:23,786 - INFO - dense_u_net scores - MAE: 0.317535, DVH: 0.097199
+2025-03-06 22:34:23,787 - INFO - Loading file: results\gan\pt_272.csv
+2025-03-06 22:34:23,830 - INFO - Successfully loaded 191927 non-zero values from results\gan\pt_272.csv
+2025-03-06 22:34:23,890 - INFO - gan scores - MAE: 0.318443, DVH: 0.402112
+2025-03-06 22:34:23,891 - INFO - Loading file: results\res_u_net\pt_272.csv
+2025-03-06 22:34:23,938 - INFO - Successfully loaded 196019 non-zero values from results\res_u_net\pt_272.csv
+2025-03-06 22:34:23,999 - INFO - res_u_net scores - MAE: 0.358097, DVH: 0.103051
+2025-03-06 22:34:23,999 - INFO - Loading file: results\u_net\pt_272.csv
+2025-03-06 22:34:24,043 - INFO - Successfully loaded 196469 non-zero values from results\u_net\pt_272.csv
+2025-03-06 22:34:24,101 - INFO - u_net scores - MAE: 0.340284, DVH: 0.114500
+2025-03-06 22:34:24,102 - INFO - 
+Processing patient: pt_273
+2025-03-06 22:34:24,102 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_273\dose.csv
+2025-03-06 22:34:24,129 - INFO - Successfully loaded 176109 non-zero values from open-kbp-master\provided-data\test-pats\pt_273\dose.csv
+2025-03-06 22:34:24,131 - INFO - Loading file: results\dense_u_net\pt_273.csv
+2025-03-06 22:34:24,155 - INFO - Successfully loaded 100751 non-zero values from results\dense_u_net\pt_273.csv
+2025-03-06 22:34:24,216 - INFO - dense_u_net scores - MAE: 0.175685, DVH: 0.043478
+2025-03-06 22:34:24,218 - INFO - Loading file: results\gan\pt_273.csv
+2025-03-06 22:34:24,240 - INFO - Successfully loaded 97791 non-zero values from results\gan\pt_273.csv
+2025-03-06 22:34:24,297 - INFO - gan scores - MAE: 0.176135, DVH: 0.294100
+2025-03-06 22:34:24,298 - INFO - Loading file: results\res_u_net\pt_273.csv
+2025-03-06 22:34:24,322 - INFO - Successfully loaded 96734 non-zero values from results\res_u_net\pt_273.csv
+2025-03-06 22:34:24,378 - INFO - res_u_net scores - MAE: 0.190772, DVH: 0.104062
+2025-03-06 22:34:24,379 - INFO - Loading file: results\u_net\pt_273.csv
+2025-03-06 22:34:24,402 - INFO - Successfully loaded 100250 non-zero values from results\u_net\pt_273.csv
+2025-03-06 22:34:24,457 - INFO - u_net scores - MAE: 0.179761, DVH: 0.089026
+2025-03-06 22:34:24,459 - INFO - 
+Processing patient: pt_274
+2025-03-06 22:34:24,460 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_274\dose.csv
+2025-03-06 22:34:24,498 - INFO - Successfully loaded 254783 non-zero values from open-kbp-master\provided-data\test-pats\pt_274\dose.csv
+2025-03-06 22:34:24,500 - INFO - Loading file: results\dense_u_net\pt_274.csv
+2025-03-06 22:34:24,551 - INFO - Successfully loaded 252773 non-zero values from results\dense_u_net\pt_274.csv
+2025-03-06 22:34:24,607 - INFO - dense_u_net scores - MAE: 0.422261, DVH: 0.186051
+2025-03-06 22:34:24,607 - INFO - Loading file: results\gan\pt_274.csv
+2025-03-06 22:34:24,664 - INFO - Successfully loaded 249149 non-zero values from results\gan\pt_274.csv
+2025-03-06 22:34:24,725 - INFO - gan scores - MAE: 0.437122, DVH: 0.505221
+2025-03-06 22:34:24,726 - INFO - Loading file: results\res_u_net\pt_274.csv
+2025-03-06 22:34:24,779 - INFO - Successfully loaded 250216 non-zero values from results\res_u_net\pt_274.csv
+2025-03-06 22:34:24,837 - INFO - res_u_net scores - MAE: 0.471032, DVH: 0.322020
+2025-03-06 22:34:24,837 - INFO - Loading file: results\u_net\pt_274.csv
+2025-03-06 22:34:24,892 - INFO - Successfully loaded 252792 non-zero values from results\u_net\pt_274.csv
+2025-03-06 22:34:24,949 - INFO - u_net scores - MAE: 0.449926, DVH: 0.200124
+2025-03-06 22:34:24,951 - INFO - 
+Processing patient: pt_275
+2025-03-06 22:34:24,951 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_275\dose.csv
+2025-03-06 22:34:24,959 - INFO - Successfully loaded 46128 non-zero values from open-kbp-master\provided-data\test-pats\pt_275\dose.csv
+2025-03-06 22:34:24,960 - INFO - Loading file: results\dense_u_net\pt_275.csv
+2025-03-06 22:34:24,972 - INFO - Successfully loaded 46073 non-zero values from results\dense_u_net\pt_275.csv
+2025-03-06 22:34:25,030 - INFO - dense_u_net scores - MAE: 0.088701, DVH: 0.029858
+2025-03-06 22:34:25,031 - INFO - Loading file: results\gan\pt_275.csv
+2025-03-06 22:34:25,042 - INFO - Successfully loaded 45973 non-zero values from results\gan\pt_275.csv
+2025-03-06 22:34:25,099 - INFO - gan scores - MAE: 0.092793, DVH: 0.036864
+2025-03-06 22:34:25,099 - INFO - Loading file: results\res_u_net\pt_275.csv
+2025-03-06 22:34:25,110 - INFO - Successfully loaded 45872 non-zero values from results\res_u_net\pt_275.csv
+2025-03-06 22:34:25,165 - INFO - res_u_net scores - MAE: 0.106428, DVH: 0.045259
+2025-03-06 22:34:25,166 - INFO - Loading file: results\u_net\pt_275.csv
+2025-03-06 22:34:25,178 - INFO - Successfully loaded 46015 non-zero values from results\u_net\pt_275.csv
+2025-03-06 22:34:25,233 - INFO - u_net scores - MAE: 0.092777, DVH: 0.035534
+2025-03-06 22:34:25,236 - INFO - 
+Processing patient: pt_276
+2025-03-06 22:34:25,236 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_276\dose.csv
+2025-03-06 22:34:25,259 - INFO - Successfully loaded 151559 non-zero values from open-kbp-master\provided-data\test-pats\pt_276\dose.csv
+2025-03-06 22:34:25,260 - INFO - Loading file: results\dense_u_net\pt_276.csv
+2025-03-06 22:34:25,286 - INFO - Successfully loaded 106192 non-zero values from results\dense_u_net\pt_276.csv
+2025-03-06 22:34:25,341 - INFO - dense_u_net scores - MAE: 0.143238, DVH: 0.035008
+2025-03-06 22:34:25,342 - INFO - Loading file: results\gan\pt_276.csv
+2025-03-06 22:34:25,366 - INFO - Successfully loaded 101190 non-zero values from results\gan\pt_276.csv
+2025-03-06 22:34:25,421 - INFO - gan scores - MAE: 0.143923, DVH: 0.181014
+2025-03-06 22:34:25,422 - INFO - Loading file: results\res_u_net\pt_276.csv
+2025-03-06 22:34:25,445 - INFO - Successfully loaded 104085 non-zero values from results\res_u_net\pt_276.csv
+2025-03-06 22:34:25,502 - INFO - res_u_net scores - MAE: 0.151121, DVH: 0.050623
+2025-03-06 22:34:25,502 - INFO - Loading file: results\u_net\pt_276.csv
+2025-03-06 22:34:25,527 - INFO - Successfully loaded 110775 non-zero values from results\u_net\pt_276.csv
+2025-03-06 22:34:25,582 - INFO - u_net scores - MAE: 0.146799, DVH: 0.033992
+2025-03-06 22:34:25,585 - INFO - 
+Processing patient: pt_277
+2025-03-06 22:34:25,586 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_277\dose.csv
+2025-03-06 22:34:25,613 - INFO - Successfully loaded 176239 non-zero values from open-kbp-master\provided-data\test-pats\pt_277\dose.csv
+2025-03-06 22:34:25,615 - INFO - Loading file: results\dense_u_net\pt_277.csv
+2025-03-06 22:34:25,640 - INFO - Successfully loaded 112480 non-zero values from results\dense_u_net\pt_277.csv
+2025-03-06 22:34:25,701 - INFO - dense_u_net scores - MAE: 0.169289, DVH: 0.052579
+2025-03-06 22:34:25,702 - INFO - Loading file: results\gan\pt_277.csv
+2025-03-06 22:34:25,726 - INFO - Successfully loaded 107783 non-zero values from results\gan\pt_277.csv
+2025-03-06 22:34:25,783 - INFO - gan scores - MAE: 0.157730, DVH: 0.060805
+2025-03-06 22:34:25,783 - INFO - Loading file: results\res_u_net\pt_277.csv
+2025-03-06 22:34:25,808 - INFO - Successfully loaded 110450 non-zero values from results\res_u_net\pt_277.csv
+2025-03-06 22:34:25,865 - INFO - res_u_net scores - MAE: 0.168094, DVH: 0.096415
+2025-03-06 22:34:25,866 - INFO - Loading file: results\u_net\pt_277.csv
+2025-03-06 22:34:25,892 - INFO - Successfully loaded 113573 non-zero values from results\u_net\pt_277.csv
+2025-03-06 22:34:25,947 - INFO - u_net scores - MAE: 0.163026, DVH: 0.081637
+2025-03-06 22:34:25,950 - INFO - 
+Processing patient: pt_278
+2025-03-06 22:34:25,951 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_278\dose.csv
+2025-03-06 22:34:25,957 - INFO - Successfully loaded 34916 non-zero values from open-kbp-master\provided-data\test-pats\pt_278\dose.csv
+2025-03-06 22:34:25,959 - INFO - Loading file: results\dense_u_net\pt_278.csv
+2025-03-06 22:34:25,968 - INFO - Successfully loaded 34902 non-zero values from results\dense_u_net\pt_278.csv
+2025-03-06 22:34:26,025 - INFO - dense_u_net scores - MAE: 0.077393, DVH: 0.032133
+2025-03-06 22:34:26,026 - INFO - Loading file: results\gan\pt_278.csv
+2025-03-06 22:34:26,035 - INFO - Successfully loaded 34820 non-zero values from results\gan\pt_278.csv
+2025-03-06 22:34:26,091 - INFO - gan scores - MAE: 0.078747, DVH: 0.192056
+2025-03-06 22:34:26,091 - INFO - Loading file: results\res_u_net\pt_278.csv
+2025-03-06 22:34:26,100 - INFO - Successfully loaded 34772 non-zero values from results\res_u_net\pt_278.csv
+2025-03-06 22:34:26,153 - INFO - res_u_net scores - MAE: 0.095611, DVH: 0.067010
+2025-03-06 22:34:26,154 - INFO - Loading file: results\u_net\pt_278.csv
+2025-03-06 22:34:26,162 - INFO - Successfully loaded 34866 non-zero values from results\u_net\pt_278.csv
+2025-03-06 22:34:26,216 - INFO - u_net scores - MAE: 0.073839, DVH: 0.030521
+2025-03-06 22:34:26,219 - INFO - 
+Processing patient: pt_279
+2025-03-06 22:34:26,219 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_279\dose.csv
+2025-03-06 22:34:26,247 - INFO - Successfully loaded 195956 non-zero values from open-kbp-master\provided-data\test-pats\pt_279\dose.csv
+2025-03-06 22:34:26,249 - INFO - Loading file: results\dense_u_net\pt_279.csv
+2025-03-06 22:34:26,293 - INFO - Successfully loaded 195606 non-zero values from results\dense_u_net\pt_279.csv
+2025-03-06 22:34:26,350 - INFO - dense_u_net scores - MAE: 0.279635, DVH: 0.138349
+2025-03-06 22:34:26,351 - INFO - Loading file: results\gan\pt_279.csv
+2025-03-06 22:34:26,393 - INFO - Successfully loaded 193582 non-zero values from results\gan\pt_279.csv
+2025-03-06 22:34:26,448 - INFO - gan scores - MAE: 0.273232, DVH: 0.370042
+2025-03-06 22:34:26,449 - INFO - Loading file: results\res_u_net\pt_279.csv
+2025-03-06 22:34:26,491 - INFO - Successfully loaded 194000 non-zero values from results\res_u_net\pt_279.csv
+2025-03-06 22:34:26,546 - INFO - res_u_net scores - MAE: 0.324665, DVH: 0.264394
+2025-03-06 22:34:26,547 - INFO - Loading file: results\u_net\pt_279.csv
+2025-03-06 22:34:26,590 - INFO - Successfully loaded 195458 non-zero values from results\u_net\pt_279.csv
+2025-03-06 22:34:26,644 - INFO - u_net scores - MAE: 0.280895, DVH: 0.152416
+2025-03-06 22:34:26,645 - INFO - 
+Processing patient: pt_280
+2025-03-06 22:34:26,645 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_280\dose.csv
+2025-03-06 22:34:26,663 - INFO - Successfully loaded 109142 non-zero values from open-kbp-master\provided-data\test-pats\pt_280\dose.csv
+2025-03-06 22:34:26,664 - INFO - Loading file: results\dense_u_net\pt_280.csv
+2025-03-06 22:34:26,687 - INFO - Successfully loaded 100287 non-zero values from results\dense_u_net\pt_280.csv
+2025-03-06 22:34:26,744 - INFO - dense_u_net scores - MAE: 0.239362, DVH: 0.091883
+2025-03-06 22:34:26,744 - INFO - Loading file: results\gan\pt_280.csv
+2025-03-06 22:34:26,767 - INFO - Successfully loaded 99321 non-zero values from results\gan\pt_280.csv
+2025-03-06 22:34:26,822 - INFO - gan scores - MAE: 0.234090, DVH: 0.122678
+2025-03-06 22:34:26,822 - INFO - Loading file: results\res_u_net\pt_280.csv
+2025-03-06 22:34:26,844 - INFO - Successfully loaded 97750 non-zero values from results\res_u_net\pt_280.csv
+2025-03-06 22:34:26,899 - INFO - res_u_net scores - MAE: 0.276867, DVH: 0.169254
+2025-03-06 22:34:26,900 - INFO - Loading file: results\u_net\pt_280.csv
+2025-03-06 22:34:26,923 - INFO - Successfully loaded 98886 non-zero values from results\u_net\pt_280.csv
+2025-03-06 22:34:26,978 - INFO - u_net scores - MAE: 0.261924, DVH: 0.109500
+2025-03-06 22:34:26,979 - INFO - 
+Processing patient: pt_281
+2025-03-06 22:34:26,979 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_281\dose.csv
+2025-03-06 22:34:27,017 - INFO - Successfully loaded 271129 non-zero values from open-kbp-master\provided-data\test-pats\pt_281\dose.csv
+2025-03-06 22:34:27,019 - INFO - Loading file: results\dense_u_net\pt_281.csv
+2025-03-06 22:34:27,062 - INFO - Successfully loaded 191706 non-zero values from results\dense_u_net\pt_281.csv
+2025-03-06 22:34:27,118 - INFO - dense_u_net scores - MAE: 0.312070, DVH: 0.091286
+2025-03-06 22:34:27,118 - INFO - Loading file: results\gan\pt_281.csv
+2025-03-06 22:34:27,160 - INFO - Successfully loaded 180908 non-zero values from results\gan\pt_281.csv
+2025-03-06 22:34:27,214 - INFO - gan scores - MAE: 0.300330, DVH: 0.281057
+2025-03-06 22:34:27,215 - INFO - Loading file: results\res_u_net\pt_281.csv
+2025-03-06 22:34:27,257 - INFO - Successfully loaded 187598 non-zero values from results\res_u_net\pt_281.csv
+2025-03-06 22:34:27,312 - INFO - res_u_net scores - MAE: 0.340259, DVH: 0.143069
+2025-03-06 22:34:27,313 - INFO - Loading file: results\u_net\pt_281.csv
+2025-03-06 22:34:27,356 - INFO - Successfully loaded 198333 non-zero values from results\u_net\pt_281.csv
+2025-03-06 22:34:27,415 - INFO - u_net scores - MAE: 0.330877, DVH: 0.155708
+2025-03-06 22:34:27,418 - INFO - 
+Processing patient: pt_282
+2025-03-06 22:34:27,418 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_282\dose.csv
+2025-03-06 22:34:27,446 - INFO - Successfully loaded 175290 non-zero values from open-kbp-master\provided-data\test-pats\pt_282\dose.csv
+2025-03-06 22:34:27,448 - INFO - Loading file: results\dense_u_net\pt_282.csv
+2025-03-06 22:34:27,473 - INFO - Successfully loaded 107375 non-zero values from results\dense_u_net\pt_282.csv
+2025-03-06 22:34:27,530 - INFO - dense_u_net scores - MAE: 0.189798, DVH: 0.087096
+2025-03-06 22:34:27,531 - INFO - Loading file: results\gan\pt_282.csv
+2025-03-06 22:34:27,554 - INFO - Successfully loaded 99052 non-zero values from results\gan\pt_282.csv
+2025-03-06 22:34:27,610 - INFO - gan scores - MAE: 0.217885, DVH: 0.355267
+2025-03-06 22:34:27,611 - INFO - Loading file: results\res_u_net\pt_282.csv
+2025-03-06 22:34:27,636 - INFO - Successfully loaded 102757 non-zero values from results\res_u_net\pt_282.csv
+2025-03-06 22:34:27,701 - INFO - res_u_net scores - MAE: 0.198547, DVH: 0.110568
+2025-03-06 22:34:27,703 - INFO - Loading file: results\u_net\pt_282.csv
+2025-03-06 22:34:27,733 - INFO - Successfully loaded 111270 non-zero values from results\u_net\pt_282.csv
+2025-03-06 22:34:27,793 - INFO - u_net scores - MAE: 0.194389, DVH: 0.096127
+2025-03-06 22:34:27,794 - INFO - 
+Processing patient: pt_283
+2025-03-06 22:34:27,794 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_283\dose.csv
+2025-03-06 22:34:27,830 - INFO - Successfully loaded 244965 non-zero values from open-kbp-master\provided-data\test-pats\pt_283\dose.csv
+2025-03-06 22:34:27,831 - INFO - Loading file: results\dense_u_net\pt_283.csv
+2025-03-06 22:34:27,872 - INFO - Successfully loaded 177481 non-zero values from results\dense_u_net\pt_283.csv
+2025-03-06 22:34:27,930 - INFO - dense_u_net scores - MAE: 0.464714, DVH: 0.213215
+2025-03-06 22:34:27,931 - INFO - Loading file: results\gan\pt_283.csv
+2025-03-06 22:34:27,973 - INFO - Successfully loaded 177435 non-zero values from results\gan\pt_283.csv
+2025-03-06 22:34:28,030 - INFO - gan scores - MAE: 0.489650, DVH: 0.362540
+2025-03-06 22:34:28,031 - INFO - Loading file: results\res_u_net\pt_283.csv
+2025-03-06 22:34:28,073 - INFO - Successfully loaded 172903 non-zero values from results\res_u_net\pt_283.csv
+2025-03-06 22:34:28,131 - INFO - res_u_net scores - MAE: 0.476790, DVH: 0.214203
+2025-03-06 22:34:28,132 - INFO - Loading file: results\u_net\pt_283.csv
+2025-03-06 22:34:28,173 - INFO - Successfully loaded 173294 non-zero values from results\u_net\pt_283.csv
+2025-03-06 22:34:28,231 - INFO - u_net scores - MAE: 0.467316, DVH: 0.213754
+2025-03-06 22:34:28,232 - INFO - 
+Processing patient: pt_284
+2025-03-06 22:34:28,232 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_284\dose.csv
+2025-03-06 22:34:28,262 - INFO - Successfully loaded 197462 non-zero values from open-kbp-master\provided-data\test-pats\pt_284\dose.csv
+2025-03-06 22:34:28,263 - INFO - Loading file: results\dense_u_net\pt_284.csv
+2025-03-06 22:34:28,309 - INFO - Successfully loaded 190011 non-zero values from results\dense_u_net\pt_284.csv
+2025-03-06 22:34:28,366 - INFO - dense_u_net scores - MAE: 0.250829, DVH: 0.074126
+2025-03-06 22:34:28,367 - INFO - Loading file: results\gan\pt_284.csv
+2025-03-06 22:34:28,408 - INFO - Successfully loaded 186427 non-zero values from results\gan\pt_284.csv
+2025-03-06 22:34:28,464 - INFO - gan scores - MAE: 0.304943, DVH: 0.254032
+2025-03-06 22:34:28,465 - INFO - Loading file: results\res_u_net\pt_284.csv
+2025-03-06 22:34:28,506 - INFO - Successfully loaded 187064 non-zero values from results\res_u_net\pt_284.csv
+2025-03-06 22:34:28,563 - INFO - res_u_net scores - MAE: 0.272972, DVH: 0.142513
+2025-03-06 22:34:28,564 - INFO - Loading file: results\u_net\pt_284.csv
+2025-03-06 22:34:28,606 - INFO - Successfully loaded 191993 non-zero values from results\u_net\pt_284.csv
+2025-03-06 22:34:28,660 - INFO - u_net scores - MAE: 0.276301, DVH: 0.061956
+2025-03-06 22:34:28,663 - INFO - 
+Processing patient: pt_285
+2025-03-06 22:34:28,663 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_285\dose.csv
+2025-03-06 22:34:28,687 - INFO - Successfully loaded 158035 non-zero values from open-kbp-master\provided-data\test-pats\pt_285\dose.csv
+2025-03-06 22:34:28,689 - INFO - Loading file: results\dense_u_net\pt_285.csv
+2025-03-06 22:34:28,716 - INFO - Successfully loaded 116618 non-zero values from results\dense_u_net\pt_285.csv
+2025-03-06 22:34:28,773 - INFO - dense_u_net scores - MAE: 0.198085, DVH: 0.090897
+2025-03-06 22:34:28,774 - INFO - Loading file: results\gan\pt_285.csv
+2025-03-06 22:34:28,799 - INFO - Successfully loaded 111413 non-zero values from results\gan\pt_285.csv
+2025-03-06 22:34:28,858 - INFO - gan scores - MAE: 0.200688, DVH: 0.269029
+2025-03-06 22:34:28,858 - INFO - Loading file: results\res_u_net\pt_285.csv
+2025-03-06 22:34:28,884 - INFO - Successfully loaded 112931 non-zero values from results\res_u_net\pt_285.csv
+2025-03-06 22:34:28,943 - INFO - res_u_net scores - MAE: 0.226935, DVH: 0.145769
+2025-03-06 22:34:28,943 - INFO - Loading file: results\u_net\pt_285.csv
+2025-03-06 22:34:28,971 - INFO - Successfully loaded 115714 non-zero values from results\u_net\pt_285.csv
+2025-03-06 22:34:29,030 - INFO - u_net scores - MAE: 0.198249, DVH: 0.089978
+2025-03-06 22:34:29,032 - INFO - 
+Processing patient: pt_286
+2025-03-06 22:34:29,032 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_286\dose.csv
+2025-03-06 22:34:29,052 - INFO - Successfully loaded 123414 non-zero values from open-kbp-master\provided-data\test-pats\pt_286\dose.csv
+2025-03-06 22:34:29,053 - INFO - Loading file: results\dense_u_net\pt_286.csv
+2025-03-06 22:34:29,076 - INFO - Successfully loaded 90881 non-zero values from results\dense_u_net\pt_286.csv
+2025-03-06 22:34:29,137 - INFO - dense_u_net scores - MAE: 0.160946, DVH: 0.050839
+2025-03-06 22:34:29,137 - INFO - Loading file: results\gan\pt_286.csv
+2025-03-06 22:34:29,159 - INFO - Successfully loaded 83563 non-zero values from results\gan\pt_286.csv
+2025-03-06 22:34:29,217 - INFO - gan scores - MAE: 0.161827, DVH: 0.351094
+2025-03-06 22:34:29,217 - INFO - Loading file: results\res_u_net\pt_286.csv
+2025-03-06 22:34:29,239 - INFO - Successfully loaded 85087 non-zero values from results\res_u_net\pt_286.csv
+2025-03-06 22:34:29,297 - INFO - res_u_net scores - MAE: 0.173961, DVH: 0.060842
+2025-03-06 22:34:29,298 - INFO - Loading file: results\u_net\pt_286.csv
+2025-03-06 22:34:29,318 - INFO - Successfully loaded 88646 non-zero values from results\u_net\pt_286.csv
+2025-03-06 22:34:29,379 - INFO - u_net scores - MAE: 0.156749, DVH: 0.029159
+2025-03-06 22:34:29,382 - INFO - 
+Processing patient: pt_287
+2025-03-06 22:34:29,383 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_287\dose.csv
+2025-03-06 22:34:29,400 - INFO - Successfully loaded 101321 non-zero values from open-kbp-master\provided-data\test-pats\pt_287\dose.csv
+2025-03-06 22:34:29,402 - INFO - Loading file: results\dense_u_net\pt_287.csv
+2025-03-06 22:34:29,426 - INFO - Successfully loaded 101317 non-zero values from results\dense_u_net\pt_287.csv
+2025-03-06 22:34:29,488 - INFO - dense_u_net scores - MAE: 0.208281, DVH: 0.073613
+2025-03-06 22:34:29,488 - INFO - Loading file: results\gan\pt_287.csv
+2025-03-06 22:34:29,512 - INFO - Successfully loaded 101272 non-zero values from results\gan\pt_287.csv
+2025-03-06 22:34:29,571 - INFO - gan scores - MAE: 0.198360, DVH: 0.067022
+2025-03-06 22:34:29,571 - INFO - Loading file: results\res_u_net\pt_287.csv
+2025-03-06 22:34:29,597 - INFO - Successfully loaded 101241 non-zero values from results\res_u_net\pt_287.csv
+2025-03-06 22:34:29,655 - INFO - res_u_net scores - MAE: 0.218823, DVH: 0.085678
+2025-03-06 22:34:29,656 - INFO - Loading file: results\u_net\pt_287.csv
+2025-03-06 22:34:29,679 - INFO - Successfully loaded 101246 non-zero values from results\u_net\pt_287.csv
+2025-03-06 22:34:29,737 - INFO - u_net scores - MAE: 0.205729, DVH: 0.060462
+2025-03-06 22:34:29,740 - INFO - 
+Processing patient: pt_288
+2025-03-06 22:34:29,740 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_288\dose.csv
+2025-03-06 22:34:29,762 - INFO - Successfully loaded 133488 non-zero values from open-kbp-master\provided-data\test-pats\pt_288\dose.csv
+2025-03-06 22:34:29,763 - INFO - Loading file: results\dense_u_net\pt_288.csv
+2025-03-06 22:34:29,789 - INFO - Successfully loaded 96218 non-zero values from results\dense_u_net\pt_288.csv
+2025-03-06 22:34:29,852 - INFO - dense_u_net scores - MAE: 0.128684, DVH: 0.032453
+2025-03-06 22:34:29,852 - INFO - Loading file: results\gan\pt_288.csv
+2025-03-06 22:34:29,873 - INFO - Successfully loaded 91708 non-zero values from results\gan\pt_288.csv
+2025-03-06 22:34:29,932 - INFO - gan scores - MAE: 0.128569, DVH: 0.208199
+2025-03-06 22:34:29,934 - INFO - Loading file: results\res_u_net\pt_288.csv
+2025-03-06 22:34:29,956 - INFO - Successfully loaded 93177 non-zero values from results\res_u_net\pt_288.csv
+2025-03-06 22:34:30,016 - INFO - res_u_net scores - MAE: 0.141336, DVH: 0.064395
+2025-03-06 22:34:30,016 - INFO - Loading file: results\u_net\pt_288.csv
+2025-03-06 22:34:30,039 - INFO - Successfully loaded 97435 non-zero values from results\u_net\pt_288.csv
+2025-03-06 22:34:30,098 - INFO - u_net scores - MAE: 0.140990, DVH: 0.028900
+2025-03-06 22:34:30,099 - INFO - 
+Processing patient: pt_289
+2025-03-06 22:34:30,101 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_289\dose.csv
+2025-03-06 22:34:30,111 - INFO - Successfully loaded 73066 non-zero values from open-kbp-master\provided-data\test-pats\pt_289\dose.csv
+2025-03-06 22:34:30,114 - INFO - Loading file: results\dense_u_net\pt_289.csv
+2025-03-06 22:34:30,130 - INFO - Successfully loaded 73005 non-zero values from results\dense_u_net\pt_289.csv
+2025-03-06 22:34:30,192 - INFO - dense_u_net scores - MAE: 0.125445, DVH: 0.019637
+2025-03-06 22:34:30,192 - INFO - Loading file: results\gan\pt_289.csv
+2025-03-06 22:34:30,209 - INFO - Successfully loaded 72782 non-zero values from results\gan\pt_289.csv
+2025-03-06 22:34:30,268 - INFO - gan scores - MAE: 0.139395, DVH: 0.045567
+2025-03-06 22:34:30,268 - INFO - Loading file: results\res_u_net\pt_289.csv
+2025-03-06 22:34:30,285 - INFO - Successfully loaded 72785 non-zero values from results\res_u_net\pt_289.csv
+2025-03-06 22:34:30,345 - INFO - res_u_net scores - MAE: 0.139998, DVH: 0.082495
+2025-03-06 22:34:30,345 - INFO - Loading file: results\u_net\pt_289.csv
+2025-03-06 22:34:30,361 - INFO - Successfully loaded 72816 non-zero values from results\u_net\pt_289.csv
+2025-03-06 22:34:30,419 - INFO - u_net scores - MAE: 0.128892, DVH: 0.037548
+2025-03-06 22:34:30,422 - INFO - 
+Processing patient: pt_290
+2025-03-06 22:34:30,423 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_290\dose.csv
+2025-03-06 22:34:30,433 - INFO - Successfully loaded 62407 non-zero values from open-kbp-master\provided-data\test-pats\pt_290\dose.csv
+2025-03-06 22:34:30,434 - INFO - Loading file: results\dense_u_net\pt_290.csv
+2025-03-06 22:34:30,448 - INFO - Successfully loaded 62377 non-zero values from results\dense_u_net\pt_290.csv
+2025-03-06 22:34:30,509 - INFO - dense_u_net scores - MAE: 0.124717, DVH: 0.026282
+2025-03-06 22:34:30,510 - INFO - Loading file: results\gan\pt_290.csv
+2025-03-06 22:34:30,534 - INFO - Successfully loaded 62163 non-zero values from results\gan\pt_290.csv
+2025-03-06 22:34:30,599 - INFO - gan scores - MAE: 0.121092, DVH: 0.126830
+2025-03-06 22:34:30,600 - INFO - Loading file: results\res_u_net\pt_290.csv
+2025-03-06 22:34:30,614 - INFO - Successfully loaded 62215 non-zero values from results\res_u_net\pt_290.csv
+2025-03-06 22:34:30,672 - INFO - res_u_net scores - MAE: 0.139701, DVH: 0.033715
+2025-03-06 22:34:30,672 - INFO - Loading file: results\u_net\pt_290.csv
+2025-03-06 22:34:30,686 - INFO - Successfully loaded 62226 non-zero values from results\u_net\pt_290.csv
+2025-03-06 22:34:30,743 - INFO - u_net scores - MAE: 0.118378, DVH: 0.033358
+2025-03-06 22:34:30,746 - INFO - 
+Processing patient: pt_291
+2025-03-06 22:34:30,747 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_291\dose.csv
+2025-03-06 22:34:30,764 - INFO - Successfully loaded 120487 non-zero values from open-kbp-master\provided-data\test-pats\pt_291\dose.csv
+2025-03-06 22:34:30,767 - INFO - Loading file: results\dense_u_net\pt_291.csv
+2025-03-06 22:34:30,787 - INFO - Successfully loaded 83571 non-zero values from results\dense_u_net\pt_291.csv
+2025-03-06 22:34:30,845 - INFO - dense_u_net scores - MAE: 0.115780, DVH: 0.057174
+2025-03-06 22:34:30,846 - INFO - Loading file: results\gan\pt_291.csv
+2025-03-06 22:34:30,865 - INFO - Successfully loaded 80590 non-zero values from results\gan\pt_291.csv
+2025-03-06 22:34:30,923 - INFO - gan scores - MAE: 0.122445, DVH: 0.043566
+2025-03-06 22:34:30,923 - INFO - Loading file: results\res_u_net\pt_291.csv
+2025-03-06 22:34:30,944 - INFO - Successfully loaded 80543 non-zero values from results\res_u_net\pt_291.csv
+2025-03-06 22:34:30,999 - INFO - res_u_net scores - MAE: 0.130067, DVH: 0.056555
+2025-03-06 22:34:31,000 - INFO - Loading file: results\u_net\pt_291.csv
+2025-03-06 22:34:31,021 - INFO - Successfully loaded 86350 non-zero values from results\u_net\pt_291.csv
+2025-03-06 22:34:31,078 - INFO - u_net scores - MAE: 0.126669, DVH: 0.049771
+2025-03-06 22:34:31,081 - INFO - 
+Processing patient: pt_292
+2025-03-06 22:34:31,082 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_292\dose.csv
+2025-03-06 22:34:31,105 - INFO - Successfully loaded 163558 non-zero values from open-kbp-master\provided-data\test-pats\pt_292\dose.csv
+2025-03-06 22:34:31,107 - INFO - Loading file: results\dense_u_net\pt_292.csv
+2025-03-06 22:34:31,145 - INFO - Successfully loaded 160762 non-zero values from results\dense_u_net\pt_292.csv
+2025-03-06 22:34:31,201 - INFO - dense_u_net scores - MAE: 0.230431, DVH: 0.031793
+2025-03-06 22:34:31,202 - INFO - Loading file: results\gan\pt_292.csv
+2025-03-06 22:34:31,241 - INFO - Successfully loaded 158115 non-zero values from results\gan\pt_292.csv
+2025-03-06 22:34:31,295 - INFO - gan scores - MAE: 0.241619, DVH: 0.644480
+2025-03-06 22:34:31,296 - INFO - Loading file: results\res_u_net\pt_292.csv
+2025-03-06 22:34:31,333 - INFO - Successfully loaded 158383 non-zero values from results\res_u_net\pt_292.csv
+2025-03-06 22:34:31,390 - INFO - res_u_net scores - MAE: 0.259693, DVH: 0.085276
+2025-03-06 22:34:31,391 - INFO - Loading file: results\u_net\pt_292.csv
+2025-03-06 22:34:31,427 - INFO - Successfully loaded 160813 non-zero values from results\u_net\pt_292.csv
+2025-03-06 22:34:31,482 - INFO - u_net scores - MAE: 0.242881, DVH: 0.042042
+2025-03-06 22:34:31,485 - INFO - 
+Processing patient: pt_293
+2025-03-06 22:34:31,485 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_293\dose.csv
+2025-03-06 22:34:31,500 - INFO - Successfully loaded 92065 non-zero values from open-kbp-master\provided-data\test-pats\pt_293\dose.csv
+2025-03-06 22:34:31,501 - INFO - Loading file: results\dense_u_net\pt_293.csv
+2025-03-06 22:34:31,515 - INFO - Successfully loaded 60428 non-zero values from results\dense_u_net\pt_293.csv
+2025-03-06 22:34:31,573 - INFO - dense_u_net scores - MAE: 0.087014, DVH: 0.013702
+2025-03-06 22:34:31,573 - INFO - Loading file: results\gan\pt_293.csv
+2025-03-06 22:34:31,587 - INFO - Successfully loaded 57591 non-zero values from results\gan\pt_293.csv
+2025-03-06 22:34:31,648 - INFO - gan scores - MAE: 0.103198, DVH: 0.160750
+2025-03-06 22:34:31,648 - INFO - Loading file: results\res_u_net\pt_293.csv
+2025-03-06 22:34:31,662 - INFO - Successfully loaded 59364 non-zero values from results\res_u_net\pt_293.csv
+2025-03-06 22:34:31,719 - INFO - res_u_net scores - MAE: 0.114962, DVH: 0.040128
+2025-03-06 22:34:31,720 - INFO - Loading file: results\u_net\pt_293.csv
+2025-03-06 22:34:31,733 - INFO - Successfully loaded 58667 non-zero values from results\u_net\pt_293.csv
+2025-03-06 22:34:31,790 - INFO - u_net scores - MAE: 0.099181, DVH: 0.033179
+2025-03-06 22:34:31,793 - INFO - 
+Processing patient: pt_294
+2025-03-06 22:34:31,794 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_294\dose.csv
+2025-03-06 22:34:31,812 - INFO - Successfully loaded 114414 non-zero values from open-kbp-master\provided-data\test-pats\pt_294\dose.csv
+2025-03-06 22:34:31,814 - INFO - Loading file: results\dense_u_net\pt_294.csv
+2025-03-06 22:34:31,832 - INFO - Successfully loaded 81729 non-zero values from results\dense_u_net\pt_294.csv
+2025-03-06 22:34:31,892 - INFO - dense_u_net scores - MAE: 0.125208, DVH: 0.059010
+2025-03-06 22:34:31,892 - INFO - Loading file: results\gan\pt_294.csv
+2025-03-06 22:34:31,912 - INFO - Successfully loaded 79803 non-zero values from results\gan\pt_294.csv
+2025-03-06 22:34:31,968 - INFO - gan scores - MAE: 0.139975, DVH: 0.080556
+2025-03-06 22:34:31,969 - INFO - Loading file: results\res_u_net\pt_294.csv
+2025-03-06 22:34:31,990 - INFO - Successfully loaded 79861 non-zero values from results\res_u_net\pt_294.csv
+2025-03-06 22:34:32,047 - INFO - res_u_net scores - MAE: 0.132335, DVH: 0.065833
+2025-03-06 22:34:32,047 - INFO - Loading file: results\u_net\pt_294.csv
+2025-03-06 22:34:32,068 - INFO - Successfully loaded 83780 non-zero values from results\u_net\pt_294.csv
+2025-03-06 22:34:32,125 - INFO - u_net scores - MAE: 0.127152, DVH: 0.066710
+2025-03-06 22:34:32,127 - INFO - 
+Processing patient: pt_295
+2025-03-06 22:34:32,127 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_295\dose.csv
+2025-03-06 22:34:32,135 - INFO - Successfully loaded 47022 non-zero values from open-kbp-master\provided-data\test-pats\pt_295\dose.csv
+2025-03-06 22:34:32,136 - INFO - Loading file: results\dense_u_net\pt_295.csv
+2025-03-06 22:34:32,148 - INFO - Successfully loaded 46198 non-zero values from results\dense_u_net\pt_295.csv
+2025-03-06 22:34:32,208 - INFO - dense_u_net scores - MAE: 0.077697, DVH: 0.020253
+2025-03-06 22:34:32,208 - INFO - Loading file: results\gan\pt_295.csv
+2025-03-06 22:34:32,220 - INFO - Successfully loaded 45830 non-zero values from results\gan\pt_295.csv
+2025-03-06 22:34:32,280 - INFO - gan scores - MAE: 0.081539, DVH: 0.145175
+2025-03-06 22:34:32,281 - INFO - Loading file: results\res_u_net\pt_295.csv
+2025-03-06 22:34:32,292 - INFO - Successfully loaded 45827 non-zero values from results\res_u_net\pt_295.csv
+2025-03-06 22:34:32,351 - INFO - res_u_net scores - MAE: 0.087047, DVH: 0.034755
+2025-03-06 22:34:32,351 - INFO - Loading file: results\u_net\pt_295.csv
+2025-03-06 22:34:32,362 - INFO - Successfully loaded 45730 non-zero values from results\u_net\pt_295.csv
+2025-03-06 22:34:32,419 - INFO - u_net scores - MAE: 0.085120, DVH: 0.020145
+2025-03-06 22:34:32,423 - INFO - 
+Processing patient: pt_296
+2025-03-06 22:34:32,423 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_296\dose.csv
+2025-03-06 22:34:32,443 - INFO - Successfully loaded 125562 non-zero values from open-kbp-master\provided-data\test-pats\pt_296\dose.csv
+2025-03-06 22:34:32,445 - INFO - Loading file: results\dense_u_net\pt_296.csv
+2025-03-06 22:34:32,466 - INFO - Successfully loaded 87364 non-zero values from results\dense_u_net\pt_296.csv
+2025-03-06 22:34:32,525 - INFO - dense_u_net scores - MAE: 0.113301, DVH: 0.043591
+2025-03-06 22:34:32,526 - INFO - Loading file: results\gan\pt_296.csv
+2025-03-06 22:34:32,547 - INFO - Successfully loaded 85073 non-zero values from results\gan\pt_296.csv
+2025-03-06 22:34:32,604 - INFO - gan scores - MAE: 0.107305, DVH: 0.332504
+2025-03-06 22:34:32,605 - INFO - Loading file: results\res_u_net\pt_296.csv
+2025-03-06 22:34:32,626 - INFO - Successfully loaded 84030 non-zero values from results\res_u_net\pt_296.csv
+2025-03-06 22:34:32,684 - INFO - res_u_net scores - MAE: 0.124034, DVH: 0.058898
+2025-03-06 22:34:32,684 - INFO - Loading file: results\u_net\pt_296.csv
+2025-03-06 22:34:32,706 - INFO - Successfully loaded 90233 non-zero values from results\u_net\pt_296.csv
+2025-03-06 22:34:32,763 - INFO - u_net scores - MAE: 0.113483, DVH: 0.052591
+2025-03-06 22:34:32,766 - INFO - 
+Processing patient: pt_297
+2025-03-06 22:34:32,767 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_297\dose.csv
+2025-03-06 22:34:32,778 - INFO - Successfully loaded 81772 non-zero values from open-kbp-master\provided-data\test-pats\pt_297\dose.csv
+2025-03-06 22:34:32,780 - INFO - Loading file: results\dense_u_net\pt_297.csv
+2025-03-06 22:34:32,800 - INFO - Successfully loaded 81676 non-zero values from results\dense_u_net\pt_297.csv
+2025-03-06 22:34:32,860 - INFO - dense_u_net scores - MAE: 0.188036, DVH: 0.053975
+2025-03-06 22:34:32,861 - INFO - Loading file: results\gan\pt_297.csv
+2025-03-06 22:34:32,881 - INFO - Successfully loaded 81042 non-zero values from results\gan\pt_297.csv
+2025-03-06 22:34:32,939 - INFO - gan scores - MAE: 0.182040, DVH: 0.444340
+2025-03-06 22:34:32,939 - INFO - Loading file: results\res_u_net\pt_297.csv
+2025-03-06 22:34:32,959 - INFO - Successfully loaded 81243 non-zero values from results\res_u_net\pt_297.csv
+2025-03-06 22:34:33,017 - INFO - res_u_net scores - MAE: 0.210010, DVH: 0.149817
+2025-03-06 22:34:33,017 - INFO - Loading file: results\u_net\pt_297.csv
+2025-03-06 22:34:33,036 - INFO - Successfully loaded 81184 non-zero values from results\u_net\pt_297.csv
+2025-03-06 22:34:33,095 - INFO - u_net scores - MAE: 0.194268, DVH: 0.096993
+2025-03-06 22:34:33,098 - INFO - 
+Processing patient: pt_298
+2025-03-06 22:34:33,098 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_298\dose.csv
+2025-03-06 22:34:33,110 - INFO - Successfully loaded 76376 non-zero values from open-kbp-master\provided-data\test-pats\pt_298\dose.csv
+2025-03-06 22:34:33,111 - INFO - Loading file: results\dense_u_net\pt_298.csv
+2025-03-06 22:34:33,126 - INFO - Successfully loaded 65095 non-zero values from results\dense_u_net\pt_298.csv
+2025-03-06 22:34:33,185 - INFO - dense_u_net scores - MAE: 0.109306, DVH: 0.024910
+2025-03-06 22:34:33,186 - INFO - Loading file: results\gan\pt_298.csv
+2025-03-06 22:34:33,201 - INFO - Successfully loaded 63982 non-zero values from results\gan\pt_298.csv
+2025-03-06 22:34:33,258 - INFO - gan scores - MAE: 0.113580, DVH: 0.117715
+2025-03-06 22:34:33,258 - INFO - Loading file: results\res_u_net\pt_298.csv
+2025-03-06 22:34:33,272 - INFO - Successfully loaded 64492 non-zero values from results\res_u_net\pt_298.csv
+2025-03-06 22:34:33,330 - INFO - res_u_net scores - MAE: 0.122147, DVH: 0.028680
+2025-03-06 22:34:33,330 - INFO - Loading file: results\u_net\pt_298.csv
+2025-03-06 22:34:33,345 - INFO - Successfully loaded 66465 non-zero values from results\u_net\pt_298.csv
+2025-03-06 22:34:33,401 - INFO - u_net scores - MAE: 0.105980, DVH: 0.029079
+2025-03-06 22:34:33,402 - INFO - 
+Processing patient: pt_299
+2025-03-06 22:34:33,402 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_299\dose.csv
+2025-03-06 22:34:33,418 - INFO - Successfully loaded 99815 non-zero values from open-kbp-master\provided-data\test-pats\pt_299\dose.csv
+2025-03-06 22:34:33,420 - INFO - Loading file: results\dense_u_net\pt_299.csv
+2025-03-06 22:34:33,435 - INFO - Successfully loaded 70931 non-zero values from results\dense_u_net\pt_299.csv
+2025-03-06 22:34:33,493 - INFO - dense_u_net scores - MAE: 0.101190, DVH: 0.076881
+2025-03-06 22:34:33,493 - INFO - Loading file: results\gan\pt_299.csv
+2025-03-06 22:34:33,509 - INFO - Successfully loaded 67710 non-zero values from results\gan\pt_299.csv
+2025-03-06 22:34:33,566 - INFO - gan scores - MAE: 0.104939, DVH: 0.215867
+2025-03-06 22:34:33,566 - INFO - Loading file: results\res_u_net\pt_299.csv
+2025-03-06 22:34:33,581 - INFO - Successfully loaded 67625 non-zero values from results\res_u_net\pt_299.csv
+2025-03-06 22:34:33,638 - INFO - res_u_net scores - MAE: 0.110856, DVH: 0.078153
+2025-03-06 22:34:33,638 - INFO - Loading file: results\u_net\pt_299.csv
+2025-03-06 22:34:33,654 - INFO - Successfully loaded 71565 non-zero values from results\u_net\pt_299.csv
+2025-03-06 22:34:33,710 - INFO - u_net scores - MAE: 0.101076, DVH: 0.063359
+2025-03-06 22:34:33,714 - INFO - 
+Processing patient: pt_300
+2025-03-06 22:34:33,715 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_300\dose.csv
+2025-03-06 22:34:33,725 - INFO - Successfully loaded 64536 non-zero values from open-kbp-master\provided-data\test-pats\pt_300\dose.csv
+2025-03-06 22:34:33,726 - INFO - Loading file: results\dense_u_net\pt_300.csv
+2025-03-06 22:34:33,741 - INFO - Successfully loaded 64521 non-zero values from results\dense_u_net\pt_300.csv
+2025-03-06 22:34:33,814 - INFO - dense_u_net scores - MAE: 0.147309, DVH: 0.071921
+2025-03-06 22:34:33,815 - INFO - Loading file: results\gan\pt_300.csv
+2025-03-06 22:34:33,828 - INFO - Successfully loaded 64433 non-zero values from results\gan\pt_300.csv
+2025-03-06 22:34:33,886 - INFO - gan scores - MAE: 0.150655, DVH: 0.058978
+2025-03-06 22:34:33,886 - INFO - Loading file: results\res_u_net\pt_300.csv
+2025-03-06 22:34:33,901 - INFO - Successfully loaded 64451 non-zero values from results\res_u_net\pt_300.csv
+2025-03-06 22:34:33,957 - INFO - res_u_net scores - MAE: 0.156188, DVH: 0.050775
+2025-03-06 22:34:33,958 - INFO - Loading file: results\u_net\pt_300.csv
+2025-03-06 22:34:33,972 - INFO - Successfully loaded 64470 non-zero values from results\u_net\pt_300.csv
+2025-03-06 22:34:34,029 - INFO - u_net scores - MAE: 0.140177, DVH: 0.056155
+2025-03-06 22:34:34,032 - INFO - 
+Processing patient: pt_301
+2025-03-06 22:34:34,033 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_301\dose.csv
+2025-03-06 22:34:34,044 - INFO - Successfully loaded 73180 non-zero values from open-kbp-master\provided-data\test-pats\pt_301\dose.csv
+2025-03-06 22:34:34,046 - INFO - Loading file: results\dense_u_net\pt_301.csv
+2025-03-06 22:34:34,062 - INFO - Successfully loaded 73134 non-zero values from results\dense_u_net\pt_301.csv
+2025-03-06 22:34:34,120 - INFO - dense_u_net scores - MAE: 0.131544, DVH: 0.021871
+2025-03-06 22:34:34,121 - INFO - Loading file: results\gan\pt_301.csv
+2025-03-06 22:34:34,137 - INFO - Successfully loaded 72868 non-zero values from results\gan\pt_301.csv
+2025-03-06 22:34:34,194 - INFO - gan scores - MAE: 0.143366, DVH: 0.127982
+2025-03-06 22:34:34,194 - INFO - Loading file: results\res_u_net\pt_301.csv
+2025-03-06 22:34:34,210 - INFO - Successfully loaded 72823 non-zero values from results\res_u_net\pt_301.csv
+2025-03-06 22:34:34,267 - INFO - res_u_net scores - MAE: 0.145988, DVH: 0.039419
+2025-03-06 22:34:34,268 - INFO - Loading file: results\u_net\pt_301.csv
+2025-03-06 22:34:34,284 - INFO - Successfully loaded 73063 non-zero values from results\u_net\pt_301.csv
+2025-03-06 22:34:34,340 - INFO - u_net scores - MAE: 0.123248, DVH: 0.037635
+2025-03-06 22:34:34,342 - INFO - 
+Processing patient: pt_302
+2025-03-06 22:34:34,342 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_302\dose.csv
+2025-03-06 22:34:34,352 - INFO - Successfully loaded 64283 non-zero values from open-kbp-master\provided-data\test-pats\pt_302\dose.csv
+2025-03-06 22:34:34,353 - INFO - Loading file: results\dense_u_net\pt_302.csv
+2025-03-06 22:34:34,368 - INFO - Successfully loaded 64268 non-zero values from results\dense_u_net\pt_302.csv
+2025-03-06 22:34:34,429 - INFO - dense_u_net scores - MAE: 0.150917, DVH: 0.020949
+2025-03-06 22:34:34,429 - INFO - Loading file: results\gan\pt_302.csv
+2025-03-06 22:34:34,443 - INFO - Successfully loaded 64158 non-zero values from results\gan\pt_302.csv
+2025-03-06 22:34:34,500 - INFO - gan scores - MAE: 0.150636, DVH: 0.134392
+2025-03-06 22:34:34,500 - INFO - Loading file: results\res_u_net\pt_302.csv
+2025-03-06 22:34:34,515 - INFO - Successfully loaded 64196 non-zero values from results\res_u_net\pt_302.csv
+2025-03-06 22:34:34,585 - INFO - res_u_net scores - MAE: 0.158254, DVH: 0.062767
+2025-03-06 22:34:34,586 - INFO - Loading file: results\u_net\pt_302.csv
+2025-03-06 22:34:34,600 - INFO - Successfully loaded 64215 non-zero values from results\u_net\pt_302.csv
+2025-03-06 22:34:34,658 - INFO - u_net scores - MAE: 0.148426, DVH: 0.048420
+2025-03-06 22:34:34,659 - INFO - 
+Processing patient: pt_303
+2025-03-06 22:34:34,660 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_303\dose.csv
+2025-03-06 22:34:34,693 - INFO - Successfully loaded 194707 non-zero values from open-kbp-master\provided-data\test-pats\pt_303\dose.csv
+2025-03-06 22:34:34,695 - INFO - Loading file: results\dense_u_net\pt_303.csv
+2025-03-06 22:34:34,723 - INFO - Successfully loaded 120325 non-zero values from results\dense_u_net\pt_303.csv
+2025-03-06 22:34:34,783 - INFO - dense_u_net scores - MAE: 0.279917, DVH: 0.191601
+2025-03-06 22:34:34,784 - INFO - Loading file: results\gan\pt_303.csv
+2025-03-06 22:34:34,813 - INFO - Successfully loaded 113311 non-zero values from results\gan\pt_303.csv
+2025-03-06 22:34:34,872 - INFO - gan scores - MAE: 0.299476, DVH: 0.294460
+2025-03-06 22:34:34,874 - INFO - Loading file: results\res_u_net\pt_303.csv
+2025-03-06 22:34:34,901 - INFO - Successfully loaded 114992 non-zero values from results\res_u_net\pt_303.csv
+2025-03-06 22:34:34,960 - INFO - res_u_net scores - MAE: 0.308792, DVH: 0.244722
+2025-03-06 22:34:34,960 - INFO - Loading file: results\u_net\pt_303.csv
+2025-03-06 22:34:34,989 - INFO - Successfully loaded 120152 non-zero values from results\u_net\pt_303.csv
+2025-03-06 22:34:35,054 - INFO - u_net scores - MAE: 0.308938, DVH: 0.250758
+2025-03-06 22:34:35,058 - INFO - 
+Processing patient: pt_304
+2025-03-06 22:34:35,058 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_304\dose.csv
+2025-03-06 22:34:35,078 - INFO - Successfully loaded 123759 non-zero values from open-kbp-master\provided-data\test-pats\pt_304\dose.csv
+2025-03-06 22:34:35,080 - INFO - Loading file: results\dense_u_net\pt_304.csv
+2025-03-06 22:34:35,102 - INFO - Successfully loaded 85275 non-zero values from results\dense_u_net\pt_304.csv
+2025-03-06 22:34:35,163 - INFO - dense_u_net scores - MAE: 0.141714, DVH: 0.060590
+2025-03-06 22:34:35,163 - INFO - Loading file: results\gan\pt_304.csv
+2025-03-06 22:34:35,183 - INFO - Successfully loaded 82029 non-zero values from results\gan\pt_304.csv
+2025-03-06 22:34:35,244 - INFO - gan scores - MAE: 0.134380, DVH: 0.191143
+2025-03-06 22:34:35,244 - INFO - Loading file: results\res_u_net\pt_304.csv
+2025-03-06 22:34:35,263 - INFO - Successfully loaded 77231 non-zero values from results\res_u_net\pt_304.csv
+2025-03-06 22:34:35,323 - INFO - res_u_net scores - MAE: 0.156061, DVH: 0.069541
+2025-03-06 22:34:35,323 - INFO - Loading file: results\u_net\pt_304.csv
+2025-03-06 22:34:35,344 - INFO - Successfully loaded 80870 non-zero values from results\u_net\pt_304.csv
+2025-03-06 22:34:35,405 - INFO - u_net scores - MAE: 0.142335, DVH: 0.046640
+2025-03-06 22:34:35,407 - INFO - 
+Processing patient: pt_305
+2025-03-06 22:34:35,408 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_305\dose.csv
+2025-03-06 22:34:35,420 - INFO - Successfully loaded 69764 non-zero values from open-kbp-master\provided-data\test-pats\pt_305\dose.csv
+2025-03-06 22:34:35,421 - INFO - Loading file: results\dense_u_net\pt_305.csv
+2025-03-06 22:34:35,437 - INFO - Successfully loaded 68447 non-zero values from results\dense_u_net\pt_305.csv
+2025-03-06 22:34:35,497 - INFO - dense_u_net scores - MAE: 0.126460, DVH: 0.044152
+2025-03-06 22:34:35,498 - INFO - Loading file: results\gan\pt_305.csv
+2025-03-06 22:34:35,514 - INFO - Successfully loaded 67474 non-zero values from results\gan\pt_305.csv
+2025-03-06 22:34:35,573 - INFO - gan scores - MAE: 0.140047, DVH: 0.082819
+2025-03-06 22:34:35,573 - INFO - Loading file: results\res_u_net\pt_305.csv
+2025-03-06 22:34:35,589 - INFO - Successfully loaded 67888 non-zero values from results\res_u_net\pt_305.csv
+2025-03-06 22:34:35,651 - INFO - res_u_net scores - MAE: 0.135835, DVH: 0.062043
+2025-03-06 22:34:35,652 - INFO - Loading file: results\u_net\pt_305.csv
+2025-03-06 22:34:35,666 - INFO - Successfully loaded 68295 non-zero values from results\u_net\pt_305.csv
+2025-03-06 22:34:35,725 - INFO - u_net scores - MAE: 0.127212, DVH: 0.032340
+2025-03-06 22:34:35,726 - INFO - 
+Processing patient: pt_306
+2025-03-06 22:34:35,726 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_306\dose.csv
+2025-03-06 22:34:35,743 - INFO - Successfully loaded 114032 non-zero values from open-kbp-master\provided-data\test-pats\pt_306\dose.csv
+2025-03-06 22:34:35,745 - INFO - Loading file: results\dense_u_net\pt_306.csv
+2025-03-06 22:34:35,762 - INFO - Successfully loaded 73971 non-zero values from results\dense_u_net\pt_306.csv
+2025-03-06 22:34:35,821 - INFO - dense_u_net scores - MAE: 0.099453, DVH: 0.020476
+2025-03-06 22:34:35,822 - INFO - Loading file: results\gan\pt_306.csv
+2025-03-06 22:34:35,838 - INFO - Successfully loaded 69124 non-zero values from results\gan\pt_306.csv
+2025-03-06 22:34:35,898 - INFO - gan scores - MAE: 0.101800, DVH: 0.093382
+2025-03-06 22:34:35,900 - INFO - Loading file: results\res_u_net\pt_306.csv
+2025-03-06 22:34:35,915 - INFO - Successfully loaded 68795 non-zero values from results\res_u_net\pt_306.csv
+2025-03-06 22:34:35,975 - INFO - res_u_net scores - MAE: 0.109517, DVH: 0.045344
+2025-03-06 22:34:35,975 - INFO - Loading file: results\u_net\pt_306.csv
+2025-03-06 22:34:35,991 - INFO - Successfully loaded 73337 non-zero values from results\u_net\pt_306.csv
+2025-03-06 22:34:36,051 - INFO - u_net scores - MAE: 0.106057, DVH: 0.021902
+2025-03-06 22:34:36,052 - INFO - 
+Processing patient: pt_307
+2025-03-06 22:34:36,053 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_307\dose.csv
+2025-03-06 22:34:36,069 - INFO - Successfully loaded 110166 non-zero values from open-kbp-master\provided-data\test-pats\pt_307\dose.csv
+2025-03-06 22:34:36,071 - INFO - Loading file: results\dense_u_net\pt_307.csv
+2025-03-06 22:34:36,088 - INFO - Successfully loaded 72461 non-zero values from results\dense_u_net\pt_307.csv
+2025-03-06 22:34:36,148 - INFO - dense_u_net scores - MAE: 0.131604, DVH: 0.024354
+2025-03-06 22:34:36,148 - INFO - Loading file: results\gan\pt_307.csv
+2025-03-06 22:34:36,163 - INFO - Successfully loaded 67807 non-zero values from results\gan\pt_307.csv
+2025-03-06 22:34:36,221 - INFO - gan scores - MAE: 0.136051, DVH: 0.146514
+2025-03-06 22:34:36,222 - INFO - Loading file: results\res_u_net\pt_307.csv
+2025-03-06 22:34:36,235 - INFO - Successfully loaded 67973 non-zero values from results\res_u_net\pt_307.csv
+2025-03-06 22:34:36,293 - INFO - res_u_net scores - MAE: 0.137757, DVH: 0.064413
+2025-03-06 22:34:36,294 - INFO - Loading file: results\u_net\pt_307.csv
+2025-03-06 22:34:36,310 - INFO - Successfully loaded 71557 non-zero values from results\u_net\pt_307.csv
+2025-03-06 22:34:36,369 - INFO - u_net scores - MAE: 0.127864, DVH: 0.033657
+2025-03-06 22:34:36,372 - INFO - 
+Processing patient: pt_308
+2025-03-06 22:34:36,372 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_308\dose.csv
+2025-03-06 22:34:36,396 - INFO - Successfully loaded 153871 non-zero values from open-kbp-master\provided-data\test-pats\pt_308\dose.csv
+2025-03-06 22:34:36,398 - INFO - Loading file: results\dense_u_net\pt_308.csv
+2025-03-06 22:34:36,435 - INFO - Successfully loaded 153288 non-zero values from results\dense_u_net\pt_308.csv
+2025-03-06 22:34:36,493 - INFO - dense_u_net scores - MAE: 0.276354, DVH: 0.183857
+2025-03-06 22:34:36,493 - INFO - Loading file: results\gan\pt_308.csv
+2025-03-06 22:34:36,534 - INFO - Successfully loaded 150974 non-zero values from results\gan\pt_308.csv
+2025-03-06 22:34:36,597 - INFO - gan scores - MAE: 0.261545, DVH: 0.783771
+2025-03-06 22:34:36,597 - INFO - Loading file: results\res_u_net\pt_308.csv
+2025-03-06 22:34:36,634 - INFO - Successfully loaded 151767 non-zero values from results\res_u_net\pt_308.csv
+2025-03-06 22:34:36,690 - INFO - res_u_net scores - MAE: 0.306694, DVH: 0.256692
+2025-03-06 22:34:36,690 - INFO - Loading file: results\u_net\pt_308.csv
+2025-03-06 22:34:36,728 - INFO - Successfully loaded 152876 non-zero values from results\u_net\pt_308.csv
+2025-03-06 22:34:36,786 - INFO - u_net scores - MAE: 0.284538, DVH: 0.251040
+2025-03-06 22:34:36,788 - INFO - 
+Processing patient: pt_309
+2025-03-06 22:34:36,789 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_309\dose.csv
+2025-03-06 22:34:36,805 - INFO - Successfully loaded 102955 non-zero values from open-kbp-master\provided-data\test-pats\pt_309\dose.csv
+2025-03-06 22:34:36,807 - INFO - Loading file: results\dense_u_net\pt_309.csv
+2025-03-06 22:34:36,822 - INFO - Successfully loaded 68326 non-zero values from results\dense_u_net\pt_309.csv
+2025-03-06 22:34:36,881 - INFO - dense_u_net scores - MAE: 0.097301, DVH: 0.036685
+2025-03-06 22:34:36,881 - INFO - Loading file: results\gan\pt_309.csv
+2025-03-06 22:34:36,896 - INFO - Successfully loaded 65989 non-zero values from results\gan\pt_309.csv
+2025-03-06 22:34:36,956 - INFO - gan scores - MAE: 0.116907, DVH: 0.259931
+2025-03-06 22:34:36,957 - INFO - Loading file: results\res_u_net\pt_309.csv
+2025-03-06 22:34:36,971 - INFO - Successfully loaded 65439 non-zero values from results\res_u_net\pt_309.csv
+2025-03-06 22:34:37,028 - INFO - res_u_net scores - MAE: 0.112522, DVH: 0.095269
+2025-03-06 22:34:37,029 - INFO - Loading file: results\u_net\pt_309.csv
+2025-03-06 22:34:37,044 - INFO - Successfully loaded 69155 non-zero values from results\u_net\pt_309.csv
+2025-03-06 22:34:37,103 - INFO - u_net scores - MAE: 0.109494, DVH: 0.052161
+2025-03-06 22:34:37,104 - INFO - 
+Processing patient: pt_310
+2025-03-06 22:34:37,104 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_310\dose.csv
+2025-03-06 22:34:37,120 - INFO - Successfully loaded 103870 non-zero values from open-kbp-master\provided-data\test-pats\pt_310\dose.csv
+2025-03-06 22:34:37,122 - INFO - Loading file: results\dense_u_net\pt_310.csv
+2025-03-06 22:34:37,142 - INFO - Successfully loaded 84500 non-zero values from results\dense_u_net\pt_310.csv
+2025-03-06 22:34:37,202 - INFO - dense_u_net scores - MAE: 0.401959, DVH: 0.252990
+2025-03-06 22:34:37,203 - INFO - Loading file: results\gan\pt_310.csv
+2025-03-06 22:34:37,223 - INFO - Successfully loaded 82868 non-zero values from results\gan\pt_310.csv
+2025-03-06 22:34:37,283 - INFO - gan scores - MAE: 0.392695, DVH: 0.549727
+2025-03-06 22:34:37,283 - INFO - Loading file: results\res_u_net\pt_310.csv
+2025-03-06 22:34:37,304 - INFO - Successfully loaded 83421 non-zero values from results\res_u_net\pt_310.csv
+2025-03-06 22:34:37,365 - INFO - res_u_net scores - MAE: 0.425581, DVH: 0.282999
+2025-03-06 22:34:37,365 - INFO - Loading file: results\u_net\pt_310.csv
+2025-03-06 22:34:37,385 - INFO - Successfully loaded 83241 non-zero values from results\u_net\pt_310.csv
+2025-03-06 22:34:37,446 - INFO - u_net scores - MAE: 0.403254, DVH: 0.287656
+2025-03-06 22:34:37,447 - INFO - 
+Processing patient: pt_311
+2025-03-06 22:34:37,447 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_311\dose.csv
+2025-03-06 22:34:37,470 - INFO - Successfully loaded 141280 non-zero values from open-kbp-master\provided-data\test-pats\pt_311\dose.csv
+2025-03-06 22:34:37,471 - INFO - Loading file: results\dense_u_net\pt_311.csv
+2025-03-06 22:34:37,493 - INFO - Successfully loaded 93094 non-zero values from results\dense_u_net\pt_311.csv
+2025-03-06 22:34:37,552 - INFO - dense_u_net scores - MAE: 0.116513, DVH: 0.048983
+2025-03-06 22:34:37,553 - INFO - Loading file: results\gan\pt_311.csv
+2025-03-06 22:34:37,574 - INFO - Successfully loaded 85922 non-zero values from results\gan\pt_311.csv
+2025-03-06 22:34:37,633 - INFO - gan scores - MAE: 0.123892, DVH: 0.181792
+2025-03-06 22:34:37,633 - INFO - Loading file: results\res_u_net\pt_311.csv
+2025-03-06 22:34:37,655 - INFO - Successfully loaded 87863 non-zero values from results\res_u_net\pt_311.csv
+2025-03-06 22:34:37,714 - INFO - res_u_net scores - MAE: 0.119460, DVH: 0.059673
+2025-03-06 22:34:37,714 - INFO - Loading file: results\u_net\pt_311.csv
+2025-03-06 22:34:37,736 - INFO - Successfully loaded 93069 non-zero values from results\u_net\pt_311.csv
+2025-03-06 22:34:37,795 - INFO - u_net scores - MAE: 0.127164, DVH: 0.041368
+2025-03-06 22:34:37,798 - INFO - 
+Processing patient: pt_312
+2025-03-06 22:34:37,799 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_312\dose.csv
+2025-03-06 22:34:37,826 - INFO - Successfully loaded 176968 non-zero values from open-kbp-master\provided-data\test-pats\pt_312\dose.csv
+2025-03-06 22:34:37,828 - INFO - Loading file: results\dense_u_net\pt_312.csv
+2025-03-06 22:34:37,856 - INFO - Successfully loaded 118979 non-zero values from results\dense_u_net\pt_312.csv
+2025-03-06 22:34:37,915 - INFO - dense_u_net scores - MAE: 0.145598, DVH: 0.050502
+2025-03-06 22:34:37,915 - INFO - Loading file: results\gan\pt_312.csv
+2025-03-06 22:34:37,941 - INFO - Successfully loaded 109450 non-zero values from results\gan\pt_312.csv
+2025-03-06 22:34:38,000 - INFO - gan scores - MAE: 0.136794, DVH: 0.095516
+2025-03-06 22:34:38,001 - INFO - Loading file: results\res_u_net\pt_312.csv
+2025-03-06 22:34:38,027 - INFO - Successfully loaded 109832 non-zero values from results\res_u_net\pt_312.csv
+2025-03-06 22:34:38,087 - INFO - res_u_net scores - MAE: 0.149822, DVH: 0.073914
+2025-03-06 22:34:38,088 - INFO - Loading file: results\u_net\pt_312.csv
+2025-03-06 22:34:38,113 - INFO - Successfully loaded 115314 non-zero values from results\u_net\pt_312.csv
+2025-03-06 22:34:38,172 - INFO - u_net scores - MAE: 0.140525, DVH: 0.038985
+2025-03-06 22:34:38,173 - INFO - 
+Processing patient: pt_313
+2025-03-06 22:34:38,173 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_313\dose.csv
+2025-03-06 22:34:38,211 - INFO - Successfully loaded 270556 non-zero values from open-kbp-master\provided-data\test-pats\pt_313\dose.csv
+2025-03-06 22:34:38,213 - INFO - Loading file: results\dense_u_net\pt_313.csv
+2025-03-06 22:34:38,257 - INFO - Successfully loaded 199599 non-zero values from results\dense_u_net\pt_313.csv
+2025-03-06 22:34:38,316 - INFO - dense_u_net scores - MAE: 0.264859, DVH: 0.119176
+2025-03-06 22:34:38,316 - INFO - Loading file: results\gan\pt_313.csv
+2025-03-06 22:34:38,359 - INFO - Successfully loaded 185869 non-zero values from results\gan\pt_313.csv
+2025-03-06 22:34:38,417 - INFO - gan scores - MAE: 0.297514, DVH: 0.637837
+2025-03-06 22:34:38,417 - INFO - Loading file: results\res_u_net\pt_313.csv
+2025-03-06 22:34:38,463 - INFO - Successfully loaded 202999 non-zero values from results\res_u_net\pt_313.csv
+2025-03-06 22:34:38,522 - INFO - res_u_net scores - MAE: 0.288738, DVH: 0.134203
+2025-03-06 22:34:38,522 - INFO - Loading file: results\u_net\pt_313.csv
+2025-03-06 22:34:38,569 - INFO - Successfully loaded 206428 non-zero values from results\u_net\pt_313.csv
+2025-03-06 22:34:38,626 - INFO - u_net scores - MAE: 0.305568, DVH: 0.125373
+2025-03-06 22:34:38,629 - INFO - 
+Processing patient: pt_314
+2025-03-06 22:34:38,630 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_314\dose.csv
+2025-03-06 22:34:38,652 - INFO - Successfully loaded 132781 non-zero values from open-kbp-master\provided-data\test-pats\pt_314\dose.csv
+2025-03-06 22:34:38,653 - INFO - Loading file: results\dense_u_net\pt_314.csv
+2025-03-06 22:34:38,676 - INFO - Successfully loaded 89712 non-zero values from results\dense_u_net\pt_314.csv
+2025-03-06 22:34:38,736 - INFO - dense_u_net scores - MAE: 0.184180, DVH: 0.078913
+2025-03-06 22:34:38,736 - INFO - Loading file: results\gan\pt_314.csv
+2025-03-06 22:34:38,757 - INFO - Successfully loaded 86528 non-zero values from results\gan\pt_314.csv
+2025-03-06 22:34:38,816 - INFO - gan scores - MAE: 0.176191, DVH: 0.262641
+2025-03-06 22:34:38,817 - INFO - Loading file: results\res_u_net\pt_314.csv
+2025-03-06 22:34:38,839 - INFO - Successfully loaded 87150 non-zero values from results\res_u_net\pt_314.csv
+2025-03-06 22:34:38,897 - INFO - res_u_net scores - MAE: 0.199355, DVH: 0.081673
+2025-03-06 22:34:38,898 - INFO - Loading file: results\u_net\pt_314.csv
+2025-03-06 22:34:38,922 - INFO - Successfully loaded 92767 non-zero values from results\u_net\pt_314.csv
+2025-03-06 22:34:38,980 - INFO - u_net scores - MAE: 0.184913, DVH: 0.087409
+2025-03-06 22:34:38,984 - INFO - 
+Processing patient: pt_315
+2025-03-06 22:34:38,985 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_315\dose.csv
+2025-03-06 22:34:39,006 - INFO - Successfully loaded 129605 non-zero values from open-kbp-master\provided-data\test-pats\pt_315\dose.csv
+2025-03-06 22:34:39,007 - INFO - Loading file: results\dense_u_net\pt_315.csv
+2025-03-06 22:34:39,029 - INFO - Successfully loaded 86527 non-zero values from results\dense_u_net\pt_315.csv
+2025-03-06 22:34:39,087 - INFO - dense_u_net scores - MAE: 0.157384, DVH: 0.058367
+2025-03-06 22:34:39,088 - INFO - Loading file: results\gan\pt_315.csv
+2025-03-06 22:34:39,109 - INFO - Successfully loaded 84387 non-zero values from results\gan\pt_315.csv
+2025-03-06 22:34:39,169 - INFO - gan scores - MAE: 0.157567, DVH: 0.266988
+2025-03-06 22:34:39,169 - INFO - Loading file: results\res_u_net\pt_315.csv
+2025-03-06 22:34:39,189 - INFO - Successfully loaded 82733 non-zero values from results\res_u_net\pt_315.csv
+2025-03-06 22:34:39,250 - INFO - res_u_net scores - MAE: 0.171800, DVH: 0.100113
+2025-03-06 22:34:39,250 - INFO - Loading file: results\u_net\pt_315.csv
+2025-03-06 22:34:39,271 - INFO - Successfully loaded 87796 non-zero values from results\u_net\pt_315.csv
+2025-03-06 22:34:39,330 - INFO - u_net scores - MAE: 0.173755, DVH: 0.077539
+2025-03-06 22:34:39,333 - INFO - 
+Processing patient: pt_316
+2025-03-06 22:34:39,333 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_316\dose.csv
+2025-03-06 22:34:39,343 - INFO - Successfully loaded 61237 non-zero values from open-kbp-master\provided-data\test-pats\pt_316\dose.csv
+2025-03-06 22:34:39,344 - INFO - Loading file: results\dense_u_net\pt_316.csv
+2025-03-06 22:34:39,359 - INFO - Successfully loaded 61174 non-zero values from results\dense_u_net\pt_316.csv
+2025-03-06 22:34:39,422 - INFO - dense_u_net scores - MAE: 0.125879, DVH: 0.033049
+2025-03-06 22:34:39,422 - INFO - Loading file: results\gan\pt_316.csv
+2025-03-06 22:34:39,436 - INFO - Successfully loaded 60959 non-zero values from results\gan\pt_316.csv
+2025-03-06 22:34:39,498 - INFO - gan scores - MAE: 0.134213, DVH: 0.098399
+2025-03-06 22:34:39,499 - INFO - Loading file: results\res_u_net\pt_316.csv
+2025-03-06 22:34:39,514 - INFO - Successfully loaded 60954 non-zero values from results\res_u_net\pt_316.csv
+2025-03-06 22:34:39,571 - INFO - res_u_net scores - MAE: 0.148906, DVH: 0.090902
+2025-03-06 22:34:39,572 - INFO - Loading file: results\u_net\pt_316.csv
+2025-03-06 22:34:39,586 - INFO - Successfully loaded 61036 non-zero values from results\u_net\pt_316.csv
+2025-03-06 22:34:39,642 - INFO - u_net scores - MAE: 0.124673, DVH: 0.054550
+2025-03-06 22:34:39,645 - INFO - 
+Processing patient: pt_317
+2025-03-06 22:34:39,645 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_317\dose.csv
+2025-03-06 22:34:39,656 - INFO - Successfully loaded 57632 non-zero values from open-kbp-master\provided-data\test-pats\pt_317\dose.csv
+2025-03-06 22:34:39,656 - INFO - Loading file: results\dense_u_net\pt_317.csv
+2025-03-06 22:34:39,670 - INFO - Successfully loaded 57621 non-zero values from results\dense_u_net\pt_317.csv
+2025-03-06 22:34:39,726 - INFO - dense_u_net scores - MAE: 0.116335, DVH: 0.069035
+2025-03-06 22:34:39,727 - INFO - Loading file: results\gan\pt_317.csv
+2025-03-06 22:34:39,741 - INFO - Successfully loaded 57547 non-zero values from results\gan\pt_317.csv
+2025-03-06 22:34:39,795 - INFO - gan scores - MAE: 0.131013, DVH: 0.059150
+2025-03-06 22:34:39,796 - INFO - Loading file: results\res_u_net\pt_317.csv
+2025-03-06 22:34:39,808 - INFO - Successfully loaded 57526 non-zero values from results\res_u_net\pt_317.csv
+2025-03-06 22:34:39,862 - INFO - res_u_net scores - MAE: 0.120114, DVH: 0.055289
+2025-03-06 22:34:39,863 - INFO - Loading file: results\u_net\pt_317.csv
+2025-03-06 22:34:39,876 - INFO - Successfully loaded 57565 non-zero values from results\u_net\pt_317.csv
+2025-03-06 22:34:39,931 - INFO - u_net scores - MAE: 0.126534, DVH: 0.072814
+2025-03-06 22:34:39,933 - INFO - 
+Processing patient: pt_318
+2025-03-06 22:34:39,933 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_318\dose.csv
+2025-03-06 22:34:39,940 - INFO - Successfully loaded 25841 non-zero values from open-kbp-master\provided-data\test-pats\pt_318\dose.csv
+2025-03-06 22:34:39,941 - INFO - Loading file: results\dense_u_net\pt_318.csv
+2025-03-06 22:34:39,948 - INFO - Successfully loaded 22387 non-zero values from results\dense_u_net\pt_318.csv
+2025-03-06 22:34:40,004 - INFO - dense_u_net scores - MAE: 0.092016, DVH: 0.065201
+2025-03-06 22:34:40,004 - INFO - Loading file: results\gan\pt_318.csv
+2025-03-06 22:34:40,010 - INFO - Successfully loaded 22564 non-zero values from results\gan\pt_318.csv
+2025-03-06 22:34:40,064 - INFO - gan scores - MAE: 0.087872, DVH: 0.094066
+2025-03-06 22:34:40,065 - INFO - Loading file: results\res_u_net\pt_318.csv
+2025-03-06 22:34:40,072 - INFO - Successfully loaded 22301 non-zero values from results\res_u_net\pt_318.csv
+2025-03-06 22:34:40,126 - INFO - res_u_net scores - MAE: 0.096308, DVH: 0.065227
+2025-03-06 22:34:40,127 - INFO - Loading file: results\u_net\pt_318.csv
+2025-03-06 22:34:40,133 - INFO - Successfully loaded 21956 non-zero values from results\u_net\pt_318.csv
+2025-03-06 22:34:40,188 - INFO - u_net scores - MAE: 0.089091, DVH: 0.069144
+2025-03-06 22:34:40,189 - INFO - 
+Processing patient: pt_319
+2025-03-06 22:34:40,190 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_319\dose.csv
+2025-03-06 22:34:40,216 - INFO - Successfully loaded 175783 non-zero values from open-kbp-master\provided-data\test-pats\pt_319\dose.csv
+2025-03-06 22:34:40,218 - INFO - Loading file: results\dense_u_net\pt_319.csv
+2025-03-06 22:34:40,245 - INFO - Successfully loaded 116495 non-zero values from results\dense_u_net\pt_319.csv
+2025-03-06 22:34:40,301 - INFO - dense_u_net scores - MAE: 0.162690, DVH: 0.063233
+2025-03-06 22:34:40,301 - INFO - Loading file: results\gan\pt_319.csv
+2025-03-06 22:34:40,326 - INFO - Successfully loaded 114323 non-zero values from results\gan\pt_319.csv
+2025-03-06 22:34:40,394 - INFO - gan scores - MAE: 0.175940, DVH: 0.283978
+2025-03-06 22:34:40,394 - INFO - Loading file: results\res_u_net\pt_319.csv
+2025-03-06 22:34:40,421 - INFO - Successfully loaded 116761 non-zero values from results\res_u_net\pt_319.csv
+2025-03-06 22:34:40,475 - INFO - res_u_net scores - MAE: 0.187005, DVH: 0.102451
+2025-03-06 22:34:40,476 - INFO - Loading file: results\u_net\pt_319.csv
+2025-03-06 22:34:40,504 - INFO - Successfully loaded 121559 non-zero values from results\u_net\pt_319.csv
+2025-03-06 22:34:40,558 - INFO - u_net scores - MAE: 0.181770, DVH: 0.083611
+2025-03-06 22:34:40,561 - INFO - 
+Processing patient: pt_320
+2025-03-06 22:34:40,561 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_320\dose.csv
+2025-03-06 22:34:40,600 - INFO - Successfully loaded 266913 non-zero values from open-kbp-master\provided-data\test-pats\pt_320\dose.csv
+2025-03-06 22:34:40,601 - INFO - Loading file: results\dense_u_net\pt_320.csv
+2025-03-06 22:34:40,643 - INFO - Successfully loaded 188437 non-zero values from results\dense_u_net\pt_320.csv
+2025-03-06 22:34:40,699 - INFO - dense_u_net scores - MAE: 0.251366, DVH: 0.051700
+2025-03-06 22:34:40,700 - INFO - Loading file: results\gan\pt_320.csv
+2025-03-06 22:34:40,739 - INFO - Successfully loaded 174441 non-zero values from results\gan\pt_320.csv
+2025-03-06 22:34:40,794 - INFO - gan scores - MAE: 0.250606, DVH: 0.317472
+2025-03-06 22:34:40,795 - INFO - Loading file: results\res_u_net\pt_320.csv
+2025-03-06 22:34:40,836 - INFO - Successfully loaded 178688 non-zero values from results\res_u_net\pt_320.csv
+2025-03-06 22:34:40,890 - INFO - res_u_net scores - MAE: 0.278049, DVH: 0.136557
+2025-03-06 22:34:40,891 - INFO - Loading file: results\u_net\pt_320.csv
+2025-03-06 22:34:40,934 - INFO - Successfully loaded 187926 non-zero values from results\u_net\pt_320.csv
+2025-03-06 22:34:40,988 - INFO - u_net scores - MAE: 0.251211, DVH: 0.082983
+2025-03-06 22:34:40,989 - INFO - 
+Processing patient: pt_321
+2025-03-06 22:34:40,990 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_321\dose.csv
+2025-03-06 22:34:40,997 - INFO - Successfully loaded 46478 non-zero values from open-kbp-master\provided-data\test-pats\pt_321\dose.csv
+2025-03-06 22:34:40,999 - INFO - Loading file: results\dense_u_net\pt_321.csv
+2025-03-06 22:34:41,010 - INFO - Successfully loaded 46467 non-zero values from results\dense_u_net\pt_321.csv
+2025-03-06 22:34:41,067 - INFO - dense_u_net scores - MAE: 0.085507, DVH: 0.028185
+2025-03-06 22:34:41,067 - INFO - Loading file: results\gan\pt_321.csv
+2025-03-06 22:34:41,077 - INFO - Successfully loaded 46417 non-zero values from results\gan\pt_321.csv
+2025-03-06 22:34:41,131 - INFO - gan scores - MAE: 0.089276, DVH: 0.063302
+2025-03-06 22:34:41,132 - INFO - Loading file: results\res_u_net\pt_321.csv
+2025-03-06 22:34:41,144 - INFO - Successfully loaded 46299 non-zero values from results\res_u_net\pt_321.csv
+2025-03-06 22:34:41,198 - INFO - res_u_net scores - MAE: 0.088905, DVH: 0.037613
+2025-03-06 22:34:41,198 - INFO - Loading file: results\u_net\pt_321.csv
+2025-03-06 22:34:41,209 - INFO - Successfully loaded 46362 non-zero values from results\u_net\pt_321.csv
+2025-03-06 22:34:41,262 - INFO - u_net scores - MAE: 0.097621, DVH: 0.026982
+2025-03-06 22:34:41,266 - INFO - 
+Processing patient: pt_322
+2025-03-06 22:34:41,266 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_322\dose.csv
+2025-03-06 22:34:41,282 - INFO - Successfully loaded 95673 non-zero values from open-kbp-master\provided-data\test-pats\pt_322\dose.csv
+2025-03-06 22:34:41,284 - INFO - Loading file: results\dense_u_net\pt_322.csv
+2025-03-06 22:34:41,298 - INFO - Successfully loaded 64137 non-zero values from results\dense_u_net\pt_322.csv
+2025-03-06 22:34:41,353 - INFO - dense_u_net scores - MAE: 0.120500, DVH: 0.059068
+2025-03-06 22:34:41,354 - INFO - Loading file: results\gan\pt_322.csv
+2025-03-06 22:34:41,368 - INFO - Successfully loaded 62857 non-zero values from results\gan\pt_322.csv
+2025-03-06 22:34:41,424 - INFO - gan scores - MAE: 0.112894, DVH: 0.222797
+2025-03-06 22:34:41,425 - INFO - Loading file: results\res_u_net\pt_322.csv
+2025-03-06 22:34:41,439 - INFO - Successfully loaded 65359 non-zero values from results\res_u_net\pt_322.csv
+2025-03-06 22:34:41,494 - INFO - res_u_net scores - MAE: 0.135230, DVH: 0.071284
+2025-03-06 22:34:41,494 - INFO - Loading file: results\u_net\pt_322.csv
+2025-03-06 22:34:41,509 - INFO - Successfully loaded 68471 non-zero values from results\u_net\pt_322.csv
+2025-03-06 22:34:41,563 - INFO - u_net scores - MAE: 0.121976, DVH: 0.067181
+2025-03-06 22:34:41,564 - INFO - 
+Processing patient: pt_323
+2025-03-06 22:34:41,564 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_323\dose.csv
+2025-03-06 22:34:41,601 - INFO - Successfully loaded 263919 non-zero values from open-kbp-master\provided-data\test-pats\pt_323\dose.csv
+2025-03-06 22:34:41,604 - INFO - Loading file: results\dense_u_net\pt_323.csv
+2025-03-06 22:34:41,658 - INFO - Successfully loaded 262165 non-zero values from results\dense_u_net\pt_323.csv
+2025-03-06 22:34:41,712 - INFO - dense_u_net scores - MAE: 1.027603, DVH: 0.543156
+2025-03-06 22:34:41,713 - INFO - Loading file: results\gan\pt_323.csv
+2025-03-06 22:34:41,767 - INFO - Successfully loaded 259749 non-zero values from results\gan\pt_323.csv
+2025-03-06 22:34:41,820 - INFO - gan scores - MAE: 1.020477, DVH: 1.185228
+2025-03-06 22:34:41,821 - INFO - Loading file: results\res_u_net\pt_323.csv
+2025-03-06 22:34:41,875 - INFO - Successfully loaded 261161 non-zero values from results\res_u_net\pt_323.csv
+2025-03-06 22:34:41,929 - INFO - res_u_net scores - MAE: 1.042637, DVH: 0.711745
+2025-03-06 22:34:41,930 - INFO - Loading file: results\u_net\pt_323.csv
+2025-03-06 22:34:41,983 - INFO - Successfully loaded 261747 non-zero values from results\u_net\pt_323.csv
+2025-03-06 22:34:42,038 - INFO - u_net scores - MAE: 1.022860, DVH: 0.651765
+2025-03-06 22:34:42,040 - INFO - 
+Processing patient: pt_324
+2025-03-06 22:34:42,040 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_324\dose.csv
+2025-03-06 22:34:42,068 - INFO - Successfully loaded 187319 non-zero values from open-kbp-master\provided-data\test-pats\pt_324\dose.csv
+2025-03-06 22:34:42,070 - INFO - Loading file: results\dense_u_net\pt_324.csv
+2025-03-06 22:34:42,099 - INFO - Successfully loaded 129196 non-zero values from results\dense_u_net\pt_324.csv
+2025-03-06 22:34:42,154 - INFO - dense_u_net scores - MAE: 0.208397, DVH: 0.094638
+2025-03-06 22:34:42,154 - INFO - Loading file: results\gan\pt_324.csv
+2025-03-06 22:34:42,181 - INFO - Successfully loaded 120967 non-zero values from results\gan\pt_324.csv
+2025-03-06 22:34:42,236 - INFO - gan scores - MAE: 0.218903, DVH: 0.280446
+2025-03-06 22:34:42,237 - INFO - Loading file: results\res_u_net\pt_324.csv
+2025-03-06 22:34:42,264 - INFO - Successfully loaded 125575 non-zero values from results\res_u_net\pt_324.csv
+2025-03-06 22:34:42,318 - INFO - res_u_net scores - MAE: 0.229648, DVH: 0.118358
+2025-03-06 22:34:42,319 - INFO - Loading file: results\u_net\pt_324.csv
+2025-03-06 22:34:42,348 - INFO - Successfully loaded 129978 non-zero values from results\u_net\pt_324.csv
+2025-03-06 22:34:42,402 - INFO - u_net scores - MAE: 0.228528, DVH: 0.099180
+2025-03-06 22:34:42,403 - INFO - 
+Processing patient: pt_325
+2025-03-06 22:34:42,403 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_325\dose.csv
+2025-03-06 22:34:42,434 - INFO - Successfully loaded 229055 non-zero values from open-kbp-master\provided-data\test-pats\pt_325\dose.csv
+2025-03-06 22:34:42,436 - INFO - Loading file: results\dense_u_net\pt_325.csv
+2025-03-06 22:34:42,484 - INFO - Successfully loaded 224344 non-zero values from results\dense_u_net\pt_325.csv
+2025-03-06 22:34:42,540 - INFO - dense_u_net scores - MAE: 0.383302, DVH: 0.158753
+2025-03-06 22:34:42,540 - INFO - Loading file: results\gan\pt_325.csv
+2025-03-06 22:34:42,588 - INFO - Successfully loaded 222414 non-zero values from results\gan\pt_325.csv
+2025-03-06 22:34:42,643 - INFO - gan scores - MAE: 0.416845, DVH: 0.316999
+2025-03-06 22:34:42,643 - INFO - Loading file: results\res_u_net\pt_325.csv
+2025-03-06 22:34:42,690 - INFO - Successfully loaded 223906 non-zero values from results\res_u_net\pt_325.csv
+2025-03-06 22:34:42,745 - INFO - res_u_net scores - MAE: 0.447023, DVH: 0.275750
+2025-03-06 22:34:42,746 - INFO - Loading file: results\u_net\pt_325.csv
+2025-03-06 22:34:42,793 - INFO - Successfully loaded 225589 non-zero values from results\u_net\pt_325.csv
+2025-03-06 22:34:42,847 - INFO - u_net scores - MAE: 0.416302, DVH: 0.102878
+2025-03-06 22:34:42,848 - INFO - 
+Processing patient: pt_326
+2025-03-06 22:34:42,848 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_326\dose.csv
+2025-03-06 22:34:42,896 - INFO - Successfully loaded 376860 non-zero values from open-kbp-master\provided-data\test-pats\pt_326\dose.csv
+2025-03-06 22:34:42,898 - INFO - Loading file: results\dense_u_net\pt_326.csv
+2025-03-06 22:34:42,951 - INFO - Successfully loaded 245666 non-zero values from results\dense_u_net\pt_326.csv
+2025-03-06 22:34:43,006 - INFO - dense_u_net scores - MAE: 0.481519, DVH: 0.102044
+2025-03-06 22:34:43,006 - INFO - Loading file: results\gan\pt_326.csv
+2025-03-06 22:34:43,053 - INFO - Successfully loaded 218341 non-zero values from results\gan\pt_326.csv
+2025-03-06 22:34:43,107 - INFO - gan scores - MAE: 0.469856, DVH: 0.287855
+2025-03-06 22:34:43,108 - INFO - Loading file: results\res_u_net\pt_326.csv
+2025-03-06 22:34:43,159 - INFO - Successfully loaded 245474 non-zero values from results\res_u_net\pt_326.csv
+2025-03-06 22:34:43,213 - INFO - res_u_net scores - MAE: 0.476373, DVH: 0.144056
+2025-03-06 22:34:43,214 - INFO - Loading file: results\u_net\pt_326.csv
+2025-03-06 22:34:43,266 - INFO - Successfully loaded 241935 non-zero values from results\u_net\pt_326.csv
+2025-03-06 22:34:43,320 - INFO - u_net scores - MAE: 0.483108, DVH: 0.105884
+2025-03-06 22:34:43,322 - INFO - 
+Processing patient: pt_327
+2025-03-06 22:34:43,322 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_327\dose.csv
+2025-03-06 22:34:43,347 - INFO - Successfully loaded 153539 non-zero values from open-kbp-master\provided-data\test-pats\pt_327\dose.csv
+2025-03-06 22:34:43,348 - INFO - Loading file: results\dense_u_net\pt_327.csv
+2025-03-06 22:34:43,374 - INFO - Successfully loaded 106872 non-zero values from results\dense_u_net\pt_327.csv
+2025-03-06 22:34:43,429 - INFO - dense_u_net scores - MAE: 0.207125, DVH: 0.056843
+2025-03-06 22:34:43,430 - INFO - Loading file: results\gan\pt_327.csv
+2025-03-06 22:34:43,455 - INFO - Successfully loaded 102315 non-zero values from results\gan\pt_327.csv
+2025-03-06 22:34:43,509 - INFO - gan scores - MAE: 0.191626, DVH: 0.188583
+2025-03-06 22:34:43,510 - INFO - Loading file: results\res_u_net\pt_327.csv
+2025-03-06 22:34:43,533 - INFO - Successfully loaded 102007 non-zero values from results\res_u_net\pt_327.csv
+2025-03-06 22:34:43,588 - INFO - res_u_net scores - MAE: 0.205780, DVH: 0.065074
+2025-03-06 22:34:43,588 - INFO - Loading file: results\u_net\pt_327.csv
+2025-03-06 22:34:43,613 - INFO - Successfully loaded 108964 non-zero values from results\u_net\pt_327.csv
+2025-03-06 22:34:43,667 - INFO - u_net scores - MAE: 0.196862, DVH: 0.056658
+2025-03-06 22:34:43,670 - INFO - 
+Processing patient: pt_328
+2025-03-06 22:34:43,671 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_328\dose.csv
+2025-03-06 22:34:43,699 - INFO - Successfully loaded 198593 non-zero values from open-kbp-master\provided-data\test-pats\pt_328\dose.csv
+2025-03-06 22:34:43,701 - INFO - Loading file: results\dense_u_net\pt_328.csv
+2025-03-06 22:34:43,733 - INFO - Successfully loaded 146071 non-zero values from results\dense_u_net\pt_328.csv
+2025-03-06 22:34:43,788 - INFO - dense_u_net scores - MAE: 0.199179, DVH: 0.039769
+2025-03-06 22:34:43,789 - INFO - Loading file: results\gan\pt_328.csv
+2025-03-06 22:34:43,819 - INFO - Successfully loaded 134174 non-zero values from results\gan\pt_328.csv
+2025-03-06 22:34:43,874 - INFO - gan scores - MAE: 0.191013, DVH: 0.385707
+2025-03-06 22:34:43,874 - INFO - Loading file: results\res_u_net\pt_328.csv
+2025-03-06 22:34:43,905 - INFO - Successfully loaded 142901 non-zero values from results\res_u_net\pt_328.csv
+2025-03-06 22:34:43,959 - INFO - res_u_net scores - MAE: 0.220293, DVH: 0.093918
+2025-03-06 22:34:43,960 - INFO - Loading file: results\u_net\pt_328.csv
+2025-03-06 22:34:43,991 - INFO - Successfully loaded 147669 non-zero values from results\u_net\pt_328.csv
+2025-03-06 22:34:44,046 - INFO - u_net scores - MAE: 0.209865, DVH: 0.060620
+2025-03-06 22:34:44,048 - INFO - 
+Processing patient: pt_329
+2025-03-06 22:34:44,048 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_329\dose.csv
+2025-03-06 22:34:44,053 - INFO - Successfully loaded 10677 non-zero values from open-kbp-master\provided-data\test-pats\pt_329\dose.csv
+2025-03-06 22:34:44,054 - INFO - Loading file: results\dense_u_net\pt_329.csv
+2025-03-06 22:34:44,058 - INFO - Successfully loaded 9115 non-zero values from results\dense_u_net\pt_329.csv
+2025-03-06 22:34:44,114 - INFO - dense_u_net scores - MAE: 0.038078, DVH: 0.030463
+2025-03-06 22:34:44,114 - INFO - Loading file: results\gan\pt_329.csv
+2025-03-06 22:34:44,119 - INFO - Successfully loaded 8895 non-zero values from results\gan\pt_329.csv
+2025-03-06 22:34:44,172 - INFO - gan scores - MAE: 0.037575, DVH: 0.027130
+2025-03-06 22:34:44,173 - INFO - Loading file: results\res_u_net\pt_329.csv
+2025-03-06 22:34:44,176 - INFO - Successfully loaded 8220 non-zero values from results\res_u_net\pt_329.csv
+2025-03-06 22:34:44,230 - INFO - res_u_net scores - MAE: 0.038299, DVH: 0.032879
+2025-03-06 22:34:44,231 - INFO - Loading file: results\u_net\pt_329.csv
+2025-03-06 22:34:44,235 - INFO - Successfully loaded 8768 non-zero values from results\u_net\pt_329.csv
+2025-03-06 22:34:44,289 - INFO - u_net scores - MAE: 0.036107, DVH: 0.025819
+2025-03-06 22:34:44,291 - INFO - 
+Processing patient: pt_330
+2025-03-06 22:34:44,291 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_330\dose.csv
+2025-03-06 22:34:44,334 - INFO - Successfully loaded 316362 non-zero values from open-kbp-master\provided-data\test-pats\pt_330\dose.csv
+2025-03-06 22:34:44,335 - INFO - Loading file: results\dense_u_net\pt_330.csv
+2025-03-06 22:34:44,400 - INFO - Successfully loaded 309916 non-zero values from results\dense_u_net\pt_330.csv
+2025-03-06 22:34:44,456 - INFO - dense_u_net scores - MAE: 0.979859, DVH: 1.060977
+2025-03-06 22:34:44,457 - INFO - Loading file: results\gan\pt_330.csv
+2025-03-06 22:34:44,526 - INFO - Successfully loaded 307379 non-zero values from results\gan\pt_330.csv
+2025-03-06 22:34:44,581 - INFO - gan scores - MAE: 1.008922, DVH: 1.057835
+2025-03-06 22:34:44,581 - INFO - Loading file: results\res_u_net\pt_330.csv
+2025-03-06 22:34:44,644 - INFO - Successfully loaded 308230 non-zero values from results\res_u_net\pt_330.csv
+2025-03-06 22:34:44,698 - INFO - res_u_net scores - MAE: 1.068556, DVH: 1.101808
+2025-03-06 22:34:44,699 - INFO - Loading file: results\u_net\pt_330.csv
+2025-03-06 22:34:44,764 - INFO - Successfully loaded 310589 non-zero values from results\u_net\pt_330.csv
+2025-03-06 22:34:44,818 - INFO - u_net scores - MAE: 1.051452, DVH: 1.122314
+2025-03-06 22:34:44,821 - INFO - 
+Processing patient: pt_331
+2025-03-06 22:34:44,821 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_331\dose.csv
+2025-03-06 22:34:44,834 - INFO - Successfully loaded 76345 non-zero values from open-kbp-master\provided-data\test-pats\pt_331\dose.csv
+2025-03-06 22:34:44,835 - INFO - Loading file: results\dense_u_net\pt_331.csv
+2025-03-06 22:34:44,849 - INFO - Successfully loaded 60675 non-zero values from results\dense_u_net\pt_331.csv
+2025-03-06 22:34:44,906 - INFO - dense_u_net scores - MAE: 0.164920, DVH: 0.090773
+2025-03-06 22:34:44,907 - INFO - Loading file: results\gan\pt_331.csv
+2025-03-06 22:34:44,919 - INFO - Successfully loaded 60021 non-zero values from results\gan\pt_331.csv
+2025-03-06 22:34:44,975 - INFO - gan scores - MAE: 0.168378, DVH: 0.198543
+2025-03-06 22:34:44,976 - INFO - Loading file: results\res_u_net\pt_331.csv
+2025-03-06 22:34:44,989 - INFO - Successfully loaded 59258 non-zero values from results\res_u_net\pt_331.csv
+2025-03-06 22:34:45,044 - INFO - res_u_net scores - MAE: 0.186580, DVH: 0.123328
+2025-03-06 22:34:45,044 - INFO - Loading file: results\u_net\pt_331.csv
+2025-03-06 22:34:45,057 - INFO - Successfully loaded 59138 non-zero values from results\u_net\pt_331.csv
+2025-03-06 22:34:45,113 - INFO - u_net scores - MAE: 0.165374, DVH: 0.103103
+2025-03-06 22:34:45,116 - INFO - 
+Processing patient: pt_332
+2025-03-06 22:34:45,116 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_332\dose.csv
+2025-03-06 22:34:45,142 - INFO - Successfully loaded 170864 non-zero values from open-kbp-master\provided-data\test-pats\pt_332\dose.csv
+2025-03-06 22:34:45,144 - INFO - Loading file: results\dense_u_net\pt_332.csv
+2025-03-06 22:34:45,170 - INFO - Successfully loaded 112568 non-zero values from results\dense_u_net\pt_332.csv
+2025-03-06 22:34:45,226 - INFO - dense_u_net scores - MAE: 0.158354, DVH: 0.074045
+2025-03-06 22:34:45,227 - INFO - Loading file: results\gan\pt_332.csv
+2025-03-06 22:34:45,252 - INFO - Successfully loaded 103670 non-zero values from results\gan\pt_332.csv
+2025-03-06 22:34:45,307 - INFO - gan scores - MAE: 0.199578, DVH: 0.409577
+2025-03-06 22:34:45,308 - INFO - Loading file: results\res_u_net\pt_332.csv
+2025-03-06 22:34:45,334 - INFO - Successfully loaded 109635 non-zero values from results\res_u_net\pt_332.csv
+2025-03-06 22:34:45,389 - INFO - res_u_net scores - MAE: 0.173593, DVH: 0.113361
+2025-03-06 22:34:45,390 - INFO - Loading file: results\u_net\pt_332.csv
+2025-03-06 22:34:45,415 - INFO - Successfully loaded 111193 non-zero values from results\u_net\pt_332.csv
+2025-03-06 22:34:45,469 - INFO - u_net scores - MAE: 0.178025, DVH: 0.084439
+2025-03-06 22:34:45,472 - INFO - 
+Processing patient: pt_333
+2025-03-06 22:34:45,472 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_333\dose.csv
+2025-03-06 22:34:45,495 - INFO - Successfully loaded 142023 non-zero values from open-kbp-master\provided-data\test-pats\pt_333\dose.csv
+2025-03-06 22:34:45,497 - INFO - Loading file: results\dense_u_net\pt_333.csv
+2025-03-06 22:34:45,520 - INFO - Successfully loaded 101364 non-zero values from results\dense_u_net\pt_333.csv
+2025-03-06 22:34:45,577 - INFO - dense_u_net scores - MAE: 0.138054, DVH: 0.056615
+2025-03-06 22:34:45,578 - INFO - Loading file: results\gan\pt_333.csv
+2025-03-06 22:34:45,600 - INFO - Successfully loaded 96968 non-zero values from results\gan\pt_333.csv
+2025-03-06 22:34:45,655 - INFO - gan scores - MAE: 0.142366, DVH: 0.179143
+2025-03-06 22:34:45,655 - INFO - Loading file: results\res_u_net\pt_333.csv
+2025-03-06 22:34:45,678 - INFO - Successfully loaded 98039 non-zero values from results\res_u_net\pt_333.csv
+2025-03-06 22:34:45,733 - INFO - res_u_net scores - MAE: 0.160839, DVH: 0.128714
+2025-03-06 22:34:45,733 - INFO - Loading file: results\u_net\pt_333.csv
+2025-03-06 22:34:45,757 - INFO - Successfully loaded 101976 non-zero values from results\u_net\pt_333.csv
+2025-03-06 22:34:45,813 - INFO - u_net scores - MAE: 0.146749, DVH: 0.082194
+2025-03-06 22:34:45,815 - INFO - 
+Processing patient: pt_334
+2025-03-06 22:34:45,815 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_334\dose.csv
+2025-03-06 22:34:45,838 - INFO - Successfully loaded 140405 non-zero values from open-kbp-master\provided-data\test-pats\pt_334\dose.csv
+2025-03-06 22:34:45,839 - INFO - Loading file: results\dense_u_net\pt_334.csv
+2025-03-06 22:34:45,863 - INFO - Successfully loaded 100260 non-zero values from results\dense_u_net\pt_334.csv
+2025-03-06 22:34:45,919 - INFO - dense_u_net scores - MAE: 0.116073, DVH: 0.049328
+2025-03-06 22:34:45,919 - INFO - Loading file: results\gan\pt_334.csv
+2025-03-06 22:34:45,941 - INFO - Successfully loaded 94695 non-zero values from results\gan\pt_334.csv
+2025-03-06 22:34:45,998 - INFO - gan scores - MAE: 0.119572, DVH: 0.318093
+2025-03-06 22:34:45,999 - INFO - Loading file: results\res_u_net\pt_334.csv
+2025-03-06 22:34:46,022 - INFO - Successfully loaded 97911 non-zero values from results\res_u_net\pt_334.csv
+2025-03-06 22:34:46,076 - INFO - res_u_net scores - MAE: 0.125416, DVH: 0.109204
+2025-03-06 22:34:46,077 - INFO - Loading file: results\u_net\pt_334.csv
+2025-03-06 22:34:46,101 - INFO - Successfully loaded 102085 non-zero values from results\u_net\pt_334.csv
+2025-03-06 22:34:46,156 - INFO - u_net scores - MAE: 0.112125, DVH: 0.050343
+2025-03-06 22:34:46,159 - INFO - 
+Processing patient: pt_335
+2025-03-06 22:34:46,159 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_335\dose.csv
+2025-03-06 22:34:46,183 - INFO - Successfully loaded 149023 non-zero values from open-kbp-master\provided-data\test-pats\pt_335\dose.csv
+2025-03-06 22:34:46,184 - INFO - Loading file: results\dense_u_net\pt_335.csv
+2025-03-06 22:34:46,216 - INFO - Successfully loaded 144382 non-zero values from results\dense_u_net\pt_335.csv
+2025-03-06 22:34:46,273 - INFO - dense_u_net scores - MAE: 0.363177, DVH: 0.245564
+2025-03-06 22:34:46,274 - INFO - Loading file: results\gan\pt_335.csv
+2025-03-06 22:34:46,305 - INFO - Successfully loaded 141034 non-zero values from results\gan\pt_335.csv
+2025-03-06 22:34:46,361 - INFO - gan scores - MAE: 0.357742, DVH: 0.436563
+2025-03-06 22:34:46,361 - INFO - Loading file: results\res_u_net\pt_335.csv
+2025-03-06 22:34:46,394 - INFO - Successfully loaded 142039 non-zero values from results\res_u_net\pt_335.csv
+2025-03-06 22:34:46,447 - INFO - res_u_net scores - MAE: 0.395287, DVH: 0.346402
+2025-03-06 22:34:46,448 - INFO - Loading file: results\u_net\pt_335.csv
+2025-03-06 22:34:46,479 - INFO - Successfully loaded 144571 non-zero values from results\u_net\pt_335.csv
+2025-03-06 22:34:46,535 - INFO - u_net scores - MAE: 0.351648, DVH: 0.271220
+2025-03-06 22:34:46,538 - INFO - 
+Processing patient: pt_336
+2025-03-06 22:34:46,538 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_336\dose.csv
+2025-03-06 22:34:46,549 - INFO - Successfully loaded 62877 non-zero values from open-kbp-master\provided-data\test-pats\pt_336\dose.csv
+2025-03-06 22:34:46,550 - INFO - Loading file: results\dense_u_net\pt_336.csv
+2025-03-06 22:34:46,564 - INFO - Successfully loaded 62735 non-zero values from results\dense_u_net\pt_336.csv
+2025-03-06 22:34:46,620 - INFO - dense_u_net scores - MAE: 0.117593, DVH: 0.032219
+2025-03-06 22:34:46,621 - INFO - Loading file: results\gan\pt_336.csv
+2025-03-06 22:34:46,634 - INFO - Successfully loaded 62369 non-zero values from results\gan\pt_336.csv
+2025-03-06 22:34:46,688 - INFO - gan scores - MAE: 0.113589, DVH: 0.096281
+2025-03-06 22:34:46,689 - INFO - Loading file: results\res_u_net\pt_336.csv
+2025-03-06 22:34:46,703 - INFO - Successfully loaded 62253 non-zero values from results\res_u_net\pt_336.csv
+2025-03-06 22:34:46,757 - INFO - res_u_net scores - MAE: 0.138873, DVH: 0.058674
+2025-03-06 22:34:46,758 - INFO - Loading file: results\u_net\pt_336.csv
+2025-03-06 22:34:46,771 - INFO - Successfully loaded 62251 non-zero values from results\u_net\pt_336.csv
+2025-03-06 22:34:46,826 - INFO - u_net scores - MAE: 0.132257, DVH: 0.020420
+2025-03-06 22:34:46,829 - INFO - 
+Processing patient: pt_337
+2025-03-06 22:34:46,829 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_337\dose.csv
+2025-03-06 22:34:46,853 - INFO - Successfully loaded 154946 non-zero values from open-kbp-master\provided-data\test-pats\pt_337\dose.csv
+2025-03-06 22:34:46,855 - INFO - Loading file: results\dense_u_net\pt_337.csv
+2025-03-06 22:34:46,876 - INFO - Successfully loaded 90808 non-zero values from results\dense_u_net\pt_337.csv
+2025-03-06 22:34:46,932 - INFO - dense_u_net scores - MAE: 0.151312, DVH: 0.048319
+2025-03-06 22:34:46,933 - INFO - Loading file: results\gan\pt_337.csv
+2025-03-06 22:34:46,954 - INFO - Successfully loaded 88675 non-zero values from results\gan\pt_337.csv
+2025-03-06 22:34:47,013 - INFO - gan scores - MAE: 0.155890, DVH: 0.447755
+2025-03-06 22:34:47,013 - INFO - Loading file: results\res_u_net\pt_337.csv
+2025-03-06 22:34:47,034 - INFO - Successfully loaded 88483 non-zero values from results\res_u_net\pt_337.csv
+2025-03-06 22:34:47,090 - INFO - res_u_net scores - MAE: 0.159006, DVH: 0.109765
+2025-03-06 22:34:47,091 - INFO - Loading file: results\u_net\pt_337.csv
+2025-03-06 22:34:47,113 - INFO - Successfully loaded 92065 non-zero values from results\u_net\pt_337.csv
+2025-03-06 22:34:47,167 - INFO - u_net scores - MAE: 0.140961, DVH: 0.047007
+2025-03-06 22:34:47,170 - INFO - 
+Processing patient: pt_338
+2025-03-06 22:34:47,170 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_338\dose.csv
+2025-03-06 22:34:47,195 - INFO - Successfully loaded 161588 non-zero values from open-kbp-master\provided-data\test-pats\pt_338\dose.csv
+2025-03-06 22:34:47,197 - INFO - Loading file: results\dense_u_net\pt_338.csv
+2025-03-06 22:34:47,222 - INFO - Successfully loaded 102142 non-zero values from results\dense_u_net\pt_338.csv
+2025-03-06 22:34:47,279 - INFO - dense_u_net scores - MAE: 0.143722, DVH: 0.033873
+2025-03-06 22:34:47,280 - INFO - Loading file: results\gan\pt_338.csv
+2025-03-06 22:34:47,302 - INFO - Successfully loaded 98884 non-zero values from results\gan\pt_338.csv
+2025-03-06 22:34:47,357 - INFO - gan scores - MAE: 0.146295, DVH: 0.494787
+2025-03-06 22:34:47,358 - INFO - Loading file: results\res_u_net\pt_338.csv
+2025-03-06 22:34:47,380 - INFO - Successfully loaded 99352 non-zero values from results\res_u_net\pt_338.csv
+2025-03-06 22:34:47,435 - INFO - res_u_net scores - MAE: 0.163075, DVH: 0.063976
+2025-03-06 22:34:47,436 - INFO - Loading file: results\u_net\pt_338.csv
+2025-03-06 22:34:47,461 - INFO - Successfully loaded 104957 non-zero values from results\u_net\pt_338.csv
+2025-03-06 22:34:47,516 - INFO - u_net scores - MAE: 0.139837, DVH: 0.029723
+2025-03-06 22:34:47,519 - INFO - 
+Processing patient: pt_339
+2025-03-06 22:34:47,520 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_339\dose.csv
+2025-03-06 22:34:47,533 - INFO - Successfully loaded 91878 non-zero values from open-kbp-master\provided-data\test-pats\pt_339\dose.csv
+2025-03-06 22:34:47,535 - INFO - Loading file: results\dense_u_net\pt_339.csv
+2025-03-06 22:34:47,548 - INFO - Successfully loaded 61560 non-zero values from results\dense_u_net\pt_339.csv
+2025-03-06 22:34:47,604 - INFO - dense_u_net scores - MAE: 0.098297, DVH: 0.025126
+2025-03-06 22:34:47,605 - INFO - Loading file: results\gan\pt_339.csv
+2025-03-06 22:34:47,618 - INFO - Successfully loaded 59787 non-zero values from results\gan\pt_339.csv
+2025-03-06 22:34:47,673 - INFO - gan scores - MAE: 0.093015, DVH: 0.152066
+2025-03-06 22:34:47,674 - INFO - Loading file: results\res_u_net\pt_339.csv
+2025-03-06 22:34:47,688 - INFO - Successfully loaded 59553 non-zero values from results\res_u_net\pt_339.csv
+2025-03-06 22:34:47,743 - INFO - res_u_net scores - MAE: 0.105024, DVH: 0.039297
+2025-03-06 22:34:47,744 - INFO - Loading file: results\u_net\pt_339.csv
+2025-03-06 22:34:47,758 - INFO - Successfully loaded 60650 non-zero values from results\u_net\pt_339.csv
+2025-03-06 22:34:47,813 - INFO - u_net scores - MAE: 0.097727, DVH: 0.023055
+2025-03-06 22:34:47,816 - INFO - 
+Processing patient: pt_340
+2025-03-06 22:34:47,817 - INFO - Loading file: open-kbp-master\provided-data\test-pats\pt_340\dose.csv
+2025-03-06 22:34:47,826 - INFO - Successfully loaded 67954 non-zero values from open-kbp-master\provided-data\test-pats\pt_340\dose.csv
+2025-03-06 22:34:47,828 - INFO - Loading file: results\dense_u_net\pt_340.csv
+2025-03-06 22:34:47,844 - INFO - Successfully loaded 67820 non-zero values from results\dense_u_net\pt_340.csv
+2025-03-06 22:34:47,901 - INFO - dense_u_net scores - MAE: 0.113210, DVH: 0.040883
+2025-03-06 22:34:47,901 - INFO - Loading file: results\gan\pt_340.csv
+2025-03-06 22:34:47,916 - INFO - Successfully loaded 67507 non-zero values from results\gan\pt_340.csv
+2025-03-06 22:34:47,972 - INFO - gan scores - MAE: 0.118197, DVH: 0.168347
+2025-03-06 22:34:47,973 - INFO - Loading file: results\res_u_net\pt_340.csv
+2025-03-06 22:34:47,986 - INFO - Successfully loaded 67162 non-zero values from results\res_u_net\pt_340.csv
+2025-03-06 22:34:48,042 - INFO - res_u_net scores - MAE: 0.125715, DVH: 0.077750
+2025-03-06 22:34:48,043 - INFO - Loading file: results\u_net\pt_340.csv
+2025-03-06 22:34:48,057 - INFO - Successfully loaded 67402 non-zero values from results\u_net\pt_340.csv
+2025-03-06 22:34:48,114 - INFO - u_net scores - MAE: 0.117332, DVH: 0.054409
+2025-03-06 22:34:48,119 - INFO - 
+Results saved to dose_score_results\final_results.txt
