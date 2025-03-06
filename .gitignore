@@ -14,3 +14,6 @@ ensemble_result/
 
 debug_paths.py
 calculate.py
+average_scores_summary.txt
+ensemble_log_2025-03-06_17-10-31.log
+visualization.log

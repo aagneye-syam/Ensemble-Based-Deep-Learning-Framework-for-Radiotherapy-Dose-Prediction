@@ -1,3 +1,9 @@
+"""
+Ensemble Prediction Generation Script
+Created: 2025-03-06 17:10:31 UTC
+Author: aagneye-syam
+"""
+
 import os
 import numpy as np
 import pandas as pd
@@ -7,7 +13,7 @@ from sklearn.metrics import mean_absolute_error
 from config import PATH_CONFIG
 
 # Configure metadata
-CURRENT_TIME = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+CURRENT_TIME = "2025-03-06 17:10:31"
 CURRENT_USER = "aagneye-syam"
 
 # Configure logging with timestamp
@@ -85,6 +91,9 @@ def save_dose_prediction(dose_array, output_path):
         df = pd.DataFrame({
             'data': non_zero_values
         }, index=non_zero_indices)
+        
+        # Create output directory if it doesn't exist
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
         
         # Save to CSV with index but without index name
         df.to_csv(output_path)
@@ -182,7 +191,7 @@ def main():
     
     # Setup directories
     base_dir = PATH_CONFIG['DATA_DIR']
-    output_dir = 'ensemble_result'
+    output_dir = 'ensemble_result'  # Root directory for ensemble results
     
     # Create directory structure
     subdirs = ['predictions', 'analysis', 'model_maps']
@@ -191,10 +200,10 @@ def main():
     
     # Model configurations
     model_configs = {
-        'dense_u_net': os.path.join(PATH_CONFIG['OUTPUT_DIR'], 'dense_u_net'),
-        'gan': os.path.join(PATH_CONFIG['OUTPUT_DIR'], 'gan'),
-        'res_u_net': os.path.join(PATH_CONFIG['OUTPUT_DIR'], 'res_u_net'),
-        'u_net': os.path.join(PATH_CONFIG['OUTPUT_DIR'], 'u_net')
+        'dense_u_net': os.path.join('results', 'dense_u_net'),
+        'gan': os.path.join('results', 'gan'),
+        'res_u_net': os.path.join('results', 'res_u_net'),
+        'u_net': os.path.join('results', 'u_net')
     }
     
     # Find patient directories
@@ -227,7 +236,7 @@ def main():
             model_names = []
             
             for model_name, pred_dir in model_configs.items():
-                pred_path = os.path.join(pred_dir, f'{patient_id}_dose.csv')
+                pred_path = os.path.join(pred_dir, f'{patient_id}.csv')  # Modified to match new naming
                 if os.path.exists(pred_path):
                     pred_dose = load_dose_file(pred_path)
                     if pred_dose is not None:
@@ -274,7 +283,7 @@ def main():
                 f.write(f"Generated: {CURRENT_TIME}\n")
                 f.write(f"User: {CURRENT_USER}\n")
                 f.write("=" * 50 + "\n\n")
-                f.write(f"Ensemble Mean Absolute Error: {ensemble_mae:.4f}\n\n")
+                f.write(f"Ensemble Mean Absolute Error: {ensemble_mae:.6f}\n\n")
                 f.write("Model Contributions:\n")
                 f.write("-" * 20 + "\n")
                 for model, contribution in contributions.items():
@@ -282,7 +291,7 @@ def main():
             
             processed_patients.append(patient_id)
             logger.info(f"Successfully processed patient {patient_id}")
-            logger.info(f"MAE: {ensemble_mae:.4f}")
+            logger.info(f"MAE: {ensemble_mae:.6f}")
             
         except Exception as e:
             logger.error(f"Failed to process patient {patient_id}: {str(e)}")
@@ -300,16 +309,16 @@ def main():
         f.write(f"Failed: {len(failed_patients)}\n\n")
         
         if processed_patients:
-            f.write("\nOverall Performance:\n")
-            f.write("-" * 20 + "\n")
             mean_mae = np.mean(list(all_patient_scores.values()))
             std_mae = np.std(list(all_patient_scores.values()))
-            f.write(f"Mean MAE across all patients: {mean_mae:.4f} ± {std_mae:.4f}\n\n")
+            f.write(f"\nOverall Performance:\n")
+            f.write("-" * 20 + "\n")
+            f.write(f"Mean MAE across all patients: {mean_mae:.6f} ± {std_mae:.6f}\n\n")
             
             f.write("Individual Patient Scores:\n")
             f.write("-" * 24 + "\n")
             for patient_id, mae in sorted(all_patient_scores.items()):
-                f.write(f"{patient_id}: MAE = {mae:.4f}\n")
+                f.write(f"{patient_id}: MAE = {mae:.6f}\n")
         
         if failed_patients:
             f.write("\nFailed Patients Details:\n")
@@ -320,7 +329,7 @@ def main():
     logger.info("\nEnsemble generation completed")
     logger.info(f"Results saved to {output_dir}")
     if processed_patients:
-        logger.info(f"Overall Mean MAE: {mean_mae:.4f} ± {std_mae:.4f}")
+        logger.info(f"Overall Mean MAE: {mean_mae:.6f} ± {std_mae:.6f}")
 
 if __name__ == '__main__':
     main()
