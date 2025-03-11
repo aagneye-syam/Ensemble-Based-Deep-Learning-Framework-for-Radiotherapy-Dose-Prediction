@@ -1,6 +1,6 @@
 """
 Dose Score Calculation Script
-Created: 2025-03-06 17:02:10 UTC
+Created: 2025-03-06 17:32:38 UTC
 Author: aagneye-syam
 """
 
@@ -25,7 +25,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Current execution information
-CURRENT_TIME = datetime.strptime("2025-03-06 17:02:10", "%Y-%m-%d %H:%M:%S")
+CURRENT_TIME = datetime.strptime("2025-03-06 17:32:38", "%Y-%m-%d %H:%M:%S")
 CURRENT_USER = "aagneye-syam"
 
 def load_dose_file(file_path):
@@ -50,15 +50,26 @@ def load_dose_file(file_path):
         raise
 
 def calculate_dvh_score(true_dose, prediction):
-    """Calculate DVH score."""
+    """Calculate DVH score with proper scaling."""
     def calculate_dvh(dose):
+        # Scale the dose values to the expected range (typically 0-70 Gy)
+        dose = dose * 70.0  # Apply scaling factor
         hist, bin_edges = np.histogram(dose.flatten(), bins=100, range=(0, dose.max()))
         dvh = np.cumsum(hist[::-1])[::-1] / hist.sum()
         return bin_edges[1:], dvh
 
     true_dose_bins, true_dvh = calculate_dvh(true_dose)
     pred_dose_bins, pred_dvh = calculate_dvh(prediction)
-    return np.trapz(np.abs(true_dvh - pred_dvh), true_dose_bins)
+    dvh_score = np.trapz(np.abs(true_dvh - pred_dvh), true_dose_bins)
+    # Scale the DVH score to the expected range
+    return dvh_score * 70.0  # Apply scaling factor
+
+def calculate_mae_score(true_dose, prediction):
+    """Calculate MAE with proper scaling."""
+    # Scale the values to the expected range (typically 0-70 Gy)
+    scaled_true = true_dose * 70.0
+    scaled_pred = prediction * 70.0
+    return mean_absolute_error(scaled_true.flatten(), scaled_pred.flatten())
 
 def main():
     """Main execution function"""
@@ -76,9 +87,7 @@ def main():
         'res_u_net': os.path.join('results', 'res_u_net'),
         'u_net': os.path.join('results', 'u_net')
     }
-    
-    # Create dose_score_results directory in root
-    output_dir = 'dose_score_results'
+    output_dir = os.path.join('dose_score_results')
     os.makedirs(output_dir, exist_ok=True)
 
     # Score tracking
@@ -110,8 +119,8 @@ def main():
                     try:
                         prediction = load_dose_file(pred_path)
                         
-                        # Calculate scores
-                        mae = mean_absolute_error(true_dose.flatten(), prediction.flatten())
+                        # Calculate scores with scaling
+                        mae = calculate_mae_score(true_dose, prediction)
                         dvh = calculate_dvh_score(true_dose, prediction)
                         
                         # Store scores
